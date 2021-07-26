@@ -122,7 +122,6 @@ function fillIfRequired(x, y) {
     return change;
 }
 }
-console.log(fillIfRequired(0, 0))
 
 /*
 function checkColumnRequirements(x, y) {
@@ -183,24 +182,54 @@ function checkRowRequirements(y) {
 
 function fillGrid() {
     var change = false;
-
-    for (let y = 0; y < 9; y++) {
-        for (let x = 0; x < 9; x++) {
-            if (sudoku[y][x])
+    var success = true;
+    var filledSquares;
+    while (filledSquares !== 81) {
+        if (change) {
+            for (let y = 0; y < 9; y++) {
+                for (let x = 0; x < 9; x++) {
+                    if (x == 0 && y == 0) {filledSquares = 0}
+                    if (sudoku[y][x] == 0) {
+                        change = fillIfRequired(x, y)
+                        if (change) {
+                            break;
+                        }
+                    } else {filledSquares++}
+                }
+            }
+        } else {
+            for (let y = 0; y < 9; y++) {
+                for (let x = 0; x < 9; x++) {
+                    if (sudoku[y][x] == 0) {
+                        candidates = getBoxCandidates(x, y);
+                        sudoku[y][x] = candidates[Math.floor(Math.random()*candidates.length)];
+                        if (sudoku[y][x] == undefined) {
+                            success = false;
+                        }
+                        change = true;
+                        break;
+                    }
+                }
+                if (change) {break;}
+            }
         }
+    }
+    return success;
 }
 
-
-
-
-    sudoku.forEach((row, y) => {
-        row.forEach((box, x) => {
-            candidates = getBoxCandidates(x, y);
-            sudoku[y][x] = candidates[Math.floor(Math.random()*candidates.length)];
-        })
-    });
-    return sudoku;
+function countSuccess() {
+    var successes = 0;
+    var failures = 0;
+    for (let i = 0; i < 1000; i++) {
+        console.log(i);
+        if (fillGrid()) {
+            successes++;
+        } else {
+            failures++;
+        }
+        reset();
+    }
+    console.log("Successful Sudoku created " + successes + " times, and unsuccessful " + failures + " times. (" + successes/10 + "%)");
 }
 
-sudoku = fillGrid();
-console.log(sudoku);
+countSuccess();
