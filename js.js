@@ -1,4 +1,7 @@
-var sudoku = [
+var sudoku = new Array;
+
+function reset() {
+    sudoku = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -9,17 +12,20 @@ var sudoku = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
+}
+reset();
+
 
 function getSquare(x) {
-    if (x <= 3) {
+    if (x <= 2) {
     return [0, 1, 2]
-} else if (x <= 6) {
+} else if (x <= 5) {
     return [3, 4, 5]
 } else {
     return [6, 7, 8]
 }};
 
-function getCandidates(x, y) {
+function getBoxCandidates(x, y) {
     var candidates = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     sudoku.forEach(row => {
         if (row[x] !== 0) {
@@ -43,13 +49,102 @@ function getCandidates(x, y) {
     return candidates;
 }
 
-function checkColumnRequirements(x) {
-    var possibleLocations = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+function getRowCandidates(y) {
+    var rowCandidates = [];
+    sudoku[y].forEach((box, x) => {
+        if (box == 0) {
+            rowCandidates.push(getBoxCandidates(x, y));
+        }
+    })
+    return rowCandidates;
+}
+
+function getColumnCandidates(x) {
     var columnCandidates = [];
+    sudoku.forEach((row, y) => {
+        if (row[x] == 0) {
+            columnCandidates.push(getBoxCandidates(x, y));
+        }
+    })
+    return columnCandidates;
+}
+
+function getSquareCandidates(x, y) {
+    var squareCandidates = [];
+    var squareX = getSquare(x);
+    var squareY = getSquare(y);
+    squareY.forEach(yIndex => {
+        squareX.forEach(xIndex => {
+            if (sudoku[yIndex][xIndex] == 0) {
+                squareCandidates.push(getBoxCandidates(xIndex, yIndex))
+            }
+        })
+    })
+    return squareCandidates;
+}
+
+function countCandidateOccurences(n, array) {
+    var count = 0;
+    array.forEach(candidateSet => {
+        if (candidateSet.indexOf(n) !== -1) {
+            count++
+        }
+    })
+    return count;
+}
+
+function fillIfRequired(x, y) {
+    if (sudoku[y][x] == 0) {
+    var fill = 0;
+    var change = false;
+    var candidates = getBoxCandidates(x, y);
+    candidates.forEach(candidate => {
+        var rowCandidates = getRowCandidates(y);
+        var count = countCandidateOccurences(candidate, rowCandidates)
+        if (count == 1) {
+            fill = candidate;
+        }
+        var columnCandidates = getColumnCandidates(x);
+        var count = countCandidateOccurences(candidate, columnCandidates)
+        if (count == 1) {
+            fill = candidate;
+        }
+        var squareCandidates = getSquareCandidates(x, y);
+        var count = countCandidateOccurences(candidate, squareCandidates)
+        if (count == 1) {
+            fill = candidate;
+        }
+    })
+    sudoku[y][x] = fill;
+    if (fill !== 0) {
+        change = true;
+    }
+    return change;
+}
+}
+console.log(fillIfRequired(0, 0))
+
+/*
+function checkColumnRequirements(x, y) {
+    var candidates = getBoxCandidates(x, y);
+    candidates.forEach(option => {
+        i = 0
+        sudoku[y].forEach(box =>
+        if (box !== 0) {
+
+            }
+            i++;
+            )
+    })
+    //for each box in the column, if it equals 0, check its candidates. Then for each candidates of the box the function is checking, check if that candidate exists in
+    //For each candidates, check each item in a column to see if it's 0. If it is 0, check the candidates for that box.
+    // 
+
+
     sudoku.forEach((row, i) => {
         if (row[x] == 0) {
             var y = i;
-            columnCandidates[i] = getCandidates(x, y);
+            columnCandidates[i] = getBoxCandidates(x, y);
         }
     })
     possibleLocations.forEach((number, i) => {
@@ -69,7 +164,7 @@ function checkRowRequirements(y) {
     sudoku[y].forEach((box, i) => {
         if (box == 0) {
             var x = i;
-            rowCandidates[i] = getCandidates(x, y);
+            rowCandidates[i] = getBoxCandidates(x, y);
         }
     })
     possibleLocations.forEach((number, i) => {
@@ -82,21 +177,25 @@ function checkRowRequirements(y) {
     })
     return possibleLocations;
 }
-
-
-
-console.log(columnLocations);
-console.log(rowLocations);
-
+*/
 
 
 
 function fillGrid() {
-    sudoku.forEach((row, i) => {
-        var y = i;
-        row.forEach((box, i) => {
-            var x = i;
-            candidates = getCandidates(x, y);
+    var change = false;
+
+    for (let y = 0; y < 9; y++) {
+        for (let x = 0; x < 9; x++) {
+            if (sudoku[y][x])
+        }
+}
+
+
+
+
+    sudoku.forEach((row, y) => {
+        row.forEach((box, x) => {
+            candidates = getBoxCandidates(x, y);
             sudoku[y][x] = candidates[Math.floor(Math.random()*candidates.length)];
         })
     });
