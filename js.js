@@ -2,9 +2,9 @@ var sudoku = new Array;
 
 function reset() {
     sudoku = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 2, 3, 0, 0, 0, 0, 0, 0],
+    [4, 5, 6, 0, 0, 0, 0, 0, 0],
+    [7, 8, 9, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -15,7 +15,6 @@ function reset() {
 }
 reset();
 
-
 function getSquare(x) {
     if (x <= 2) {
     return [0, 1, 2]
@@ -25,7 +24,7 @@ function getSquare(x) {
     return [6, 7, 8]
 }};
 
-function getBoxCandidates(x, y) {
+function getBasicBoxCandidates(x, y) {
     var candidates = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     sudoku.forEach(row => {
         if (row[x] !== 0) {
@@ -49,22 +48,27 @@ function getBoxCandidates(x, y) {
     return candidates;
 }
 
-function getRowCandidates(y) {
+function getRowCandidates(x, y) {
     var rowCandidates = [];
-    sudoku[y].forEach((box, x) => {
+    sudoku[y].forEach((box, xIndex) => {
+        if (xIndex !== x) {
         if (box == 0) {
-            rowCandidates.push(getBoxCandidates(x, y));
+            rowCandidates.push(getBasicBoxCandidates(xIndex, y));
         }
+    }
     })
     return rowCandidates;
 }
 
-function getColumnCandidates(x) {
+
+function getColumnCandidates(x, y) {
     var columnCandidates = [];
-    sudoku.forEach((row, y) => {
+    sudoku.forEach((row, yIndex) => {
+        if (yIndex !== y) {
         if (row[x] == 0) {
-            columnCandidates.push(getBoxCandidates(x, y));
+            columnCandidates.push(getBasicBoxCandidates(x, yIndex));
         }
+    }
     })
     return columnCandidates;
 }
@@ -75,9 +79,11 @@ function getSquareCandidates(x, y) {
     var squareY = getSquare(y);
     squareY.forEach(yIndex => {
         squareX.forEach(xIndex => {
-            if (sudoku[yIndex][xIndex] == 0) {
-                squareCandidates.push(getBoxCandidates(xIndex, yIndex))
-            }
+            if (yIndex !== y || xIndex !== x) {
+                if (sudoku[yIndex][xIndex] == 0) {
+                    squareCandidates.push(getBasicBoxCandidates(xIndex, yIndex))
+                }
+        }
         })
     })
     return squareCandidates;
@@ -93,11 +99,28 @@ function countCandidateOccurences(n, array) {
     return count;
 }
 
+function fillIfOnlyOneCandidate(x, y) {
+    if (sudoku[y][x] == 0) {
+        var fill = 0;
+        var change = false;
+        var candidates = getBasicBoxCandidates(x, y);
+        if (candidates.length == 1) {
+            fill = candidates[0];
+        }
+        sudoku[y][x] = fill;
+        if (fill !== 0) {
+            change = true;
+        }
+        return change;
+    }
+}
+
+
 function fillIfRequired(x, y) {
     if (sudoku[y][x] == 0) {
     var fill = 0;
     var change = false;
-    var candidates = getBoxCandidates(x, y);
+    var candidates = getBasicBoxCandidates(x, y);
     candidates.forEach(candidate => {
         var rowCandidates = getRowCandidates(y);
         var count = countCandidateOccurences(candidate, rowCandidates)
@@ -123,60 +146,6 @@ function fillIfRequired(x, y) {
 }
 }
 
-/*
-function checkColumnRequirements(x, y) {
-    var candidates = getBoxCandidates(x, y);
-    candidates.forEach(option => {
-        i = 0
-        sudoku[y].forEach(box =>
-        if (box !== 0) {
-
-            }
-            i++;
-            )
-    })
-    //for each box in the column, if it equals 0, check its candidates. Then for each candidates of the box the function is checking, check if that candidate exists in
-    //For each candidates, check each item in a column to see if it's 0. If it is 0, check the candidates for that box.
-    // 
-
-
-    sudoku.forEach((row, i) => {
-        if (row[x] == 0) {
-            var y = i;
-            columnCandidates[i] = getBoxCandidates(x, y);
-        }
-    })
-    possibleLocations.forEach((number, i) => {
-        var num = i + 1;
-        columnCandidates.forEach(row => {
-            if (row.indexOf(num) !== -1) {
-                possibleLocations[i]++
-            }
-        })
-    })
-    return possibleLocations;
-}
-
-function checkRowRequirements(y) {
-    var possibleLocations = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-    var rowCandidates = [];
-    sudoku[y].forEach((box, i) => {
-        if (box == 0) {
-            var x = i;
-            rowCandidates[i] = getBoxCandidates(x, y);
-        }
-    })
-    possibleLocations.forEach((number, i) => {
-        var num = i + 1;
-        rowCandidates.forEach(row => {
-            if (row.indexOf(num) !== -1) {
-                possibleLocations[i]++
-            }
-        })
-    })
-    return possibleLocations;
-}
-*/
 
 
 
@@ -190,6 +159,10 @@ function fillGrid() {
                 for (let x = 0; x < 9; x++) {
                     if (x == 0 && y == 0) {filledSquares = 0}
                     if (sudoku[y][x] == 0) {
+                        change = fillIfOnlyOneCandidate(x, y)
+                        if (change) {
+                            break;
+                        }
                         change = fillIfRequired(x, y)
                         if (change) {
                             break;
@@ -201,7 +174,7 @@ function fillGrid() {
             for (let y = 0; y < 9; y++) {
                 for (let x = 0; x < 9; x++) {
                     if (sudoku[y][x] == 0) {
-                        candidates = getBoxCandidates(x, y);
+                        candidates = getBasicBoxCandidates(x, y);
                         sudoku[y][x] = candidates[Math.floor(Math.random()*candidates.length)];
                         if (sudoku[y][x] == undefined) {
                             success = false;
@@ -214,13 +187,15 @@ function fillGrid() {
             }
         }
     }
+    console.log(sudoku);
     return success;
 }
 
+//fillGrid();
 function countSuccess() {
     var successes = 0;
     var failures = 0;
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 200; i++) {
         console.log(i);
         if (fillGrid()) {
             successes++;
@@ -229,7 +204,39 @@ function countSuccess() {
         }
         reset();
     }
-    console.log("Successful Sudoku created " + successes + " times, and unsuccessful " + failures + " times. (" + successes/10 + "%)");
+    console.log("Successful Sudoku created " + successes + " times, and unsuccessful " + failures + " times. (" + successes/2 + "%)");
 }
 
-countSuccess();
+//countSuccess();
+
+
+
+
+/*function getAdvancedBoxCandidates(x, y) {
+
+}
+*/
+
+function findNakedSubsets(candidatesArray) {
+    var matches = []
+    for (let i = 0; i < candidatesArray.length; i++) {
+        for (let n = 0; n < candidatesArray.length; n++) {
+            if (n !== i) {
+                if (checkIfArraysMatch(candidatesArray[i], candidatesArray[n]))
+                    matches.push([n, i])
+                    console.log(matches)
+            }
+        }
+}
+}
+
+console.log(findNakedSubsets(getRowCandidates(2)));
+
+function checkIfArraysMatch(array1, array2) {
+    if(array1.join() === array2.join()){
+        return true;
+} else {
+    return false;
+}
+}
+
