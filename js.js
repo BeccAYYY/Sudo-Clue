@@ -1,4 +1,5 @@
 var sudoku = new Array;
+var candidates = new Array;
 
 function reset() {
     sudoku = [
@@ -12,8 +13,29 @@ function reset() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
+var a = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+var b = [4, 5, 6, 7, 8, 9]
+var c = [1, 2, 3, 7, 8, 9]
+var d = [1, 2, 3, 4, 5, 6]
+var e = [2, 3, 5, 6, 8, 9]
+var f = [1, 3, 4, 6, 7, 9]
+var g = [1, 2, 4, 5, 7, 8]
+
+    candidates = [
+        [[1],[2],[3], b, b, b, b, b, b],
+        [[4],[5],[6], c, c, c, c, c, c],
+        [[7],[8],[9], d, d, d, d, d, d],
+        [e, f, g, a, a, a, a, a, a],
+        [e, f, g, a, a, a, a, a, a],
+        [e, f, g, a, a, a, a, a, a],
+        [e, f, g, a, a, a, a, a, a],
+        [e, f, g, a, a, a, a, a, a],
+        [e, f, g, a, a, a, a, a, a]
+    ]
 }
 reset();
+
+console.log(candidates);
 
 function getSquare(x) {
     if (x <= 2) {
