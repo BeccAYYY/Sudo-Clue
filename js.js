@@ -103,7 +103,7 @@ function fillIfOnlyOneCandidate(x, y) {
     if (sudoku[y][x] == 0) {
         var fill = 0;
         var change = false;
-        var candidates = getBasicBoxCandidates(x, y);
+        var candidates = getAdvancedBoxCandidates(x, y);
         if (candidates.length == 1) {
             fill = candidates[0];
         }
@@ -120,21 +120,21 @@ function fillIfRequired(x, y) {
     if (sudoku[y][x] == 0) {
     var fill = 0;
     var change = false;
-    var candidates = getBasicBoxCandidates(x, y);
+    var candidates = getAdvancedBoxCandidates(x, y);
     candidates.forEach(candidate => {
-        var rowCandidates = getRowCandidates(y);
+        var rowCandidates = getRowCandidates(x, y);
         var count = countCandidateOccurences(candidate, rowCandidates)
-        if (count == 1) {
+        if (count == 0) {
             fill = candidate;
         }
-        var columnCandidates = getColumnCandidates(x);
+        var columnCandidates = getColumnCandidates(x, y);
         var count = countCandidateOccurences(candidate, columnCandidates)
-        if (count == 1) {
+        if (count == 0) {
             fill = candidate;
         }
         var squareCandidates = getSquareCandidates(x, y);
         var count = countCandidateOccurences(candidate, squareCandidates)
-        if (count == 1) {
+        if (count == 0) {
             fill = candidate;
         }
     })
@@ -174,7 +174,7 @@ function fillGrid() {
             for (let y = 0; y < 9; y++) {
                 for (let x = 0; x < 9; x++) {
                     if (sudoku[y][x] == 0) {
-                        candidates = getBasicBoxCandidates(x, y);
+                        candidates = getAdvancedBoxCandidates(x, y);
                         sudoku[y][x] = candidates[Math.floor(Math.random()*candidates.length)];
                         if (sudoku[y][x] == undefined) {
                             success = false;
@@ -191,7 +191,8 @@ function fillGrid() {
     return success;
 }
 
-//fillGrid();
+fillGrid();
+
 function countSuccess() {
     var successes = 0;
     var failures = 0;
@@ -212,25 +213,69 @@ function countSuccess() {
 
 
 
-/*function getAdvancedBoxCandidates(x, y) {
-
+function getAdvancedBoxCandidates(x, y) {
+    var basicCandidates= getBasicBoxCandidates(x, y);
+    var columnNakedSubsets = findNakedSubsets(getColumnCandidates(x, y));
+    var rowNakedSubsets = findNakedSubsets(getRowCandidates(x, y));
+    var squareNakedSubsets = findNakedSubsets(getSquareCandidates(x, y))
+    var advancedCandidates = basicCandidates;
+    if (columnNakedSubsets) {
+        advancedCandidates = removeCandidatesFromArray(advancedCandidates, columnNakedSubsets)
+    }
+    if (rowNakedSubsets) {
+        advancedCandidates = removeCandidatesFromArray(advancedCandidates, rowNakedSubsets)
+    }
+    if (squareNakedSubsets) {
+        advancedCandidates = removeCandidatesFromArray(advancedCandidates, squareNakedSubsets)
+    }
+    return advancedCandidates;
 }
-*/
+
+function removeCandidatesFromArray(initialArray, candidatesToRemoveArray) {
+    candidatesToRemoveArray.forEach(candidate => {
+        if (initialArray.indexOf(candidate) !== -1) {
+            initialArray.splice(initialArray.indexOf(candidate), 1);
+        }
+    })
+    return initialArray;
+}
+
 
 function findNakedSubsets(candidatesArray) {
-    var matches = []
+    var subset = false;
     for (let i = 0; i < candidatesArray.length; i++) {
         for (let n = 0; n < candidatesArray.length; n++) {
-            if (n !== i) {
-                if (checkIfArraysMatch(candidatesArray[i], candidatesArray[n]))
-                    matches.push([n, i])
-                    console.log(matches)
+            if (n !== i && candidatesArray[i].length == candidatesArray[n].length) {
+                var matches = 0;
+                if (candidatesArray[i].length == 2) {
+                    if (checkIfArraysMatch(candidatesArray[i], candidatesArray[n])) {
+                        subset = candidatesArray[i];
+                        return subset;
+                    }
+                } else if (candidatesArray[i].length == 3) {
+                    if (checkIfArraysMatch(candidatesArray[i], candidatesArray[n])) {
+                        matches++
+                    }
+                    if (matches == 2) {
+                        subset = candidatesArray[i];
+                        return subset;
+                    }
+                } else if (candidatesArray[i].length == 4) {
+                    if (checkIfArraysMatch(candidatesArray[i], candidatesArray[n])) {
+                        matches++
+                    }
+                    if (matches == 3) {
+                        subset = candidatesArray[i];
+                        return subset;
+                    }
+                }
             }
         }
 }
+return subset;
 }
 
-console.log(findNakedSubsets(getRowCandidates(2)));
+
 
 function checkIfArraysMatch(array1, array2) {
     if(array1.join() === array2.join()){
