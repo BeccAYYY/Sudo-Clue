@@ -1,10 +1,15 @@
 /*
 Definitions
 
-Box: A single cell of the sudoku grid
-Square: A 3x3 square in the sudoku grid
-Candidate: A number that can go in an unsolved box
-Coordinates: A pair of two values that give the location of a box in the sudoku array (0-indexed). Referred to a "x" for horizontal and "y" for vertical.
+Cell: A single cell of the sudoku grid
+Solved: A cell that has a number in it that meets the sudoku constraints
+Square: A 3x3 area of cells in the sudoku grid
+Row: A horizontal line of cells
+Column: A vertical line of cells
+Group: A 9-cell row, column or square for which constraints apply.
+Candidate: A number that can go in an unsolved cell
+Coordinates: A pair of two values that give the location of a cell in the sudoku array (0-indexed). Referred to a "x" for horizontal and "y" for vertical.
+Constraints: The rules of a Sudoku that require each digit to appear only once in each row, column, and cell.
 
 */
 
@@ -16,7 +21,7 @@ function reset() {
     sudoku = [
     [1, 2, 3, 0, 0, 0, 0, 0, 0],
     [4, 5, 6, 0, 0, 0, 0, 0, 0],
-    [7, 8, 9, 0, 0, 0, 2, 0, 0],
+    [7, 8, 9, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -58,7 +63,7 @@ function getSquare(x) {
 }};
 
 
-//Takes coordinates of a box and returns an array of the candidates for each item in the row that is not solved and is not the box for which coordinates were given.
+//Takes coordinates of a cell and returns an array of the candidates for each item in the row that is not solved and is not the cell for which coordinates were given.
 function getExclusiveRowCandidates(x, y) {
     var rowCandidates = [];
     puzzleCandidates[y].forEach((array, xIndex) => {
@@ -72,7 +77,7 @@ function getExclusiveRowCandidates(x, y) {
 }
 
 
-//Takes coordinates of a box and returns an array of the candidates for each item in the column that is not solved and is not the box for which coordinates were given.
+//Takes coordinates of a cell and returns an array of the candidates for each item in the column that is not solved and is not the cell for which coordinates were given.
 function getExclusiveColumnCandidates(x, y) {
     var columnCandidates = [];
     puzzleCandidates.forEach((row, yIndex) => {
@@ -86,7 +91,7 @@ function getExclusiveColumnCandidates(x, y) {
 }
 
 
-//Takes coordinates of a box and returns an array of the candidates for each item in the 3x3 square that is not solved and is not the box for which coordinates were given.
+//Takes coordinates of a cell and returns an array of the candidates for each item in the 3x3 square that is not solved and is not the cell for which coordinates were given.
 function getExclusiveSquareCandidates(x, y) {
     var squareCandidates = [];
     var squareX = getSquare(x);
@@ -116,18 +121,17 @@ function countCandidateOccurences(n, array) {
 }
 
 
-//Takes coordinates, gets the solved value for those coordinates and removes it from the candidates list for the column, row and square that the solved box is is.
+//Takes coordinates, gets the solved value for those coordinates and removes it from the candidates list for the column, row and square that the solved cell is is.
 function changeCandidatesGridAfterFill(x, y, n) {
-    console.log("changeCandidatesGridAfterFill")
     puzzleCandidates[y][x] = 0;
     var squareY = getSquare(y);
     var squareX = getSquare(x);
     puzzleCandidates.forEach((row, yIndex) => {
         if (squareY.includes(yIndex)) {
             if (yIndex === y) {
-                row.forEach((boxCandidates, xIndex) => {
-                    if (Array.isArray(boxCandidates) && xIndex !== x && boxCandidates.includes(n)) {
-                        puzzleCandidates[y][xIndex] = boxCandidates.filter(candidate => candidate !== n);
+                row.forEach((cellCandidates, xIndex) => {
+                    if (Array.isArray(cellCandidates) && xIndex !== x && cellCandidates.includes(n)) {
+                        puzzleCandidates[y][xIndex] = cellCandidates.filter(candidate => candidate !== n);
                     }
                 })
             } else {
@@ -146,32 +150,53 @@ function changeCandidatesGridAfterFill(x, y, n) {
 }
 
 
-//Fills a box and updates the candidate grid
-function fillBox(x, y, n) {
+//Fills a cell and updates the candidate grid
+function fillCell(x, y, n) {
     sudoku[y][x] = n;
-    changeCandidatesGridAfterFill(x, y, n)
+    changeCandidatesGridAfterFill(x, y, n);
 }
 
 
-function fillSingleCandidateBoxes() {
-    do {
-        var change = false;
-        yIndex = 0;
+//Loops through the candidates grid. If a candidate array with only one option is found, the loop breaks and an array with the x coordinate, y coordinate and the candidate is returned. If the entire grid is looped through and nothing is found, it returns false.
+function findSingleCandidateCell() {
+    var change = false;
+    yIndex = 0;
+    while (!change && yIndex < 9) {
         xIndex = 0;
-        while (!change) {
-            while (!change)
-            yIndex++
+        while (!change && xIndex < 9) {
+            var candidates = puzzleCandidates[yIndex][xIndex];
+            if (candidates !== 0 && candidates.length === 1) {
+                    var candidate = candidates[0]
+                    change = {"xIndex": xIndex, "yIndex": yIndex, "candidate": candidate};
+                }
+            xIndex++;
         }
-
+    yIndex++;
     }
-    while (change);
+    return change
 }
-/*
+
+//Runs findSingleCandidateCell function, then fills the cell it found and starts the loops again if it is succesful, or ends the loop and returns the number of cell changed if it is unsuccessful. 
+function fillSingleCandidateCells() {
+    var cellsFilled = 0;
+    do {
+        var change = findSingleCandidateCell();
+            if (change) {
+                fillCell(change["xIndex"], change["yIndex"], change["candidate"])
+                cellsFilled++
+            }
+    } while (change);
+    return cellsFilled;
+}
+
+
+
+
 function fillIfRequired(x, y) {
     if (sudoku[y][x] == 0) {
     var fill = 0;
     var change = false;
-    var candidates = getAdvancedBoxCandidates(x, y);
+    var candidates = getAdvancedCellCandidates(x, y);
     candidates.forEach(candidate => {
         var rowCandidates = getExclusiveRowCandidates(x, y);
         var count = countCandidateOccurences(candidate, rowCandidates)
@@ -198,7 +223,7 @@ function fillIfRequired(x, y) {
 }
 
 
-
+/*
 
 function fillGrid() {
     var change = false;
@@ -225,7 +250,7 @@ function fillGrid() {
             for (let y = 0; y < 9; y++) {
                 for (let x = 0; x < 9; x++) {
                     if (sudoku[y][x] == 0) {
-                        candidates = getAdvancedBoxCandidates(x, y);
+                        candidates = getAdvancedCellCandidates(x, y);
                         sudoku[y][x] = candidates[Math.floor(Math.random()*candidates.length)];
                         if (sudoku[y][x] == undefined) {
                             success = false;
@@ -264,8 +289,8 @@ function countSuccess(n) {
 
 
 
-function getAdvancedBoxCandidates(x, y) {
-    var basicCandidates= getBasicBoxCandidates(x, y);
+function getAdvancedCellCandidates(x, y) {
+    var basicCandidates= getBasicCellCandidates(x, y);
     var columnNakedSubsets = findNakedSubsets(getExclusiveColumnCandidates(x, y));
     var rowNakedSubsets = findNakedSubsets(getExclusiveRowCandidates(x, y));
     var squareNakedSubsets = findNakedSubsets(getExclusiveSquareCandidates(x, y))
