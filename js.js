@@ -38,6 +38,7 @@ var e = [2, 3, 5, 6, 8, 9]
 var f = [1, 3, 4, 6, 7, 9]
 var g = [1, 2, 4, 5, 7, 8]
 
+
     puzzleCandidates = [
         [0, 0, 0, b, b, b, b, b, b],
         [0, 0, 0, c, c, c, c, c, c],
@@ -49,6 +50,7 @@ var g = [1, 2, 4, 5, 7, 8]
         [e, f, g, a, a, a, a, a, a],
         [e, f, g, a, a, a, a, a, a]
     ]
+
 }
 reset();
 
@@ -200,10 +202,11 @@ function fillSingleCandidateCells() {
 //If a required number has only one unsolved cell for which it is a candidate, it must go in that cell.
 //The first time a requirement with only a single occurence is found, the function ends and returns the xIndex and yIndex of the and the number of the requirement/candidate the must be used to fill said cell.
 //If no instance of this is found, the function will loop through all 27 groups (9 rows, 9 squares, 9 columns) and return false.
-function findSingleCandidateOccurence() {
+function findSingleRequirementOption() {
     var change = false;
-    var yIndex = 0;
+    
     //Rows
+    var yIndex = 0;
     while (!change && yIndex < 9) {
         var groupRequirements = oneThroughNine;
         var candidatesArrays = new Array;
@@ -211,7 +214,7 @@ function findSingleCandidateOccurence() {
             if (n !== 0) {
                 groupRequirements = groupRequirements.filter(requirement => requirement !== n);
             } else {
-                candidatesArrays += puzzleCandidates[yIndex][xIndex];
+                candidatesArrays.push(puzzleCandidates[yIndex][xIndex])
             }
         })
         var i = 0;
@@ -221,7 +224,7 @@ function findSingleCandidateOccurence() {
             if (count == 1) {
                 var xIndex = 0;
                 while (!change) {
-                    if (puzzleCandidates[yIndex][xIndex].includes(candidate)) {
+                    if (puzzleCandidates[yIndex][xIndex] !== 0 &&puzzleCandidates[yIndex][xIndex].includes(candidate)) {
                         change = {"xIndex": xIndex, "yIndex": yIndex, "candidate": candidate};
                     } else {
                         xIndex++;
@@ -275,7 +278,7 @@ function findSingleCandidateOccurence() {
                     if (n !== 0) {
                         groupRequirements = groupRequirements.filter(requirement => requirement !== n);
                     } else {
-                        candidatesArrays += puzzleCandidates[yIndex][xIndex];
+                        candidatesArrays.push(puzzleCandidates[yIndex][xIndex])
                     }
                 })
             })
@@ -288,9 +291,10 @@ function findSingleCandidateOccurence() {
                     while (!change && iY < 3) {
                         var iX = 0;
                         while (!change && iX < 3) {
+                            
                                 var yIndex = yIndexes[iY]
                                 var xIndex = xIndexes[iX]
-                                if (puzzleCandidates[yIndex][xIndex].includes(candidate)) {
+                                if (puzzleCandidates[yIndex][xIndex] != 0 && puzzleCandidates[yIndex][xIndex].includes(candidate)) {
                                     change = {"xIndex": xIndex, "yIndex": yIndex, "candidate": candidate};
                                 } else {
                                     iX++;
@@ -298,94 +302,64 @@ function findSingleCandidateOccurence() {
                             }
                         iY++;
                     }
-                i++;
-            }
+                }
+            i++;
         }
             squareXIndex++;
         }
         squareYIndex++;
     }
 
-
-
-
-
-    //Code dump
+//Columns
     var xIndex = 0;
-    while (!change) {
-
-
-        if (puzzleCandidates[yIndex][xIndex].includes(candidate)) {
-            change = {"xIndex": xIndex, "yIndex": yIndex, "candidate": candidate};
-        } else {
-            xIndex++;
-        }
-
-
-    }
-
-    //Done
-    while (!change && yIndex < 9) {
+    while (!change && xIndex < 9) {
         var groupRequirements = oneThroughNine;
         var candidatesArrays = new Array;
         var i = 0;
-        sudoku[yIndex].forEach((n, xIndex) => {
+        sudoku.forEach((row, yIndex) => {
+            var n = row[xIndex]
             if (n !== 0) {
                 groupRequirements = groupRequirements.filter(requirement => requirement !== n);
             } else {
-                candidatesArrays += puzzleCandidates[yIndex][xIndex];
+                candidatesArrays.push(puzzleCandidates[yIndex][xIndex])
             }
         })
         while (!change && i < groupRequirements.length) {
             var candidate = groupRequirements[i];
             var count = countCandidateOccurences(candidate, candidatesArrays);
             if (count == 1) {
-                var xIndex = 0;
+                var yIndex = 0;
                 while (!change) {
-                    if (puzzleCandidates[yIndex][xIndex].includes(candidate)) {
+                    if (puzzleCandidates[yIndex][xIndex] != 0 && puzzleCandidates[yIndex][xIndex].includes(candidate)) {
                         change = {"xIndex": xIndex, "yIndex": yIndex, "candidate": candidate};
                     } else {
-                        xIndex++;
+                        yIndex++;
                     }
                 }
             }
             i++;
         }
-        yIndex++;
+        xIndex++;
     }
     return change;
 }
 
+
+function fillSingleRequirementOptions() {
+    var cellsFilled = 0;
+    do {
+        var change = findSingleRequirementOption();
+            if (change) {
+                fillCell(change["xIndex"], change["yIndex"], change["candidate"])
+                cellsFilled++
+            }
+    } while (change);
+    return cellsFilled;
+}
+
+
 /*
-function fillIfRequired(x, y) {
-    if (sudoku[y][x] == 0) {
-    var fill = 0;
-    var change = false;
-    var candidates = getAdvancedCellCandidates(x, y);
-    candidates.forEach(candidate => {
-        var rowCandidates = getExclusiveRowCandidates(x, y);
-        var count = countCandidateOccurences(candidate, rowCandidates)
-        if (count == 0) {
-            fill = candidate;
-        }
-        var columnCandidates = getExclusiveColumnCandidates(x, y);
-        var count = countCandidateOccurences(candidate, columnCandidates)
-        if (count == 0) {
-            fill = candidate;
-        }
-        var squareCandidates = getExclusiveSquareCandidates(x, y);
-        var count = countCandidateOccurences(candidate, squareCandidates)
-        if (count == 0) {
-            fill = candidate;
-        }
-    })
-    sudoku[y][x] = fill;
-    if (fill !== 0) {
-        change = true;
-    }
-    return change;
-}
-}
+
 
 
 /*

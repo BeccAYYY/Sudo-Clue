@@ -39,3 +39,34 @@ function fillIfOnlyOneCandidate(x, y) {
         return change;
     }
 }
+
+//Checked an individual cell to see if it had any requirements in it's group that only it could have and filled it.
+function fillIfRequired(x, y) {
+    if (sudoku[y][x] == 0) {
+    var fill = 0;
+    var change = false;
+    var candidates = getAdvancedCellCandidates(x, y);
+    candidates.forEach(candidate => {
+        var rowCandidates = getExclusiveRowCandidates(x, y);
+        var count = countCandidateOccurences(candidate, rowCandidates)
+        if (count == 0) {
+            fill = candidate;
+        }
+        var columnCandidates = getExclusiveColumnCandidates(x, y);
+        var count = countCandidateOccurences(candidate, columnCandidates)
+        if (count == 0) {
+            fill = candidate;
+        }
+        var squareCandidates = getExclusiveSquareCandidates(x, y);
+        var count = countCandidateOccurences(candidate, squareCandidates)
+        if (count == 0) {
+            fill = candidate;
+        }
+    })
+    sudoku[y][x] = fill;
+    if (fill !== 0) {
+        change = true;
+    }
+    return change;
+}
+}
