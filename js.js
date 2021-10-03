@@ -15,6 +15,7 @@ Constraints: The rules of a Sudoku that require each digit to appear only once i
 
 var sudoku = new Array;
 var puzzleCandidates = new Array;
+var groups = new Array;
 var oneThroughNine = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 function reset() {
@@ -54,6 +55,45 @@ var g = [1, 2, 4, 5, 7, 8]
 }
 reset();
 
+function createGroupsArray() {
+    var groupIndex = 0;
+    for (y = 0; y < 9; y++) {
+        groups.push([])
+        for (x = 0; x < 9; x++) {
+            groups[groupIndex].push({"x": x, "y": y})
+        }
+        groupIndex++;
+    }
+    for (x = 0; x < 9; x++) {
+        groups.push([])
+        for (y = 0; y < 9; y++) {
+            groups[groupIndex].push({"x": x, "y": y})
+        }
+        groupIndex++;
+    }
+
+    var a = getSquare(0);
+    var b = getSquare(3);
+    var c = getSquare(6);
+    var squareCoords = [a, b, c];
+
+    for (squareYIndex = 0; squareYIndex < 3; squareYIndex++) {
+        for (squareXIndex = 0; squareXIndex < 3; squareXIndex++) {
+            groups.push([]);
+            var yIndexes = squareCoords[squareYIndex]
+            var xIndexes = squareCoords[squareXIndex]
+            yIndexes.forEach(y => {
+                xIndexes.forEach(x => {
+                    groups[groupIndex].push({"x": x, "y": y})
+                })
+            })
+            groupIndex++;
+        }
+    }
+
+}
+createGroupsArray();
+
 
 //This function returns an array of three numbers that will be either the x or y coordinates in the same 3x3 square as the x or y coordinate given for either a row or column.
 function getSquare(x) {
@@ -65,51 +105,8 @@ function getSquare(x) {
     return [6, 7, 8]
 }};
 
+/*
 
-//Takes coordinates of a cell and returns an array of the candidates for each item in the row that is not solved and is not the cell for which coordinates were given.
-function getExclusiveRowCandidates(x, y) {
-    var rowCandidates = [];
-    puzzleCandidates[y].forEach((array, xIndex) => {
-        if (xIndex !== x) {
-        if (array !== 0) {
-            rowCandidates.push(puzzleCandidates[y][xIndex]);
-        }
-    }
-    })
-    return rowCandidates;
-}
-
-
-//Takes coordinates of a cell and returns an array of the candidates for each item in the column that is not solved and is not the cell for which coordinates were given.
-function getExclusiveColumnCandidates(x, y) {
-    var columnCandidates = [];
-    puzzleCandidates.forEach((row, yIndex) => {
-        if (yIndex !== y) {
-        if (row[x] !== 0) {
-            columnCandidates.push(puzzleCandidates[yIndex][x]);
-        }
-    }
-    })
-    return columnCandidates;
-}
-
-
-//Takes coordinates of a cell and returns an array of the candidates for each item in the 3x3 square that is not solved and is not the cell for which coordinates were given.
-function getExclusiveSquareCandidates(x, y) {
-    var squareCandidates = [];
-    var squareX = getSquare(x);
-    var squareY = getSquare(y);
-    squareY.forEach(yIndex => {
-        squareX.forEach(xIndex => {
-            if (yIndex !== y || xIndex !== x) {
-                if (puzzleCandidates[yIndex][xIndex] !== 0) {
-                    squareCandidates.push(puzzleCandidates[yIndex][xIndex])
-                }
-        }
-        })
-    })
-    return squareCandidates;
-}
 
 
 //Counts the number of times a single candidate appears in an array of candidates.
@@ -375,6 +372,13 @@ function fillGrid() {
             } else {
                 change = false;
             }
+            if (!change) {
+                var subset = findNakedSubset();
+                if (subset) {
+                    removeCandidatesOfNakedSubset(subset);
+                    change = true;
+                } 
+            }
         } else {
             var y = 0;
             while (!change && y < 9) {
@@ -422,7 +426,6 @@ function countSuccess(n) {
 
 //countSuccess(100000)
 
-
 function findNakedSubset() {
         var subset = false;
         
@@ -431,25 +434,23 @@ function findNakedSubset() {
         while (!subset && yIndex < 9) {
             var candidatesArrays = new Array;
             var subsetCandidates = false;
-            puzzleCandidates[yIndex].forEach((candidates, xIndex) => {
+            puzzleCandidates[yIndex].forEach((candidates) => {
                 if (candidates !== 0) {
                     candidatesArrays.push(candidates)
                 }
             })
-            if (candidatesArrays.lenth > 2) {
+            if (candidatesArrays.length > 2) {
                 subsetCandidates = checkGroupForNakedSubset(candidatesArrays);
             }
             if (subsetCandidates) {
-                var xIndex = 0;
-                var matches = 0;
-                subset = {"candidates": subsetCandidates, "coords": []}
-                while (matches < subsetCandidates.length) {
-                    if (checkIfArraysMatch(subsetCandidates, puzzleCandidates[yIndex][xIndex])) {
-                        subset["coords"].push({"xIndex": xIndex, "yIndex": yIndex})
-                        matches++;
+                subset = {"candidates": subsetCandidates, "subsetCoords": [], "nonSubsetCoords": []}
+                puzzleCandidates[yIndex].forEach((candidates, xIndex) => {
+                    if (candidates !== 0 && checkIfArraysMatch(subsetCandidates, candidates)) {
+                        subset["subsetCoords"].push({"xIndex": xIndex, "yIndex": yIndex})
+                    } else {
+                        subset["nonSubsetCoords"].push({"xIndex": xIndex, "yIndex": yIndex})
                     }
-                    xIndex++;
-                }
+                })
             }
             yIndex++;
         }
@@ -461,9 +462,9 @@ function findNakedSubset() {
         var c = getSquare(6);
         var squareCoords = [a, b, c];
         var squareYIndex = 0;
-        while (!change && squareYIndex < 3) {
+        while (!subset && squareYIndex < 3) {
             var squareXIndex = 0;
-            while (!change && squareXIndex < 3) {
+            while (!subset && squareXIndex < 3) {
                 var yIndexes = squareCoords[squareYIndex]
                 var xIndexes = squareCoords[squareXIndex]
                 var candidatesArrays = new Array;
@@ -476,19 +477,21 @@ function findNakedSubset() {
                         }
                     })
                 })
-                if (candidatesArrays.lenth > 2) {
+                if (candidatesArrays.length > 2) {
                     subsetCandidates = checkGroupForNakedSubset(candidatesArrays);
                 }
                 if (subsetCandidates) {
-                    while (!change && iY < 3) {
-                        var iX = 0;
-                        while (!change && iX < 3) {
-                                var yIndex = yIndexes[iY]
-                                var xIndex = xIndexes[iX]
-                                    iX++;
-                            }
-                        iY++;
-                    }
+                    subset = {"candidates": subsetCandidates, "subsetCoords": [], "nonSubsetCoords": []}
+                    yIndexes.forEach(yIndex => {
+                        xIndexes.forEach(xIndex => {
+                                var candidates = puzzleCandidates[yIndex][xIndex];
+                                if (candidates !== 0 && checkIfArraysMatch(subsetCandidates, candidates)) {
+                                    subset["subsetCoords"].push({"xIndex": xIndex, "yIndex": yIndex})
+                                } else {
+                                    subset["nonSubsetCoords"].push({"xIndex": xIndex, "yIndex": yIndex})
+                                }
+                        })
+                    })
                 }
                 squareXIndex++;
             }
@@ -497,42 +500,36 @@ function findNakedSubset() {
     
     //Columns
         var xIndex = 0;
-        while (!change && xIndex < 9) {
-            var groupRequirements = oneThroughNine;
+        while (!subset && xIndex < 9) {
             var candidatesArrays = new Array;
-            var i = 0;
-            sudoku.forEach((row, yIndex) => {
-                var n = row[xIndex]
-                if (n !== 0) {
-                    groupRequirements = groupRequirements.filter(requirement => requirement !== n);
-                } else {
-                    candidatesArrays.push(puzzleCandidates[yIndex][xIndex])
+            var subsetCandidates = false;
+            puzzleCandidates.forEach((row) => {
+                candidates = row[xIndex]
+                if (candidates !== 0) {
+                    candidatesArrays.push(candidates)
                 }
             })
-            while (!change && i < groupRequirements.length) {
-                var candidate = groupRequirements[i];
-                var count = countCandidateOccurences(candidate, candidatesArrays);
-                if (count == 1) {
-                    var yIndex = 0;
-                    while (!change) {
-                        if (puzzleCandidates[yIndex][xIndex] != 0 && puzzleCandidates[yIndex][xIndex].includes(candidate)) {
-                            change = {"xIndex": xIndex, "yIndex": yIndex, "candidate": candidate};
-                        } else {
-                            yIndex++;
-                        }
+            if (candidatesArrays.length > 2) {
+                subsetCandidates = checkGroupForNakedSubset(candidatesArrays);
+            }
+            if (subsetCandidates) {
+                subset = {"candidates": subsetCandidates, "subsetCoords": [], "nonSubsetCoords": []}
+                puzzleCandidates.forEach((row, yIndex) => {
+                    var candidates = row[xIndex];
+                    if (candidates !== 0 && checkIfArraysMatch(subsetCandidates, candidates)) {
+                        subset["subsetCoords"].push({"xIndex": xIndex, "yIndex": yIndex})
+                    } else {
+                        subset["nonSubsetCoords"].push({"xIndex": xIndex, "yIndex": yIndex})
                     }
-                }
-                i++;
+
+                })
+                    
+                
             }
             xIndex++;
         }
-        */
-        return subset;
-
+    return subset;
 }
-
-
-test();
 
 function checkGroupForNakedSubset(candidatesArrays) {
     var i = 0;
@@ -543,38 +540,39 @@ function checkGroupForNakedSubset(candidatesArrays) {
         while (!subset && n < candidatesArrays.length) {
             if (n !== i && candidatesArrays[i].length < candidatesArrays.length && candidatesArrays[i].length >= candidatesArrays[n].length) {
                 if (candidatesArrays[i].length == 2) {
+                    var externalCandidates = false;
                     if (checkIfArraysMatch(candidatesArrays[i], candidatesArrays[n])) {
+                        matches ++;
+                    } else {
+                        var candidateIndex = 0;
+                        while (!externalCandidates && candidateIndex < candidatesArrays[i].length) {
+                            if (candidatesArrays[n].includes(candidatesArrays[i][candidateIndex])) {
+                                externalCandidates = true;
+                            }
+                            candidateIndex++;
+                        }
+                    }
+                    if (matches == 1 && externalCandidates) {
                         subset = candidatesArrays[i];
                     }
+
                 } else if (candidatesArrays[i].length == 3) {
+                    var externalCandidates = false;
                     if (checkIfArraysMatch(candidatesArrays[i], candidatesArrays[n])) {
                         matches++
-                    }
-                    if (matches == 2) {
+                    } else {
+                        var candidateIndex = 0;
+                            while (!externalCandidates && candidateIndex < candidatesArrays[i].length) {
+                                if (candidatesArrays[n].includes(candidatesArrays[i][candidateIndex])) {
+                                    externalCandidates = true;
+                                }
+                                candidateIndex++;
+                            }
+                        }
+                    if (matches == 2 && externalCandidates) {
                         subset = candidatesArrays[i];
                     }
-                } else if (candidatesArrays[i].length == 4) {
-                    if (checkIfArraysMatch(candidatesArrays[i], candidatesArrays[n])) {
-                        matches++
-                    }
-                    if (matches == 3) {
-                        subset = candidatesArrays[i];
-                    }
-                } else if (candidatesArrays[i].length == 5) {
-                    if (checkIfArraysMatch(candidatesArrays[i], candidatesArrays[n])) {
-                        matches++
-                    }
-                    if (matches == 4) {
-                        subset = candidatesArrays[i];
-                    }
-                } else if (candidatesArrays[i].length == 6) {
-                    if (checkIfArraysMatch(candidatesArrays[i], candidatesArrays[n])) {
-                        matches++
-                    }
-                    if (matches == 5) {
-                        subset = candidatesArrays[i];
-                    }
-                }
+                } 
             }
             n++;
         }
@@ -583,8 +581,16 @@ function checkGroupForNakedSubset(candidatesArrays) {
     return subset;
 }
 
-
-console.log(findNakedSubset())
+function removeCandidatesOfNakedSubset(subset) {
+    subset["nonSubsetCoords"].forEach(coordinate => {
+        var xIndex = coordinate["xIndex"];
+        var yIndex = coordinate["yIndex"];
+        var candidates = subset["candidates"]
+        if (puzzleCandidates[yIndex][xIndex] !== 0) {
+            puzzleCandidates[yIndex][xIndex] = puzzleCandidates[yIndex][xIndex].filter(candidate => !candidates.includes(candidate))
+        }
+    })
+}
 
 function checkIfArraysMatch(array1, array2) {
     if (array2.length < array1.length) {
@@ -608,47 +614,19 @@ function checkIfArraysMatch(array1, array2) {
     }
 }
 
-/*
+function findHiddenSubset() {
+    var subset = false;
 
-function getAdvancedCellCandidates(x, y) {
-    var basicCandidates= getBasicCellCandidates(x, y);
-    var columnNakedSubsets = findNakedSubsets(getExclusiveColumnCandidates(x, y));
-    var rowNakedSubsets = findNakedSubsets(getExclusiveRowCandidates(x, y));
-    var squareNakedSubsets = findNakedSubsets(getExclusiveSquareCandidates(x, y))
-    var advancedCandidates = basicCandidates;
-    if (columnNakedSubsets) {
-        advancedCandidates = removeCandidatesFromArray(advancedCandidates, columnNakedSubsets)
+    //Rows
+    var yIndex = 0;
+    while (!subset && yIndex < 9) {
+        var groupRequirements = oneThroughNine;
+        sudoku[yIndex].forEach(n => {
+            if (n !== 0) {
+                groupRequirements = groupRequirements.filter(requirement => requirement !== n);
+            }
+        })
+        yIndex++;
     }
-    if (rowNakedSubsets) {
-        advancedCandidates = removeCandidatesFromArray(advancedCandidates, rowNakedSubsets)
-    }
-    if (squareNakedSubsets) {
-        advancedCandidates = removeCandidatesFromArray(advancedCandidates, squareNakedSubsets)
-    }
-    return advancedCandidates;
 }
-
-function removeCandidatesFromArray(initialArray, candidatesToRemoveArray) {
-    candidatesToRemoveArray.forEach(candidate => {
-        if (initialArray.indexOf(candidate) !== -1) {
-            initialArray.splice(initialArray.indexOf(candidate), 1);
-        }
-    })
-    return initialArray;
-}
-
-
-
-
-var test = [[1,2,3], [1,2,3,4], [1,2,4], [4,5,6,7,8,9], [5,6,7,8], [4, 5, 6, 9], [4, 5, 6, 9]]
-
-function findHiddenSubsets(candidatesArray) {
-    var candidatesCount = [0,0,0,0,0,0,0,0,0];
-    oneThroughNine.forEach((n, i) => {
-        candidatesCount[i] = countCandidateOccurences(n, candidatesArray);
-    })
-    return candidatesCount;
-}
-
-console.log(findHiddenSubsets(test));
 */

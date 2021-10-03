@@ -137,3 +137,123 @@ function findNakedSubsets(candidatesArray) {
 }
 return subset;
 }
+
+//Code for calculating candidates before candidates array was introduced
+
+function getAdvancedCellCandidates(x, y) {
+    var basicCandidates= getBasicCellCandidates(x, y);
+    var columnNakedSubsets = findNakedSubsets(getExclusiveColumnCandidates(x, y));
+    var rowNakedSubsets = findNakedSubsets(getExclusiveRowCandidates(x, y));
+    var squareNakedSubsets = findNakedSubsets(getExclusiveSquareCandidates(x, y))
+    var advancedCandidates = basicCandidates;
+    if (columnNakedSubsets) {
+        advancedCandidates = removeCandidatesFromArray(advancedCandidates, columnNakedSubsets)
+    }
+    if (rowNakedSubsets) {
+        advancedCandidates = removeCandidatesFromArray(advancedCandidates, rowNakedSubsets)
+    }
+    if (squareNakedSubsets) {
+        advancedCandidates = removeCandidatesFromArray(advancedCandidates, squareNakedSubsets)
+    }
+    return advancedCandidates;
+}
+
+
+
+//code for checking subsets with 4, 5 and 6 items (not effective) 
+function bigSubsets() {
+    if (candidatesArrays[i].length == 4) {
+    var externalCandidates = false;
+    if (checkIfArraysMatch(candidatesArrays[i], candidatesArrays[n])) {
+        matches++
+    } else {
+        var candidateIndex = 0;
+            while (!externalCandidates && candidateIndex < candidatesArrays[i].length) {
+                if (candidatesArrays[n].includes(candidatesArrays[i][candidateIndex])) {
+                    externalCandidates = true;
+                }
+                candidateIndex++;
+            }
+        }
+    if (matches == 3 && externalCandidates) {
+        subset = candidatesArrays[i];
+    }
+} else if (candidatesArrays[i].length == 5) {
+    var externalCandidates = false;
+    if (checkIfArraysMatch(candidatesArrays[i], candidatesArrays[n])) {
+        matches++
+    } else {
+        var candidateIndex = 0;
+            while (!externalCandidates && candidateIndex < candidatesArrays[i].length) {
+                if (candidatesArrays[n].includes(candidatesArrays[i][candidateIndex])) {
+                    externalCandidates = true;
+                }
+                candidateIndex++;
+            }
+        }
+    if (matches == 4 && externalCandidates) {
+        subset = candidatesArrays[i];
+    }
+} else if (candidatesArrays[i].length == 6) {
+    var externalCandidates = false;
+    if (checkIfArraysMatch(candidatesArrays[i], candidatesArrays[n])) {
+        matches++
+    } else {
+    var candidateIndex = 0;
+        while (!externalCandidates && candidateIndex < candidatesArrays[i].length) {
+            if (candidatesArrays[n].includes(candidatesArrays[i][candidateIndex])) {
+                externalCandidates = true;
+            }
+            candidateIndex++;
+        }
+    }
+    if (matches == 5 && externalCandidates) {
+        subset = candidatesArrays[i];
+    }
+}
+}
+
+//Takes coordinates of a cell and returns an array of the candidates for each item in the row that is not solved and is not the cell for which coordinates were given.
+function getExclusiveRowCandidates(x, y) {
+    var rowCandidates = [];
+    puzzleCandidates[y].forEach((array, xIndex) => {
+        if (xIndex !== x) {
+        if (array !== 0) {
+            rowCandidates.push(puzzleCandidates[y][xIndex]);
+        }
+    }
+    })
+    return rowCandidates;
+}
+
+
+//Takes coordinates of a cell and returns an array of the candidates for each item in the column that is not solved and is not the cell for which coordinates were given.
+function getExclusiveColumnCandidates(x, y) {
+    var columnCandidates = [];
+    puzzleCandidates.forEach((row, yIndex) => {
+        if (yIndex !== y) {
+        if (row[x] !== 0) {
+            columnCandidates.push(puzzleCandidates[yIndex][x]);
+        }
+    }
+    })
+    return columnCandidates;
+}
+
+
+//Takes coordinates of a cell and returns an array of the candidates for each item in the 3x3 square that is not solved and is not the cell for which coordinates were given.
+function getExclusiveSquareCandidates(x, y) {
+    var squareCandidates = [];
+    var squareX = getSquare(x);
+    var squareY = getSquare(y);
+    squareY.forEach(yIndex => {
+        squareX.forEach(xIndex => {
+            if (yIndex !== y || xIndex !== x) {
+                if (puzzleCandidates[yIndex][xIndex] !== 0) {
+                    squareCandidates.push(puzzleCandidates[yIndex][xIndex])
+                }
+        }
+        })
+    })
+    return squareCandidates;
+}
