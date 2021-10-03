@@ -70,3 +70,70 @@ function fillIfRequired(x, y) {
     return change;
 }
 }
+
+//Old code for filling cells before refactor (in "if (change)")
+for (let y = 0; y < 9; y++) {
+    for (let x = 0; x < 9; x++) {
+        if (x == 0 && y == 0) {filledSquares = 0}
+        if (sudoku[y][x] == 0) {
+            change = fillIfOnlyOneCandidate(x, y)
+            if (change) {
+                break;
+            }
+            change = fillIfRequired(x, y)
+            if (change) {
+                break;
+            }
+        } else {filledSquares++}
+    }
+}
+
+function findNakedSubsets(candidatesArray) {
+    var subset = false;
+    for (let i = 0; i < candidatesArray.length; i++) {
+        var matches = 0;
+        for (let n = 0; n < candidatesArray.length; n++) {
+            if (n !== i && candidatesArray[i].length === candidatesArray[n].length) {
+                if (candidatesArray[i].length == 2) {
+                    if (checkIfArraysMatch(candidatesArray[i], candidatesArray[n])) {
+                        subset = candidatesArray[i];
+                        return subset;
+                    }
+                } else if (candidatesArray[i].length == 3) {
+                    if (checkIfArraysMatch(candidatesArray[i], candidatesArray[n])) {
+                        matches++
+                    }
+                    if (matches == 2) {
+                        subset = candidatesArray[i];
+                        return subset;
+                    }
+                } else if (candidatesArray[i].length == 4) {
+                    if (checkIfArraysMatch(candidatesArray[i], candidatesArray[n])) {
+                        matches++
+                    }
+                    if (matches == 3) {
+                        subset = candidatesArray[i];
+                        return subset;
+                    }
+                } else if (candidatesArray[i].length == 5) {
+                    if (checkIfArraysMatch(candidatesArray[i], candidatesArray[n])) {
+                        matches++
+                    }
+                    if (matches == 4) {
+                        subset = candidatesArray[i];
+                        return subset;
+                    }
+                } else if (candidatesArray[i].length == 6) {
+                    if (checkIfArraysMatch(candidatesArray[i], candidatesArray[n])) {
+                        matches++
+                    }
+                    if (matches == 5) {
+                        subset = candidatesArray[i];
+                        return subset;
+                    }
+                }
+            }
+        }
+}
+return subset;
+}
