@@ -257,3 +257,31 @@ function getExclusiveSquareCandidates(x, y) {
     })
     return squareCandidates;
 }
+
+//Before introduction "groups" array
+function changeCandidatesGridAfterFill(x, y, n) {
+    puzzleCandidates[y][x] = 0;
+    var squareY = getSquare(y);
+    var squareX = getSquare(x);
+    puzzleCandidates.forEach((row, yIndex) => {
+        if (squareY.includes(yIndex)) {
+            if (yIndex === y) {
+                row.forEach((cellCandidates, xIndex) => {
+                    if (Array.isArray(cellCandidates) && xIndex !== x && cellCandidates.includes(n)) {
+                        puzzleCandidates[y][xIndex] = cellCandidates.filter(candidate => candidate !== n);
+                    }
+                })
+            } else {
+                squareX.forEach(xIndex => {
+                    if (Array.isArray(row[xIndex]) && row[xIndex].includes(n)) {
+                        row[xIndex] = row[xIndex].filter(candidate => candidate !== n)
+                    }
+                })
+            }
+        } else {
+            if (Array.isArray(row[x]) && row[x].includes(n)) {
+                row[x] = row[x].filter(candidate => candidate !== n)
+            }
+        }
+    })
+}

@@ -105,15 +105,25 @@ function getSquare(x) {
     return [6, 7, 8]
 }};
 
-/*
-
-
+function getCellsGroupIndexes(x, y) {
+    var groupIndexes = [];
+    var rowIndex = y;
+    groupIndexes.push(rowIndex);
+    var columnIndex = x + 9;
+    groupIndexes.push(columnIndex);
+    var a = Math.ceil((x+1)/3);
+    var b = Math.ceil((y+1)/3);
+    var c = a*b;
+    var squareIndex = c + 17;
+    groupIndexes.push(squareIndex);
+    return groupIndexes;
+}
 
 //Counts the number of times a single candidate appears in an array of candidates.
 function countCandidateOccurences(n, array) {
     var count = 0;
     array.forEach(candidateSet => {
-        if (candidateSet.indexOf(n) !== -1) {
+        if (candidateSet.includes(n)) {
             count++
         }
     })
@@ -149,7 +159,7 @@ function changeCandidatesGridAfterFill(x, y, n) {
     })
 }
 
-
+/*
 //Fills a cell and updates the candidate grid
 function fillCell(x, y, n) {
     sudoku[y][x] = n;
