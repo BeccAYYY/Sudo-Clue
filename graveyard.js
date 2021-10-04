@@ -285,3 +285,209 @@ function changeCandidatesGridAfterFill(x, y, n) {
         }
     })
 }
+
+
+//Fill grid function will console log of referrers before change
+function fillGrid() {
+    var change = false;
+    var success = true;
+    var filledSquares = 9;
+    var lastChange;
+    var randomToFill = 0;
+    var fillToFill = 0;
+    var nakedToFill = 0;
+    var hiddenToFill = 0;
+    var randomToNaked = 0;
+    var fillToNaked = 0;
+    var nakedToNaked = 0;
+    var hiddenToNaked = 0;
+    var randomToHidden = 0;
+    var fillToHidden = 0;
+    var nakedToHidden = 0;
+    var hiddenToHidden = 0;
+    var randomToRandom = 0;
+    var fillToRandom = 0;
+    var nakedToRandom = 0;
+    var hiddenToRandom = 0;
+    while (filledSquares < 81 && success) {
+        if (change) {
+            var start = filledSquares;
+            filledSquares = filledSquares + fillSingleCandidateCells();
+            filledSquares = filledSquares + fillSingleOptionRequirements();
+            var difference = filledSquares - start;
+            if (difference) {
+                change = true;
+                if (lastChange == "Random") {
+                    randomToFill++;
+                } else if (lastChange == "Fill") {
+                    fillToFill++;
+                } else if (lastChange == "Naked") {
+                    nakedToFill++;
+                } else if (lastChange == "Hidden") {
+                    hiddenToFill++;
+                }
+                lastChange = "Fill"
+            } else {
+                change = false;
+            }
+            if (!change) {
+                var subset = findNakedSubset();
+                if (subset) {
+                    removeCandidatesOfNakedSubset(subset);
+                    change = true;
+                    if (lastChange == "Random") {
+                        randomToNaked++;
+                    } else if (lastChange == "Fill") {
+                        fillToNaked++;
+                    } else if (lastChange == "Naked") {
+                        nakedToNaked++;
+                    } else if (lastChange == "Hidden") {
+                        hiddenToNaked++;
+                    }
+                    lastChange = "Naked"
+
+                } 
+            }
+            if (!change) {
+                var subset = findHiddenSubset();
+                if (subset) {
+                    removeCandidatesOfHiddenSubset(subset);
+                    change = true;
+                    if (lastChange == "Random") {
+                        randomToHidden++;
+                    } else if (lastChange == "Fill") {
+                        fillToHidden++;
+                    } else if (lastChange == "Naked") {
+                        nakedToHidden++;
+                    } else if (lastChange == "Hidden") {
+                        hiddenToHidden++;
+                    }
+                    lastChange = "Hidden"
+                } 
+            }
+        } else {
+            var y = 0;
+            while (!change && y < 9) {
+                var x = 0;
+                while (!change && x < 9) {
+                    if (sudoku[y][x] == 0) {
+                        candidates = puzzleCandidates[y][x];
+                        var n = candidates[Math.floor(Math.random()*candidates.length)];
+                        fillCell(x, y, n);
+                        if (sudoku[y][x] == undefined) {
+                            success = false;
+                        }
+                        change = true;
+                        if (lastChange == "Random") {
+                            randomToRandom++;
+                        } else if (lastChange == "Fill") {
+                            fillToRandom++;
+                        } else if (lastChange == "Naked") {
+                            nakedToRandom++;
+                        } else if (lastChange == "Hidden") {
+                            hiddenToRandom++;
+                        }
+                        filledSquares++;
+                        lastChange = "Random"
+                    }
+                    x++;
+                }
+                y++;
+            }
+        }
+    }
+    //console.log(sudoku);
+    console.log("Random to Fill = " + randomToFill)
+    console.log("Fill to Fill = " + fillToFill)
+    console.log("Naked to Fill = " + nakedToFill)
+    console.log("Hidden to Fill = " + hiddenToFill)
+    console.log("Random to Naked = " + randomToNaked)
+    console.log("Fill to Naked = " + fillToNaked)
+    console.log("Naked to Naked = " + nakedToNaked)
+    console.log("Hidden to Naked = " + hiddenToNaked)
+    console.log("Random to Hidden = " + randomToHidden)
+    console.log("Fill to Hidden = " + fillToHidden)
+    console.log("Naked to Hidden = " + nakedToHidden)
+    console.log("Hidden to Hidden = " + hiddenToHidden)
+    console.log("Random to Random = " + randomToRandom)
+    console.log("Fill to Random = " + fillToRandom)
+    console.log("Naked to Random = " + nakedToRandom)
+    console.log("Hidden to Random = " + hiddenToRandom)
+    return success;
+}
+
+//Fill grid function that counts the times each section is being hit
+function fillGrid() {
+    var change = false;
+    var success = true;
+    var filledSquares = 9;
+    var fillCount = 0;
+    var fillSuccess = 0;
+    var hiddenCount = 0;
+    var hiddenSuccess = 0;
+    var nakedCount = 0;
+    var nakedSuccess = 0;
+    var randomCount = 0;
+    while (filledSquares < 81 && success) {
+        if (change) {
+            fillCount++;
+            var start = filledSquares;
+            filledSquares = filledSquares + fillSingleCandidateCells();
+            filledSquares = filledSquares + fillSingleOptionRequirements();
+            var difference = filledSquares - start;
+            if (difference) {
+                change = true;
+                fillSuccess++;
+            } else {
+                change = false;
+            }
+            if (!change) {
+                nakedCount++;
+                var subset = findNakedSubset();
+                if (subset) {
+                    nakedSuccess++;
+                    removeCandidatesOfNakedSubset(subset);
+                    change = true;
+                } 
+            }
+            if (!change) {
+                hiddenCount++;
+                var subset = findHiddenSubset();
+                if (subset) {
+                    hiddenSuccess++
+                    removeCandidatesOfHiddenSubset(subset);
+                    change = true;
+                } 
+            }
+        } else {
+            randomCount++;
+            var y = 0;
+            while (!change && y < 9) {
+                var x = 0;
+                while (!change && x < 9) {
+                    if (sudoku[y][x] == 0) {
+                        candidates = puzzleCandidates[y][x];
+                        var n = candidates[Math.floor(Math.random()*candidates.length)];
+                        fillCell(x, y, n);
+                        if (sudoku[y][x] == undefined) {
+                            success = false;
+                        }
+                        change = true;
+                        filledSquares++;
+                    }
+                    x++;
+                }
+                y++;
+            }
+        }
+    }
+    console.log("Fill Count = " + fillCount)
+    console.log("Fill Success = " + fillSuccess)
+    console.log("Naked Count = " + nakedCount)
+    console.log("Naked Success = " + nakedSuccess)
+    console.log("Hidden Count = " + hiddenCount)
+    console.log("Hidden Success = " + hiddenSuccess)
+    console.log("Random Count = " + randomCount)
+    //console.log(sudoku);
+    return success;
+}

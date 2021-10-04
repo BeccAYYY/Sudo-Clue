@@ -355,7 +355,6 @@ function fillGrid() {
     var change = false;
     var success = true;
     var filledSquares = 9;
-    var loops = 0;
     while (filledSquares < 81 && success) {
         if (change) {
             var start = filledSquares;
@@ -426,7 +425,7 @@ function countSuccess(n) {
     console.log((endTime - startTime)/1000 + " seconds.")
 }
 
-countSuccess(100000)
+//countSuccess(100000)
 
 function findNakedSubset() {
         var subset = false;
