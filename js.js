@@ -38,6 +38,7 @@ var d = [1, 2, 3, 4, 5, 6]
 var e = [2, 3, 5, 6, 8, 9]
 var f = [1, 3, 4, 6, 7, 9]
 var g = [1, 2, 4, 5, 7, 8]
+var x = [7,8,9]
 
 
     puzzleCandidates = [
@@ -111,10 +112,10 @@ function getCellsGroupIndexes(x, y) {
     groupIndexes.push(rowIndex);
     var columnIndex = x + 9;
     groupIndexes.push(columnIndex);
-    var a = Math.ceil((x+1)/3);
-    var b = Math.ceil((y+1)/3);
-    var c = a*b;
-    var squareIndex = c + 17;
+    var a = Math.floor(y/3) * 3;
+    var b = Math.floor(x/3);
+    var c = a + b;
+    var squareIndex = c + 18;
     groupIndexes.push(squareIndex);
     return groupIndexes;
 }
@@ -130,36 +131,20 @@ function countCandidateOccurences(n, array) {
     return count;
 }
 
-
 //Takes coordinates, gets the solved value for those coordinates and removes it from the candidates list for the column, row and square that the solved cell is is.
 function changeCandidatesGridAfterFill(x, y, n) {
     puzzleCandidates[y][x] = 0;
-    var squareY = getSquare(y);
-    var squareX = getSquare(x);
-    puzzleCandidates.forEach((row, yIndex) => {
-        if (squareY.includes(yIndex)) {
-            if (yIndex === y) {
-                row.forEach((cellCandidates, xIndex) => {
-                    if (Array.isArray(cellCandidates) && xIndex !== x && cellCandidates.includes(n)) {
-                        puzzleCandidates[y][xIndex] = cellCandidates.filter(candidate => candidate !== n);
-                    }
-                })
-            } else {
-                squareX.forEach(xIndex => {
-                    if (Array.isArray(row[xIndex]) && row[xIndex].includes(n)) {
-                        row[xIndex] = row[xIndex].filter(candidate => candidate !== n)
-                    }
-                })
-            }
-        } else {
-            if (Array.isArray(row[x]) && row[x].includes(n)) {
-                row[x] = row[x].filter(candidate => candidate !== n)
-            }
-        }
+    var groupIndexes = getCellsGroupIndexes(x, y);
+    groupIndexes.forEach(groupIndex => {
+        groups[groupIndex].forEach(cell => {
+                var candidates = puzzleCandidates[cell["y"]][cell["x"]];
+                if (candidates !== 0 && candidates.includes(n)) {
+                    puzzleCandidates[cell["y"]][cell["x"]] = candidates.filter(candidate => candidate !== n)
+                }
+        })
     })
 }
 
-/*
 //Fills a cell and updates the candidate grid
 function fillCell(x, y, n) {
     sudoku[y][x] = n;
@@ -389,6 +374,13 @@ function fillGrid() {
                     change = true;
                 } 
             }
+            if (!change) {
+                var subset = findHiddenSubset();
+                if (subset) {
+                    removeCandidatesOfHiddenSubset(subset);
+                    change = true;
+                } 
+            }
         } else {
             var y = 0;
             while (!change && y < 9) {
@@ -434,7 +426,7 @@ function countSuccess(n) {
     console.log((endTime - startTime)/1000 + " seconds.")
 }
 
-//countSuccess(100000)
+countSuccess(100000)
 
 function findNakedSubset() {
         var subset = false;
@@ -548,10 +540,10 @@ function checkGroupForNakedSubset(candidatesArrays) {
         var matches = 0;
         var n = 0;
         while (!subset && n < candidatesArrays.length) {
-            if (n !== i && candidatesArrays[i].length < candidatesArrays.length && candidatesArrays[i].length >= candidatesArrays[n].length) {
+            if (n !== i && candidatesArrays[i].length < candidatesArrays.length) {
                 if (candidatesArrays[i].length == 2) {
                     var externalCandidates = false;
-                    if (checkIfArraysMatch(candidatesArrays[i], candidatesArrays[n])) {
+                    if (candidatesArrays[i].length >= candidatesArrays[n].length && checkIfArraysMatch(candidatesArrays[i], candidatesArrays[n])) {
                         matches ++;
                     } else {
                         var candidateIndex = 0;
@@ -568,8 +560,8 @@ function checkGroupForNakedSubset(candidatesArrays) {
 
                 } else if (candidatesArrays[i].length == 3) {
                     var externalCandidates = false;
-                    if (checkIfArraysMatch(candidatesArrays[i], candidatesArrays[n])) {
-                        matches++
+                    if (candidatesArrays[i].length >= candidatesArrays[n].length && checkIfArraysMatch(candidatesArrays[i], candidatesArrays[n])) {
+                        matches++;
                     } else {
                         var candidateIndex = 0;
                             while (!externalCandidates && candidateIndex < candidatesArrays[i].length) {
@@ -602,6 +594,7 @@ function removeCandidatesOfNakedSubset(subset) {
     })
 }
 
+
 function checkIfArraysMatch(array1, array2) {
     if (array2.length < array1.length) {
         var matches = 0;
@@ -626,17 +619,144 @@ function checkIfArraysMatch(array1, array2) {
 
 function findHiddenSubset() {
     var subset = false;
+    var i = 0;
+    while (!subset && i < 27) {
+        var group = groups[i];
+        var requirementLocations = new Array;
+        var requirementNumbers = new Array;
+        var groupRequirements = getGroupRequirements(group);
+        groupRequirements.forEach(requirement => {
+            requirementLocations.push([])
+            requirementNumbers.push(requirement)
+            group.forEach(cell => {
+                var x = cell["x"];
+                var y = cell["y"];
+                if (puzzleCandidates[y][x] !== 0 && puzzleCandidates[y][x].includes(requirement)) {
+                    requirementLocations[requirementLocations.length - 1].push([x, y])
+                }
+            })
+        })
+        i++;
+        subset = checkGroupForHiddenSubset(requirementLocations);
+        if (subset) {
+            var subsetNumbers = new Array;
+            subset["indexes"].forEach(index => {
+                subsetNumbers.push(requirementNumbers[index])
+            })
+            subset = {"locations": subset["locations"], "subsetNumbers": subsetNumbers}
+        }
+    }
+    //console.log(subset)
+    return subset;
+}
 
-    //Rows
-    var yIndex = 0;
-    while (!subset && yIndex < 9) {
-        var groupRequirements = oneThroughNine;
-        sudoku[yIndex].forEach(n => {
-            if (n !== 0) {
-                groupRequirements = groupRequirements.filter(requirement => requirement !== n);
+function removeCandidatesOfHiddenSubset(subset) {
+    subset["locations"].forEach(cell => {
+        x = cell[0];
+        y = cell[1];
+        puzzleCandidates[y][x] = puzzleCandidates[y][x].filter(candidate => subset["subsetNumbers"].includes(candidate))
+    })
+}
+
+function getGroupRequirements(group) {
+    var groupRequirements = oneThroughNine;
+    group.forEach(cell => {
+        var x = cell["x"];
+        var y = cell["y"];
+        var n = sudoku[y][x];
+        if (n !== 0) {
+            groupRequirements = groupRequirements.filter(requirement => requirement !== n);
+        }
+    })
+    return groupRequirements
+}
+
+function checkGroupForHiddenSubset(requirementLocations) {
+    var i = 0;
+    var subset = false;
+    while (!subset && i < requirementLocations.length) {
+        var matches = 0;
+        var n = 0;
+        var matchIndexes = [i];
+        while (!subset && n < requirementLocations.length) {
+            if (n !== i && requirementLocations[i].length < requirementLocations.length) {
+                if (requirementLocations[i].length == 2) {
+                    var externalCandidates = false;
+                    if (requirementLocations[i].length >= requirementLocations[n].length && checkIfMultidimensionalArraysMatch(requirementLocations[i], requirementLocations[n])) {
+                        matches ++;
+                        matchIndexes.push(n)
+                    } else {
+                        var locationIndex = 0;
+                        while (!externalCandidates && locationIndex < requirementLocations[i].length) {
+                            if (checkIfMultidimensionalArrayContainsArray(requirementLocations[n], requirementLocations[i][locationIndex])) {
+                                externalCandidates = true;
+                            }
+                            locationIndex++;
+                        }
+                    }
+                    if (matches == 1 && externalCandidates) {
+                        subset = {"locations": requirementLocations[i], "indexes": matchIndexes};
+                    }
+
+                } else if (requirementLocations[i].length == 3) {
+                    var externalCandidates = false;
+                    if (requirementLocations[i].length >= requirementLocations[n].length && checkIfMultidimensionalArraysMatch(requirementLocations[i], requirementLocations[n])) {
+                        matches++;
+                        matchIndexes.push(n)
+                    } else {
+                        var locationIndex = 0;
+                            while (!externalCandidates && locationIndex < requirementLocations[i].length) {
+                                if (checkIfMultidimensionalArrayContainsArray(requirementLocations[n], requirementLocations[i][locationIndex])) {
+                                    externalCandidates = true;
+                                }
+                                locationIndex++;
+                            }
+                        }
+                    if (matches == 2 && externalCandidates) {
+                        subset = {"locations": requirementLocations[i], "indexes": matchIndexes};
+                    }
+                } 
+            }
+            n++;
+        }
+        i++;
+    }
+    return subset;
+}
+
+function checkIfMultidimensionalArrayContainsArray(mdArray, array) {
+    var match = false;
+    var i = 0;
+    while (!match && i < mdArray.length) {
+        if (mdArray[i].join() === array.join()) {
+            match = true;
+        }
+        i++;
+    }
+    return match;
+}
+
+
+function checkIfMultidimensionalArraysMatch(array1, array2) {
+    if (array2.length < array1.length) {
+        var matches = 0;
+        var match;
+        array2.forEach(candidate2 => {
+            array1.forEach(candidate1 => {
+                if (candidate1.join() === candidate2.join()) {
+                    matches++;
+                }
+            })
+            if (matches == array2.length) {
+                match = true;
+            } else {
+                match = false;
             }
         })
-        yIndex++;
+    } else if (array1.join() === array2.join()){
+        return true;
+    } else {
+        return false;
     }
+    return match;
 }
-*/
