@@ -41,7 +41,7 @@ function countCandidateOccurences(n, array) {
 
 //Fills a cell and updates the candidate grid
 function fillCell(x, y, n) {
-    sudoku[y][x] = n;
+    puzzle[y][x] = n;
     changeCandidatesGridAfterFill(x, y, n);
 }
 
@@ -173,10 +173,52 @@ function getGroupRequirements(group) {
     group.forEach(cell => {
         var x = cell["x"];
         var y = cell["y"];
-        var n = sudoku[y][x];
+        var n = puzzle[y][x];
         if (n !== 0) {
             groupRequirements = groupRequirements.filter(requirement => requirement !== n);
         }
     })
     return groupRequirements
+}
+
+
+function countFilledCells() {
+    var filledCells = 0;
+    puzzle.forEach(row => {
+        row.forEach(cell => {
+            if (cell !== 0) {
+                filledCells++;
+            }
+        })
+    })
+    return filledCells;
+}
+
+function getCellCandidates(x, y) {
+    var candidates;
+    if (puzzle[y][x]) {
+        candidates = 0;
+    } else {
+        candidates = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        puzzle.forEach(row => {
+            if (row[x] !== 0) {
+                candidates.splice(candidates.indexOf(row[x]), 1);
+            }
+        })
+        puzzle[y].forEach(cell => {
+            if (cell !== 0 && candidates.indexOf(cell) !== -1) {
+                candidates.splice(candidates.indexOf(cell), 1);
+            }
+        })
+        var squareX = getSquare(x);
+        var squareY = getSquare(y);
+        squareY.forEach(yIndex => {
+            squareX.forEach(xIndex => {
+                if (puzzle[yIndex][xIndex] !== 0 && candidates.indexOf(puzzle[yIndex][xIndex]) !== -1) {
+                    candidates.splice(candidates.indexOf(puzzle[yIndex][xIndex]), 1)
+                }
+            })
+        })
+    }
+    return candidates;
 }

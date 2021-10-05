@@ -39,11 +39,11 @@ function fillGrid() {
             while (!change && x < 9) {
                 var y = 0;
                 while (!change && y < 9) {
-                    if (sudoku[y][x] == 0) {
+                    if (puzzle[y][x] == 0) {
                         candidates = puzzleCandidates[y][x];
                         var n = candidates[Math.floor(Math.random() * candidates.length)];
                         fillCell(x, y, n);
-                        if (sudoku[y][x] == undefined) {
+                        if (puzzle[y][x] == undefined) {
                             success = false;
                         }
                         change = true;
@@ -55,13 +55,13 @@ function fillGrid() {
             }
         }
     }
-    //console.log(sudoku);
+    //console.log(puzzle);
     return success;
 }
 
 
 function reset() {
-    sudoku = [
+    puzzle = [
         [1, 2, 3, 0, 0, 0, 0, 0, 0],
         [4, 5, 6, 0, 0, 0, 0, 0, 0],
         [7, 8, 9, 0, 0, 0, 0, 0, 0],

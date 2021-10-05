@@ -16,7 +16,7 @@ function findSingleOptionRequirement() {
     while (!change && yIndex < 9) {
         var groupRequirements = oneThroughNine;
         var candidatesArrays = new Array;
-        sudoku[yIndex].forEach((n, xIndex) => {
+        puzzle[yIndex].forEach((n, xIndex) => {
             if (n !== 0) {
                 groupRequirements = groupRequirements.filter(requirement => requirement !== n);
             } else {
@@ -84,7 +84,7 @@ function findSingleOptionRequirement() {
             var xIndexes = squareCoords[squareXIndex]
             yIndexes.forEach(yIndex => {
                 xIndexes.forEach(xIndex => {
-                    var n = sudoku[yIndex][xIndex];
+                    var n = puzzle[yIndex][xIndex];
                     if (n !== 0) {
                         groupRequirements = groupRequirements.filter(requirement => requirement !== n);
                     } else {
@@ -129,7 +129,7 @@ function findSingleOptionRequirement() {
         var groupRequirements = oneThroughNine;
         var candidatesArrays = new Array;
         var i = 0;
-        sudoku.forEach((row, yIndex) => {
+        puzzle.forEach((row, yIndex) => {
             var n = row[xIndex]
             if (n !== 0) {
                 groupRequirements = groupRequirements.filter(requirement => requirement !== n);
