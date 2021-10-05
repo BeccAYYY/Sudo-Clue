@@ -38,7 +38,7 @@ var d = [1, 2, 3, 4, 5, 6]
 var e = [2, 3, 5, 6, 8, 9]
 var f = [1, 3, 4, 6, 7, 9]
 var g = [1, 2, 4, 5, 7, 8]
-var x = [7,8,9]
+var x = [1,2,3,4,5,7,8,9]
 
 
     puzzleCandidates = [
@@ -367,6 +367,13 @@ function fillGrid() {
                 change = false;
             }
             if (!change) {
+                var lockedCandidate = findLockedCandidate();
+                if (lockedCandidate) {
+                    removeCandidatesOfLockedCandidate(lockedCandidate);
+                    change = true;
+                } 
+            }
+            if (!change) {
                 var subset = findNakedSubset();
                 if (subset) {
                     removeCandidatesOfNakedSubset(subset);
@@ -381,10 +388,10 @@ function fillGrid() {
                 } 
             }
         } else {
-            var y = 0;
-            while (!change && y < 9) {
-                var x = 0;
-                while (!change && x < 9) {
+            var x = 0;
+            while (!change && x < 9) {
+                var y = 0;
+                while (!change && y < 9) {
                     if (sudoku[y][x] == 0) {
                         candidates = puzzleCandidates[y][x];
                         var n = candidates[Math.floor(Math.random()*candidates.length)];
@@ -395,9 +402,9 @@ function fillGrid() {
                         change = true;
                         filledSquares++;
                     }
-                    x++;
+                    y++;
                 }
-                y++;
+                x++;
             }
         }
     }
@@ -425,7 +432,7 @@ function countSuccess(n) {
     console.log((endTime - startTime)/1000 + " seconds.")
 }
 
-//countSuccess(100000)
+countSuccess(100000)
 
 function findNakedSubset() {
         var subset = false;
@@ -645,7 +652,6 @@ function findHiddenSubset() {
             subset = {"locations": subset["locations"], "subsetNumbers": subsetNumbers}
         }
     }
-    //console.log(subset)
     return subset;
 }
 
@@ -758,4 +764,143 @@ function checkIfMultidimensionalArraysMatch(array1, array2) {
         return false;
     }
     return match;
+}
+
+
+function findLockedCandidate() {
+    var lockedCandidate = false;
+    var candidate;
+    var i = 0;
+    while (!lockedCandidate && i < 27) {
+        var removeFromLocations = new Array;
+        var group = groups[i];
+        var groupRequirements = getGroupRequirements(group);
+        var n = 0;
+        while (!lockedCandidate && n < groupRequirements.length) {
+            candidate = groupRequirements[n];
+            var sectionsWithCandidate = [0,0,0]
+            group.forEach((cell, groupIndex) => {
+                var x = cell["x"];
+                var y = cell["y"];
+                if (puzzleCandidates[y][x] !== 0 && puzzleCandidates[y][x].includes(candidate)) {
+                    var section = Math.floor(groupIndex/3)
+                    sectionsWithCandidate[section] = 1;
+                }
+            })
+            if (sectionsWithCandidate.filter(section => section == 1).length == 1) {
+                var otherLocations = false;
+                var section = sectionsWithCandidate.indexOf(1);
+                if (i < 9) {
+                    var yIndex = i;
+                    var a = Math.floor(yIndex/3) * 3;
+                    var lockedGroup = a + section + 18;
+                    groups[lockedGroup].forEach(cell => {
+                        var x = cell["x"];
+                        var y = cell["y"];
+                        if (y !== yIndex) {
+                            if (puzzleCandidates[y][x] !== 0 && puzzleCandidates[y][x].includes(candidate)) {
+                                removeFromLocations.push(cell);
+                                if (!otherLocations) {
+                                    otherLocations = true;
+                                }
+                            }
+                        }
+                    })
+                } else if (i < 18) {
+                    var xIndex = i - 9;
+                    var a = section * 3;
+                    var b = Math.floor(xIndex/3);
+                    var lockedGroup = a + b + 18;
+                    groups[lockedGroup].forEach(cell => {
+                        var x = cell["x"];
+                        var y = cell["y"];
+                        if (x !== xIndex) {
+                            if (puzzleCandidates[y][x] !== 0 && puzzleCandidates[y][x].includes(candidate)) {
+                                removeFromLocations.push(cell);
+                                if (!otherLocations) {
+                                    otherLocations = true;
+                                }
+                            }
+                        }
+                    })
+                } else {
+                    //Find column from square
+                    var squareGroup = i - 18;
+                    var a = Math.floor(squareGroup/3) * 3;
+                    var lockedGroup = a + section;
+                    var startX = getSectionForSquareLockedCandidate(squareGroup) * 3
+                    var endX = startX + 2
+                    groups[lockedGroup].forEach(cell => {
+                        var x = cell["x"];
+                        var y = cell["y"];
+                        if (x < startX || x > endX) {
+                            if (puzzleCandidates[y][x] !== 0 && puzzleCandidates[y][x].includes(candidate)) {
+                                removeFromLocations.push(cell);
+                                if (!otherLocations) {
+                                    otherLocations = true;
+                                }
+                            }
+                        }
+                    })
+                }
+                if (otherLocations) {
+                    lockedCandidate = {"candidate": candidate, "removeFromLocations": removeFromLocations}
+                }
+            }
+            if (!lockedCandidate && i > 17) {
+                sectionsWithCandidate = [0,0,0];
+                group.forEach((cell, groupIndex) => {
+                    var x = cell["x"];
+                    var y = cell["y"];
+                    if (puzzleCandidates[y][x] !== 0 && puzzleCandidates[y][x].includes(candidate)) {
+                        var section = getSectionForSquareLockedCandidate(groupIndex);
+                        sectionsWithCandidate[section] = 1;
+                    }
+                })
+                if (sectionsWithCandidate.filter(section => section == 1).length == 1) {
+                    var otherLocations = false;
+                    var section = sectionsWithCandidate.indexOf(1);
+                    var squareGroup = i - 18;
+                    var a = getSectionForSquareLockedCandidate(squareGroup) * 3;
+                    var lockedGroup = a + section + 9;
+                    var startY = Math.floor(squareGroup/3)*3;
+                    var endY = startY + 2;
+                    groups[lockedGroup].forEach(cell => {
+                        var x = cell["x"];
+                        var y = cell["y"];
+                        if (y < startY || y > endY) {
+                            if (puzzleCandidates[y][x] !== 0 && puzzleCandidates[y][x].includes(candidate)) {
+                                removeFromLocations.push(cell);
+                                if (!otherLocations) {
+                                    otherLocations = true;
+                                }
+                            }
+                        }
+                    })
+                    if (otherLocations) {
+                        lockedCandidate = {"candidate": candidate, "removeFromLocations": removeFromLocations}
+                    }
+                }
+            }
+            n++;
+        }
+        i++;
+    }
+    return lockedCandidate;
+}
+
+function removeCandidatesOfLockedCandidate(lockedCandidate) {
+    lockedCandidate["removeFromLocations"].forEach(cell => {
+        var x = cell["x"];
+        var y = cell["y"];
+        puzzleCandidates[y][x] = puzzleCandidates[y][x].filter(candidate => candidate !== lockedCandidate["candidate"])
+    })
+}
+
+
+
+function getSectionForSquareLockedCandidate(n) {
+    var a = n/3 - Math.floor(n/3);
+    var b = Math.round(a * 3);
+    return b
 }
