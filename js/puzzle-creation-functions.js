@@ -12,9 +12,7 @@ function createPuzzleFromSolution(minNumberOfClues) {
         coords.splice(i, 1);
         if (checkIfSolvable(newPuzzle)) {
             maxNumberToRemove--;
-            console.log(maxNumberToRemove)
         } else {
-            console.log("loop","loop","loop")
             newPuzzle[y][x] = solution[y][x]
         }
     }

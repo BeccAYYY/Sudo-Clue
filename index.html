@@ -17,112 +17,115 @@
     <script src="js/solving-methods-js/singles.js" defer></script>
     <script src="js/init.js" defer></script>
     <script src="js.js" defer></script>
+    <script src="display.js" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <p>Sudo-Clue</p>
-    <div class="container row border border-dark border-2 p-0 g-0 m-auto align-content-stretch fs-2 fw-normal" id="sudoku">
-        <div class="row border border-1 border-dark col-4 m-0 p-0 g-0 square" id="square0">
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="00">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="10">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="20">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="01">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="11">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="21">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="02">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="12">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="22">1</div>
+    <div class="d-flex align-items-center" id="page">
+    <div class="container row border border-dark border-2 p-0 g-0 m-auto my-5 align-content-stretch fs-2" id="sudoku">
+        <div class="row border border-1 border-dark col-4 m-0 p-0 g-0 square justify-items-stretch" id="square0">
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-0 square0" id="00"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-1 square0" id="10"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-2 square0" id="20"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-0 square0" id="01"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-1 square0" id="11"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-2 square0" id="21"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-0 square0" id="02"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-1 square0" id="12"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-2 square0" id="22"></div>
         </div>
-        <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square" id="square1">
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="30">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="40">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="50">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="31">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="41">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="51">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="32">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="42">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="52">1</div>
+        <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch" id="square1">
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-3 square1" id="30"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-4 square1" id="40"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-5 square1" id="50"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-3 square1" id="31"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-4 square1" id="41"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-5 square1" id="51"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-3 square1" id="32"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-4 square1" id="42"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-5 square1" id="52"></div>
         </div>
-        <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square" id="square2">
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="60">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="70">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="80">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="61">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="71">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="81">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="62">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="72">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="82">1</div>
+        <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch" id="square2">
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-6 square2" id="60"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-7 square2" id="70"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-8 square2" id="80"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-6 square2" id="61"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-7 square2" id="71"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-8 square2" id="81"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-6 square2" id="62"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-7 square2" id="72"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-8 square2" id="82"></div>
         </div>
-        <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square" id="square3">
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="03">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="13">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="23">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="04">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="14">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="24">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="05">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="15">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="25">1</div>
+        <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch" id="square3">
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-0 square3" id="03"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-1 square3" id="13"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-2 square3" id="23"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-0 square3" id="04"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-1 square3" id="14"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-2 square3" id="24"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-0 square3" id="05"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-1 square3" id="15"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-2 square3" id="25"></div>
         </div>
-        <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square" id="square4">
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="33">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="43">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="53">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="34">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="44">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="54">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="35">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="45">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="55">1</div>
+        <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch" id="square4">
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-3 square4" id="33"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-4 square4" id="43"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-5 square4" id="53"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-3 square4" id="34"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-4 square4" id="44"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-5 square4" id="54"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-3 square4" id="35"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-4 square4" id="45"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-5 square4" id="55"></div>
         </div>
-        <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square" id="square5">
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="63">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="73">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="83">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="64">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="74">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="84">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="65">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="75">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="85">1</div>
+        <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch" id="square5">
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-6 square5" id="63"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-7 square5" id="73"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-8 square5" id="83"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-6 square5" id="64"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-7 square5" id="74"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-8 square5" id="84"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-6 square5" id="65"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-7 square5" id="75"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-8 square5" id="85"></div>
         </div>
-        <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square" id="square6">
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="06">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="16">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="26">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="07">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="17">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="27">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="08">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="18">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="28">1</div>
+        <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch" id="square6">
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-0 square6" id="06"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-1 square6" id="16"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-2 square6" id="26"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-0 square6" id="07"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-1 square6" id="17"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-2 square6" id="27"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-0 square6" id="08"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-1 square6" id="18"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-2 square6" id="28"></div>
         </div>
-        <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square" id="square7">
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="36">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="46">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="56">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="37">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="47">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="57">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="38">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="48">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="58">1</div>
+        <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch" id="square7">
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-3 square7" id="36"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-4 square7" id="46"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-5 square7" id="56"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-3 square7" id="37"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-4 square7" id="47"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-5 square7" id="57"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-3 square7" id="38"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-4 square7" id="48"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-5 square7" id="58"></div>
         </div>
-        <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square" id="square8">
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="66">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="76">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="86">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="67">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="77">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="87">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="68">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="78">1</div>
-            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell" id="88">1</div>
+        <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch" id="square8">
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-6 square8" id="66"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-7 square8" id="76"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-8 square8" id="86"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-6 square8" id="67"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-7 square8" id="77"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-8 square8" id="87"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-6 square8" id="68"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-7 square8" id="78"></div>
+            <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-8 square8" id="88"></div>
         </div>
         
     </div>
+</div>
 </body>
 </html>

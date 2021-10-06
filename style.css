@@ -6,4 +6,35 @@
 }
 .cell {
     background-color: white;
+    height: calc(100% / 3)
+}
+
+.square {
+    height: calc(100% / 3)
+}
+
+#page {
+    height: 90vh;
+}
+
+
+
+.light-blue {
+    background-color: #a4cdf8;
+}
+
+.blue {
+    background-color: #5598e0;
+}
+
+.pink {
+    background-color: #e454a3;
+}
+
+.zoom {
+    transform: scale(1.3);
+
+}
+.lighter-pink {
+    background-color: #f59bcc;
 }
