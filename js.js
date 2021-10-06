@@ -34,9 +34,10 @@ var sudoku = [
 getSuccessfulSolution();
 var newPuzzle = createCopyOfMultidimensionalArray(puzzle);
 
-createPuzzleFromSolution(0);
+createPuzzleFromSolution(40);
 
-console.log(newPuzzle)
-console.log(puzzleCandidates)
+
+displayNewPuzzle()
+
 
 
