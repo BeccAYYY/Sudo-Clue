@@ -1,0 +1,9 @@
+#sudoku {
+    width: 90vw;
+    height: 90vw;
+    gap: 0;
+    background-color: black;
+}
+.cell {
+    background-color: white;
+}
