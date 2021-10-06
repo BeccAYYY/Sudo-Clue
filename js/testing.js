@@ -10,7 +10,6 @@ function countSuccess(n) {
         } else {
             failures++;
         }
-        reset();
     }
     console.log("Successful Sudoku created " + successes + " times, and unsuccessful " + failures + " times. (" + (successes * 100) / n + "%)");
     var endTime = new Date();

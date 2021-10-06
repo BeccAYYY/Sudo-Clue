@@ -1,4 +1,5 @@
 function fillGrid() {
+    resetForNewSolution();
     var change = false;
     var success = true;
     var filledSquares = 9;
@@ -55,12 +56,11 @@ function fillGrid() {
             }
         }
     }
-    //console.log(puzzle);
     return success;
 }
 
 
-function reset() {
+function resetForNewSolution() {
     puzzle = [
         [1, 2, 3, 0, 0, 0, 0, 0, 0],
         [4, 5, 6, 0, 0, 0, 0, 0, 0],

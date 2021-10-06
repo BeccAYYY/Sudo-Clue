@@ -222,3 +222,24 @@ function getCellCandidates(x, y) {
     }
     return candidates;
 }
+
+function createArrayOfAllCoords() {
+    var coords = new Array;
+    for (let y = 0; y < 9; y++) {
+        for (let x = 0; x < 9; x++) {
+            coords.push([x, y])
+        }
+    }
+    return coords;
+}
+
+function createCopyOfMultidimensionalArray(array) {
+    var copy = []
+    array.forEach(row => {
+        copy.push([])
+        row.forEach(value => {
+            copy[copy.length - 1].push(value)
+        })
+    });
+    return copy;
+}

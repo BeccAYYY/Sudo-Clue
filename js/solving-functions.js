@@ -6,11 +6,12 @@
 
 
 
-function checkIfSolvable(methods) {
+function checkIfSolvable(testPuzzle) {
     var change = true;
     var success = true;
-    var puzzleCandidates = createCandidatesGridForPuzzle();
+    puzzle = createCopyOfMultidimensionalArray(testPuzzle)
     var filledSquares = countFilledCells();
+    updateCandidatesGridForPuzzle()
     while (filledSquares < 81 && success) {
         if (change) {
             var start = filledSquares;
@@ -66,7 +67,7 @@ function updateCandidatesGridForPuzzle() {
     ];
     puzzleCandidates.forEach((row, y) => {
         row.forEach((cell, x) => {
-            cell = getCellCandidates(x, y);
+            puzzleCandidates[y][x] = getCellCandidates(x, y);
         })
     })
     return puzzleCandidates;
