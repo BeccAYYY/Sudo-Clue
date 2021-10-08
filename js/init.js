@@ -8,6 +8,11 @@ var methods = {
     "Naked Subsets": true, 
     "Hidden Subsets": true
 };
+var settings = {
+    "candidates": true,
+    "automaticCorrection": true,
+    "minimumClues": 20
+}
 
 
 createGroupsArray();

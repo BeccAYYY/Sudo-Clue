@@ -1,6 +1,9 @@
 #sudoku {
-    width: 90vw;
-    height: 90vw;
+    width: 60vh;
+    height: 60vh;
+    max-width: 90vw;
+    max-height: 90vw;
+
     gap: 0;
     background-color: black;
 }
@@ -42,4 +45,12 @@
 }
 .lighter-pink {
     background-color: #f59bcc;
+}
+
+#header {
+    height: 10vh;
+}
+
+#buttons {
+    max-width: calc(300px + 10%);
 }

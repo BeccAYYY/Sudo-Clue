@@ -28,7 +28,7 @@ function getSuccessfulSolution() {
 }
 
 function resetPuzzleCandidates() {
-    puzzleCandidates = puzzle = [
+    puzzleCandidates = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],

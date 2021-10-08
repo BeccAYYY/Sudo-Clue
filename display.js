@@ -35,7 +35,7 @@ function highlightCell(element) {
 
 function displayNewPuzzle() {
     var outerCounter = 0;
-    var innerCounter = -10;
+    var innerCounter = -6;
     var elementsArray = new Array;
     var valuesArray = new Array;
 for (let y = 0; y < 9; y++) {

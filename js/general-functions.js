@@ -234,12 +234,21 @@ function createArrayOfAllCoords() {
 }
 
 function createCopyOfMultidimensionalArray(array) {
-    var copy = []
-    array.forEach(row => {
-        copy.push([])
-        row.forEach(value => {
-            copy[copy.length - 1].push(value)
+    var copy = new Array;
+    array.forEach((row, y) => {
+        copy.push([]);
+        row.forEach((cell, x) => {
+            var copyRow = copy[y];
+            if (typeof cell == "object") {
+                copyRow.push([]);
+                copyCell = copyRow[x];
+                cell.forEach(candidate => {
+                    copyCell.push(candidate);
+                })
+            } else {
+                copyRow.push(cell);
+            }
         })
-    });
+    })
     return copy;
 }

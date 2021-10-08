@@ -31,13 +31,53 @@ var sudoku = [
 
 */
 
-getSuccessfulSolution();
+//getSuccessfulSolution();
+console.log(puzzle)
+
+function turnPuzzleToLetters() {
+    puzzle.forEach((row, y) => {
+        row.forEach((cell, x) => {
+            puzzle[y][x] = String.fromCharCode(cell + 96)
+        })
+    })
+}
+
+puzzle = [
+    ['a', 'b', 'c', 'd', 'i', 'f', 'e', 'g', 'h'],
+    ['d', 'e', 'f', 'a', 'g', 'h', 'c', 'b', 'i'],
+    ['g', 'h', 'i', 'b', 'e', 'c', 'a', 'f', 'd'],
+    ['h', 'g', 'a', 'i', 'c', 'd', 'f', 'e', 'b'],
+    ['f', 'i', 'd', 'e', 'b', 'a', 'g', 'h', 'c'],
+    ['b', 'c', 'e', 'f', 'h', 'g', 'i', 'd', 'a'],
+    ['c', 'f', 'g', 'h', 'a', 'b', 'd', 'i', 'e'],
+    ['i', 'a', 'b', 'g', 'd', 'e', 'h', 'c', 'f'],
+    ['e', 'd', 'h', 'c', 'f', 'i', 'b', 'a', 'g']
+]
+
+
+function turnPuzzleToNumbers() {
+    var numbers = [4, 6, 9, 1, 3, 5, 8, 2, 7];
+    puzzle.forEach((row, y) => {
+        row.forEach((cell, x) => {
+            puzzle[y][x] = numbers[cell.charCodeAt(0) - 97];
+        })
+    })
+}
+
+turnPuzzleToNumbers()
+
+console.log(puzzle)
+
+
+/*
 var newPuzzle = createCopyOfMultidimensionalArray(puzzle);
 
-createPuzzleFromSolution(40);
-
+createPuzzleFromSolution(20);
 
 displayNewPuzzle()
 
+[4, 6, 9, 1, 3, 5, 8, 2, 7];
+[9, 2, 5, 7, 6, 3, 1, 8, 4];
+*/
 
 
