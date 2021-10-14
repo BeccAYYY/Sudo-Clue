@@ -65,3 +65,23 @@ var interval = setInterval(() => {
 }, 50)
 }
 
+var timerValue = 0;
+setInterval(() => {
+    timerValue++
+    timer.innerHTML = formatTimer()
+}, 1000);
+
+
+function formatTimer() {   
+    var hrs = Math.floor(timerValue / 3600);
+    var mins = Math.floor((timerValue % 3600) / 60);
+    var secs = Math.floor(timerValue % 60);
+    var formattedTime = "";
+    if (hrs > 0) {
+        formattedTime += "" + hrs + ":" + (mins < 10 ? "0" : "");
+    }
+
+    formattedTime += "" + mins + ":" + (secs < 10 ? "0" : "");
+    formattedTime += "" + secs;
+    return formattedTime;
+}

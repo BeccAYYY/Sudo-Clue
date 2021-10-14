@@ -32,7 +32,6 @@ var sudoku = [
 */
 
 //getSuccessfulSolution();
-console.log(puzzle)
 
 function turnPuzzleToLetters() {
     puzzle.forEach((row, y) => {
@@ -42,21 +41,17 @@ function turnPuzzleToLetters() {
     })
 }
 
-puzzle = [
-    ['a', 'b', 'c', 'd', 'i', 'f', 'e', 'g', 'h'],
-    ['d', 'e', 'f', 'a', 'g', 'h', 'c', 'b', 'i'],
-    ['g', 'h', 'i', 'b', 'e', 'c', 'a', 'f', 'd'],
-    ['h', 'g', 'a', 'i', 'c', 'd', 'f', 'e', 'b'],
-    ['f', 'i', 'd', 'e', 'b', 'a', 'g', 'h', 'c'],
-    ['b', 'c', 'e', 'f', 'h', 'g', 'i', 'd', 'a'],
-    ['c', 'f', 'g', 'h', 'a', 'b', 'd', 'i', 'e'],
-    ['i', 'a', 'b', 'g', 'd', 'e', 'h', 'c', 'f'],
-    ['e', 'd', 'h', 'c', 'f', 'i', 'b', 'a', 'g']
-]
 
 
-function turnPuzzleToNumbers() {
-    var numbers = [4, 6, 9, 1, 3, 5, 8, 2, 7];
+function turnPuzzleToNumbers(numbers) {
+    if (!numbers) {
+        orderedNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        while (orderedNumbers.length) {
+            numbers = [];
+            numbers += orderedNumbers.splice(Math.floor(Math.random() * orderedNumbers.length))
+        }
+    }
+    console.log(numbers)
     puzzle.forEach((row, y) => {
         row.forEach((cell, x) => {
             puzzle[y][x] = numbers[cell.charCodeAt(0) - 97];
@@ -64,9 +59,6 @@ function turnPuzzleToNumbers() {
     })
 }
 
-turnPuzzleToNumbers()
-
-console.log(puzzle)
 
 
 /*

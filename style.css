@@ -18,10 +18,21 @@
 }
 
 .page {
-    height: 88vh;
+    height: 92vh;
     display: flex;
+    overflow: hidden;
+    position: fixed;
+    margin: auto;
+    background-color: white;
+    width: 100%;
 }
 
+
+
+#menu {
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.95);
+}
 
 .invisible-text {
     color: white;
@@ -49,19 +60,22 @@
 }
 
 #header {
-    height: 10vh;
+    height: 8vh;
 }
 
 #buttons {
-    max-width: calc(300px + 10%);
+    max-width: calc(250px + 30%);
 }
 
 body {
     font-family: 'Goudy Stout';
     font-weight: bold;
+    max-height: 100vh;
+    overflow: hidden;
 }
 label {
     font-family: "Goudy Old Style";
+    font-size: x-small;
 }
 
 i::before {
@@ -74,13 +88,7 @@ i {
     justify-content: center;
 }
 
-label {
-    font-size: x-small;
-}
 
-.hidden {
-    display: none;
-}
 
 .custom-button {
     width: 70vw;
@@ -90,6 +98,109 @@ label {
     font-weight: lighter;
     font-size: smaller;
     color: rgb(75, 75, 75);
-    margin: 2vh;
+    margin: 1vh;
     padding: 1vh;
+    max-height: 80px;
+    max-width: 280px;
 }
+
+.menu-item {
+    width: 80vw;
+    height: 15vw;
+    font-family: "Goudy Old Style";
+    font-weight: bolder;
+    font-size: x-large;
+}
+
+.difficulty-button {
+    width: 60vw;
+    height: 10vw;
+    border: 2px lightgrey solid;
+    font-family: "Goudy Old Style";
+    font-weight: lighter;
+    font-size: small;
+    color: rgb(75, 75, 75);
+    margin: 1vh;
+    padding: 1vh;
+    max-height: 50px;
+    max-width: 300px;
+}
+
+.clues-number {
+    width: 15%;
+    overflow: hidden;
+    font-family: "Goudy Old Style";
+    font-size: 1.2rem;
+}
+
+
+.unselected {
+    color: grey;
+}
+
+.secondary-text {
+    font-family: "Goudy Old Style";
+}
+
+.leader-number {
+    width: 2rem;
+    text-align: center;
+}
+
+.leaderboard-item {
+    font-family: "Goudy Old Style";
+
+}
+
+#sudoku-timer {
+    width: 60vh;
+    max-width: 90vw;
+}
+
+.bi-x::before {
+    font-size: 2.4rem;
+}
+
+.menu-child {
+    z-index: 3;
+    transition: none;
+}
+
+.account-child {
+    z-index: 4;
+}
+
+.transition {
+    transition: height 0.5s;
+}
+
+.bi-pause-circle::before {
+    font-size: 1.9rem;
+}
+
+#timer {
+    font-size: 1.7rem;
+}
+
+.form-switch .form-check-input {
+    height: 1.4rem;
+    width: 3rem;
+}
+@media screen and (max-height: 600px) {
+    body {
+        font-size: 0.6rem;
+    }
+    #welcome {
+        font-size: 0.9rem;
+    }
+}
+
+.hidden, #welcome.hidden {
+    min-height: 0;
+    height: 0;
+}
+
+.menu-from-main-page {
+    top: 4vh;
+}
+
