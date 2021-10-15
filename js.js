@@ -31,7 +31,6 @@ var sudoku = [
 
 */
 
-//getSuccessfulSolution();
 
 function turnPuzzleToLetters() {
     puzzle.forEach((row, y) => {
@@ -42,23 +41,26 @@ function turnPuzzleToLetters() {
 }
 
 
-
 function turnPuzzleToNumbers(numbers) {
     if (!numbers) {
+        numbers = new Array;
         orderedNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         while (orderedNumbers.length) {
-            numbers = [];
-            numbers += orderedNumbers.splice(Math.floor(Math.random() * orderedNumbers.length))
+            numbers.push(orderedNumbers.splice(Math.floor(Math.random() * orderedNumbers.length), 1)[0]);
+        }
+    } else {
+        var numString = numbers.toString();
+        numbers = new Array;
+        for (let i = 0; i < 9; i++) {
+            numbers.push(parseInt(numString[i]))
         }
     }
-    console.log(numbers)
     puzzle.forEach((row, y) => {
         row.forEach((cell, x) => {
             puzzle[y][x] = numbers[cell.charCodeAt(0) - 97];
         })
     })
 }
-
 
 
 /*
@@ -71,5 +73,4 @@ displayNewPuzzle()
 [4, 6, 9, 1, 3, 5, 8, 2, 7];
 [9, 2, 5, 7, 6, 3, 1, 8, 4];
 */
-
 

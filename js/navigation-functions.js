@@ -1,7 +1,10 @@
 
 
 hamburger.addEventListener("click", openAndCloseHamburger);
-newGameButton.addEventListener("click", closeHamburgerAndWelcome);
+newGameButton.addEventListener("click", () => {
+    newGame();
+    closeHamburgerAndWelcome();
+});
 clearGameButton.addEventListener("click", closeHamburgerAndWelcome);
 difficultyButton.addEventListener("click", () => openMenuPage(difficulty));
 difficultyMainButton.addEventListener("click", () => openMenuPage(difficulty));
@@ -12,8 +15,21 @@ registerLinkText.addEventListener("click", () => openMenuPage(register));
 loginButton.addEventListener("click", () => openMenuPage(login));
 loginLinkText.addEventListener("click", () => openMenuPage(login));
 mainUsername.addEventListener("click", () => openMenuPage(account));
-newGameMainButton.addEventListener("click", closeHamburgerAndWelcome);
-pause.addEventListener("click", openAndCloseWelcomeScreen);
+newGameMainButton.addEventListener("click", () => {
+    newGame();
+    closeHamburgerAndWelcome();
+});
+continueButton.addEventListener("click", () => {
+    continueGame();
+    closeHamburgerAndWelcome();
+})
+pauseButton.addEventListener("click", () => {
+    openAndCloseWelcomeScreen();
+    pause = true;
+});
+
+
+
 
 
 document.querySelectorAll(".back-to-menu").forEach(e => {
@@ -43,6 +59,7 @@ function openAndCloseHamburger() {
     if (menu.classList.contains("hidden")) {
         menu.classList.remove("hidden");
         hamburger.innerHTML = '<i class="bi bi-x fs-1 fw-bold"></i>';
+        pause = true
     } else {
         menu.classList.add("hidden")
         hamburger.innerHTML = '<i class="bi bi-list fs-1 fw-bold"></i>';
@@ -54,6 +71,9 @@ function openAndCloseHamburger() {
                 }, 500)
             }
         })
+        if (welcome.classList.contains("hidden")) {
+            startTimer()
+        }
     }
 }
 
@@ -68,6 +88,7 @@ function openAndCloseWelcomeScreen() {
 function closeHamburgerAndWelcome() {
     menu.classList.add("hidden");
     welcome.classList.add("hidden");
+    startTimer()
 }
 
 

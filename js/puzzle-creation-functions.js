@@ -1,8 +1,10 @@
 
 
-function createPuzzleFromSolution(minNumberOfClues) {
-    var maxNumberToRemove = 81 - minNumberOfClues;
-    var solution = createCopyOfMultidimensionalArray(newPuzzle);
+function createPuzzleFromSolution() {
+    var newPuzzle = createCopyOfMultidimensionalArray(puzzle);
+    var maxNumberToRemove = 81 - settings["minimumClues"];
+    console.log(settings["minimumClues"])
+    var solution = createCopyOfMultidimensionalArray(puzzle);
     var coords = createArrayOfAllCoords();
     while (maxNumberToRemove > 0 && coords.length > 0) {
         var i = Math.floor(Math.random() * coords.length);
@@ -28,7 +30,11 @@ function getSuccessfulSolution() {
 }
 
 function resetPuzzleCandidates() {
-    puzzleCandidates = [
+    puzzleCandidates = returnEmptyGrid()
+}
+
+function returnEmptyGrid() {
+    return [
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],

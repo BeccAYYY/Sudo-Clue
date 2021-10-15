@@ -14,5 +14,12 @@ var settings = {
     "minimumClues": 20
 }
 
+var timerValue = 0;
+var pause = true;
+var currentPuzzle = getCurrentPuzzle()
+var inProgressGame = false;
+if (currentPuzzle) {
+    continueButton.classList.remove("d-none")
+}
 
 createGroupsArray();
