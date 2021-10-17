@@ -10,7 +10,10 @@
 .cell {
     background-color: white;
     height: calc(100% / 3);
-    transition: background-color 0.3s, transform 0.2s, color 1.5s;
+    transition: background-color 0.3s, transform 0.2s;
+    font-family: sans-serif;
+    color: #5e645e;
+    font-weight: 600;
 }
 
 .square {
@@ -35,15 +38,15 @@
 }
 
 .invisible-text {
-    color: white;
+    color: rgba(255, 255, 255, 0);
 }
 
 .light-blue {
-    background-color: #a4cdf8;
+    background-color: rgb(198, 225, 253);
 }
 
 .blue {
-    background-color: #5598e0;
+    background-color: #8ec4fd;
 }
 
 .pink {
@@ -204,3 +207,46 @@ i {
     top: 4vh;
 }
 
+.candidates-div {
+    height: 100%;
+    width: 100%;
+}
+
+.single-candidate-div {
+    font-size: 30%;
+    overflow: hidden;
+    height: calc(100% / 3);
+    width: calc(100% / 3);
+}
+
+.blue-icon {
+    color: #5598e0;
+}
+
+#numberButtonsDiv .btn:focus {
+    box-shadow: none;
+}
+
+
+.btn {
+    transition: background-color 0.3s;
+}
+
+.inactive-button, .inactive-button:hover {
+    background-color: rgb(138, 138, 138);
+    border: none;
+}
+
+button.blue, button.blue:hover, #numberButtonsDiv button.btn.blue:active {
+    background-color: #5598e0;
+    border: none;
+}
+
+.filled-cell {
+    transition: color 1.5s;
+}
+
+.puzzle-part {
+    color: rgb(0, 25, 56);
+    transition: color 1.5s;
+}

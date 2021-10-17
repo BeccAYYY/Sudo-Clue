@@ -4,31 +4,23 @@ function getCurrentPuzzle() {
         localStorage.setItem("currentPuzzle", false) 
     }
     if (localStorage.getItem("currentPuzzle")) {
-        var puzzleString = localStorage.getItem("currentPuzzle");
-        currentPuzzle = new Array;
-        var i = 0;
-        for (let y = 0; y < 9; y++) {
-            currentPuzzle.push([])
-            for (let x = 0; x < 9; x++) {
-                currentPuzzle[y].push(parseInt(puzzleString[i]));
-                i++
-            }
-        }
+        currentPuzzle = JSON.parse(localStorage.getItem("currentPuzzle"));
     } else {
         currentPuzzle = false;
     }
     return currentPuzzle;
 }
 
-function turnPuzzleToString(puzzle) {
-    var puzzleString = "";
-    puzzle.forEach(row => {
-        row.forEach(cell => {
-            puzzleString += cell;
-        })
-    });
-    return puzzleString;
+function getUserGrid() {
+    if (localStorage.getItem("userGrid") == null) {
+        localStorage.setItem("userGrid", JSON.stringify(returnEmptyGrid())) 
+    }
+    userGrid = JSON.parse(localStorage.getItem("userGrid"));
+    return userGrid;
 }
+
+
+
 
 function continueGame() {
     if (inProgressGame) {
@@ -54,16 +46,18 @@ function newGame() {
     startTimer();
 }
 
+var interval;
 function startTimer() {
     if (pause) {
         pause = false;
         timer.innerHTML = formatTimer()
-        var interval = setInterval(() => {
-            timer.innerHTML = formatTimer()
-            timerValue++
+        interval = setInterval(() => {
             if (pause) {
                 clearInterval(interval)
             }
+            timerValue++
+            localStorage.setItem("timerValue", timerValue)
+            timer.innerHTML = formatTimer()
         }, 1000);
     }
 }

@@ -5,7 +5,13 @@ newGameButton.addEventListener("click", () => {
     newGame();
     closeHamburgerAndWelcome();
 });
-clearGameButton.addEventListener("click", closeHamburgerAndWelcome);
+clearGameButton.addEventListener("click", () => {
+    closeHamburgerAndWelcome()
+    clearPuzzle();
+    if (highlightedCell) {
+        highlightCell(document.getElementById(highlightedCell))
+    }
+});
 difficultyButton.addEventListener("click", () => openMenuPage(difficulty));
 difficultyMainButton.addEventListener("click", () => openMenuPage(difficulty));
 leaderboardButton.addEventListener("click", () => openMenuPage(leaderboard));
@@ -26,9 +32,34 @@ continueButton.addEventListener("click", () => {
 pauseButton.addEventListener("click", () => {
     openAndCloseWelcomeScreen();
     pause = true;
+    clearInterval(interval);
 });
+minimumClues.addEventListener("input", () => {
+    settings["minimumClues"] = minimumClues.value;
+    cluesSettingNumber.innerHTML = settings["minimumClues"];
+})
+loneRangersCheckbox.addEventListener("change", () => {
+    localStorage.setItem("Lone Rangers", loneRangersCheckbox.checked);
+    methods["Lone Rangers"] = loneRangersCheckbox.checked;
+})
+lockedCandidatesCheckbox.addEventListener("change", () => {
+    localStorage.setItem("Locked Candidates", lockedCandidatesCheckbox.checked);
+    methods["lockedCandidates"] = lockedCandidatesCheckbox.checked;
+})
+hiddenSubsetsCheckbox.addEventListener("change", () => {
+    localStorage.setItem("Hidden Subsets", hiddenSubsetsCheckbox.checked);
+    methods["Hidden Subsets"] = hiddenSubsetsCheckbox.checked;
+})
+nakedSubsetsCheckbox.addEventListener("change", () => {
+    localStorage.setItem("Naked Subsets", nakedSubsetsCheckbox.checked);
+    methods["Naked Subsets"] = nakedSubsetsCheckbox.checked;
+})
+candidatesEditButton.addEventListener("click", turnOnAndOffCandidatesEditing);
 
-
+document.querySelectorAll("button").forEach(button => {
+    button.addEventListener("click", (e) => buttonPress(e.target));
+})
+clearCellButton.addEventListener("click", clearCell);
 
 
 
@@ -50,9 +81,23 @@ document.querySelectorAll(".back-to-account").forEach(e => {
                 e.classList.add("hidden");
             }
         })
-        account.classList.remove("hidden")
+        account.classList.remove("hidden");
     })
 })
+
+function turnOnAndOffCandidatesEditing() {
+    if (candidatesUpdate) {
+        candidatesEditButton.classList.remove("blue-icon");
+        candidatesUpdate = false;
+    } else {
+        candidatesEditButton.classList.add("blue-icon");
+        candidatesUpdate = true;
+        if (highlightedCell) {
+
+        }
+    }
+}
+
 
 
 function openAndCloseHamburger() {
@@ -60,6 +105,7 @@ function openAndCloseHamburger() {
         menu.classList.remove("hidden");
         hamburger.innerHTML = '<i class="bi bi-x fs-1 fw-bold"></i>';
         pause = true
+        clearInterval(interval);
     } else {
         menu.classList.add("hidden")
         hamburger.innerHTML = '<i class="bi bi-list fs-1 fw-bold"></i>';
@@ -82,6 +128,7 @@ function openAndCloseWelcomeScreen() {
         welcome.classList.remove("hidden");
     } else {
         welcome.classList.add("hidden");
+        clearInterval(interval)
     }
 }
 
@@ -89,6 +136,7 @@ function closeHamburgerAndWelcome() {
     menu.classList.add("hidden");
     welcome.classList.add("hidden");
     startTimer()
+    hamburger.innerHTML = '<i class="bi bi-list fs-1 fw-bold"></i>'
 }
 
 
@@ -100,3 +148,6 @@ function openMenuPage(e) {
     })
     e.classList.remove("hidden")
 }
+
+
+localStorage.removeItem("candidatesGrid")

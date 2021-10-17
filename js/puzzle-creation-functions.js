@@ -3,7 +3,6 @@
 function createPuzzleFromSolution() {
     var newPuzzle = createCopyOfMultidimensionalArray(puzzle);
     var maxNumberToRemove = 81 - settings["minimumClues"];
-    console.log(settings["minimumClues"])
     var solution = createCopyOfMultidimensionalArray(puzzle);
     var coords = createArrayOfAllCoords();
     while (maxNumberToRemove > 0 && coords.length > 0) {

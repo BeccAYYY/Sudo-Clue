@@ -59,8 +59,7 @@
             <div class="container row border border-dark border-2 p-0 g-0 m-auto align-content-stretch fs-2 mb-1    mb-sm-4 mt-0"
             id="sudoku">
             <div class="row border border-1 border-dark col-4 m-0 p-0 g-0 square justify-items-stretch" id="square0">
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-0 square0"
-                    id="00"></div>
+                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-0 square0" id="00"></div>
                 <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-1 square0"
                     id="10"></div>
                 <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-2 square0"
@@ -246,7 +245,7 @@
                         <img class="d-block m-auto" src="img/undo.svg" height="36.8">
                         <label>Undo Move</label>
                     </div>
-                    <div class="col-6 py-1 py-sm-2 px-0 px-sm-0">
+                    <div class="col-6 py-1 py-sm-2 px-0 px-sm-0" id="clearCellButton">
                         <i class="bi bi-x-circle"></i>
                         <label>Clear Cell</label>
                     </div>
@@ -258,12 +257,12 @@
                         <i class="bi bi-check-circle"></i>
                         <label>Check Answers</label>
                     </div>
-                    <div class="col-12 py-1 py-1 py-sm-2">
-                        <i class="bi bi-pencil-square"></i>
+                    <div class="col-12 py-1 py-1 py-sm-2" id="candidatesEditButton">
+                        <i class="bi bi-pencil-square" id="candidatesEditIcon"></i>
                         <label>Candidates</label>
                     </div>
                 </div>
-                <div class="col-7 row m-0 px-0 px-sm-3">
+                <div class="col-7 row m-0 px-0 px-sm-3" id="numberButtonsDiv">
                     <div class="col-4 py-1 px-1 py-sm-2">
                         <button class="btn btn-dark fs-2 px-3">1</button>
                     </div>
@@ -289,7 +288,7 @@
                         <button class="btn btn-dark fs-2 px-3">8</button>
                     </div>
                     <div class="col-4 py-1 px-1 py-sm-2">
-                        <button class="btn btn-dark fs-2 px-3">9</button>
+                        <button class="btn btn-dark fs-2 px-3 blue">9</button>
                     </div>
                     
                 </div>
@@ -325,27 +324,27 @@
         <div class="w-100">
             <div class="d-flex flex-row justify-content-between align-items-center py-2 px-5 w-100">
                 <label class="fs-6">Minimum No. of Clues</label>
-                <div class="clues-number fw-light text-center">47</div>
+                <div class="clues-number fw-light text-center" id="cluesSettingNumber">47</div>
             </div>
             <div class="w-75 m-auto">
-                <input type="range" class="form-range m-auto" min="9" max="65" step="1" id="customRange3">
+                <input type="range" class="form-range m-auto" min="9" max="65" step="1" id="minimumClues">
             </div>
         </div>
         <div class="d-flex flex-row justify-content-between align-items-center py-2 px-5 w-100 form-check form-switch">
-            <label class="fs-6">Lone Rangers</label>
-            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+            <label class="fs-6" for="loneRangersCheckbox">Lone Rangers</label>
+            <input class="form-check-input" type="checkbox" id="loneRangersCheckbox">
         </div>
         <div class="d-flex flex-row justify-content-between align-items-center py-2 px-5 w-100 form-check form-switch">
-            <label class="fs-6">Locked Candidates</label>
-            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+            <label class="fs-6" for="lockedCandidatesCheckbox">Locked Candidates</label>
+            <input class="form-check-input" type="checkbox" id="lockedCandidatesCheckbox">
         </div>
         <div class="d-flex flex-row justify-content-between align-items-center py-2 px-5 w-100 form-check form-switch">
-            <label class="fs-6">Naked Subsets</label>
-            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+            <label class="fs-6" for="nakedSubsetsCheckbox">Naked Subsets</label>
+            <input class="form-check-input" type="checkbox" id="nakedSubsetsCheckbox">
         </div>
         <div class="d-flex flex-row justify-content-between align-items-center py-2 px-5 w-100 form-check form-switch">
-            <label class="fs-6">Hidden Subsets</label>
-            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+            <label class="fs-6" for="hiddenSubsetsCheckbox">Hidden Subsets</label>
+            <input class="form-check-input" type="checkbox" id="hiddenSubsetsCheckbox">
         </div>
 
         
