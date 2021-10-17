@@ -14,6 +14,7 @@
     font-family: sans-serif;
     color: #5e645e;
     font-weight: 600;
+    transition: color 1s;
 }
 
 .square {
@@ -146,11 +147,21 @@ i {
 }
 
 .leader-number {
-    width: 2rem;
+    width: 1rem;
+    text-align: center;
+}
+
+.user-leader-number {
+    width: 4rem;
+    text-align: center;
+}
+.user-leader-value {
+    width: 4rem;
     text-align: center;
 }
 
 .leaderboard-item {
+    font-size: 0.9rem;
     font-family: "Goudy Old Style";
 
 }
@@ -242,11 +253,18 @@ button.blue, button.blue:hover, #numberButtonsDiv button.btn.blue:active {
     border: none;
 }
 
-.filled-cell {
-    transition: color 1.5s;
-}
 
 .puzzle-part {
     color: rgb(0, 25, 56);
-    transition: color 1.5s;
+}
+
+#userLeaderboardItem {
+    font-family: "Goudy Old Style Bold";
+    font-size: 1.5em;
+    border-top: grey 1px solid;
+}
+
+.leaderboard-header {
+    font-family: "Goudy Old Style";
+    font-size: 1em;
 }

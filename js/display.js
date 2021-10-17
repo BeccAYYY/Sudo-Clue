@@ -57,10 +57,16 @@ function displayPuzzle() {
     var userInnerCounter = -6;
     var userElementsArray = new Array;
     var userValuesArray = new Array;
+    var userCandidatesOuterCounter = 0;
+    var userCandidatesInnerCounter = -6;
+    var userCandidatesElementsArray = new Array;
+    var userCandidatesValuesArray = new Array;
     for (let y = 0; y < 9; y++) {
         for (let x = 0; x < 9; x++) {
             var id = String(x) + String(y);
             var element = document.getElementById(id);
+            element.classList.remove("puzzle-part", "empty-cell", "filled-cell")
+
             if (currentPuzzle[y][x]) {
                 elementsArray[outerCounter] = element;
                 valuesArray[outerCounter] = currentPuzzle[y][x]
@@ -71,10 +77,14 @@ function displayPuzzle() {
                 userValuesArray[userOuterCounter] = userGrid[y][x]
                 element.classList.add("invisible-text")
                 userOuterCounter++;
+            } else if (userCandidatesGrid[y][x]) {
+                userCandidatesElementsArray[userCandidatesOuterCounter] = element;
+                userCandidatesValuesArray[userCandidatesOuterCounter] = userCandidatesGrid[y][x]
+                element.classList.add("invisible-text")
+                userCandidatesOuterCounter++;
             } else {
                 element.innerHTML = candidatesDivString;
                 element.classList.add("empty-cell")
-                element.classList.remove("puzzle-part")
             }  
             
         }
@@ -93,18 +103,46 @@ function displayPuzzle() {
             clearInterval(interval);
         }
     }, 50)
+    var fillUserCandidatesCells = false;
     var userInterval = setInterval(() => {
         if (fillUserCells) {
-            if (userInnerCounter > -1) {
-                element = userElementsArray[userInnerCounter]
-                element.innerHTML = userValuesArray[userInnerCounter]
-                element.classList.add("filled-cell")
-                element.classList.remove("invisible-text", "empty-cell")
+            if (userElementsArray.length) {
+                if (userInnerCounter > -1) {
+                    element = userElementsArray[userInnerCounter]
+                    element.innerHTML = userValuesArray[userInnerCounter]
+                    element.classList.add("filled-cell")
+                    element.classList.remove("invisible-text", "empty-cell")
+                }
+                userInnerCounter++;
+                if (userInnerCounter == userOuterCounter){
+                    fillUserCandidatesCells = true;
+                    clearInterval(userInterval);
+                }
+            } else {
+                fillUserCandidatesCells = true;
+                clearInterval(userInterval);
             }
-            userInnerCounter++;
         }
-        if (userInnerCounter == userOuterCounter){
-            clearInterval(userInterval);
+        
+    }, 50)
+    var userCandidatesInterval = setInterval(() => {
+        if (fillUserCandidatesCells) {
+            if (userCandidatesInnerCounter > -1) {
+                element = userCandidatesElementsArray[userCandidatesInnerCounter]
+                element.innerHTML = candidatesDivString
+                userCandidatesValuesArray[userCandidatesInnerCounter].forEach(candidate => {
+                    var qSelector = ".candidate-" + candidate;
+                    element.querySelector(qSelector).classList.remove("invisible-text")
+                })
+                element.classList.add("empty-cell")
+                element.classList.remove("invisible-text", "empty-cell")
+                
+            }
+            userCandidatesInnerCounter++;
+        }
+        if (userCandidatesInnerCounter == userCandidatesOuterCounter){
+            fillUserCandidatesCells = true;
+            clearInterval(userCandidatesInterval);
         }
     }, 50)
 }
@@ -131,33 +169,52 @@ function formatTimer() {
 
 function buttonPress(element) {
     if (highlightedCell) {
+        //Runs if a cell is currently selected
+        var x = highlightedCell[0];
+        var y = highlightedCell[1];
         var cellDiv = document.getElementById(highlightedCell)
-        if (candidatesUpdate) {
-            var qSelector = " .candidate-" + element.innerHTML;
-            var candidateDiv = cellDiv.querySelector(qSelector);
-            if (candidateDiv.classList.contains("invisible-text")) {
-                candidateDiv.classList.remove("invisible-text")
+        if (!cellDiv.classList.contains("puzzle-part")) {
+            //Runs if cell can be edited (not part of the puzzle)
+            if (candidatesUpdate) {
+                //Runs if candidates update button is active (editing candidates)
+                var qSelector = " .candidate-" + element.innerHTML;
+                var candidateDiv = cellDiv.querySelector(qSelector);
+                
+                if (candidateDiv.classList.contains("invisible-text")) {
+                    //Runs if candidate is currently hidden (unhides/adds candidate to candidates array)
+                    candidateDiv.classList.remove("invisible-text")
+                    if (userCandidatesGrid[y][x]) {
+                        //Runs if Candidates for the cell is already an array (not 0)
+                        userCandidatesGrid[y][x].push(parseInt(element.innerHTML))
+                    } else {
+                        //Runs if candidates for the cell is empty (0) and changes it to an array and adds the candidate
+                        userCandidatesGrid[y][x] = new Array;
+                        userCandidatesGrid[y][x].push(parseInt(element.innerHTML))
+                    }
+                } else {
+                    //Runs if candidate is currently show (hides it and removes it from candidates array)
+                    userCandidatesGrid[y][x].splice(userCandidatesGrid[y][x].indexOf(parseInt(element.innerHTML)), 1)
+                    candidateDiv.classList.add("invisible-text");
+                    if (!userCandidatesGrid.length) {
+                        //If the new array of candidates is empty, changes it back from an array to a 0
+                        userCandidatesGrid[y][x] = 0;
+                    }
+                }
+                //Updates candidates grid localstorage after the above has executed
+                localStorage.setItem("userCandidatesGrid", JSON.stringify(userCandidatesGrid))
             } else {
-                candidateDiv.classList.add("invisible-text");
-            }
-        } else {
-            
-            if (!cellDiv.classList.contains("puzzle-part")) {
+                //Runs if candidates editing is not selected (fills the cell)
                 cellDiv.innerHTML = element.innerHTML;
                 cellDiv.classList.remove("empty-cell");
                 cellDiv.classList.add("filled-cell");
                 highlightCell(cellDiv);
-                var x = highlightedCell[0];
-                var y = highlightedCell[1];
                 userGrid[y][x] = parseInt(element.innerHTML)
                 localStorage.setItem("userGrid", JSON.stringify(userGrid))
-            }
-            
-            //fill highlighted cell with innerHTML of button and update puzzleentries grid and localstorage. Remove candidates
-        }
-    } else {
 
-    }
+                //fill highlighted cell with innerHTML of button and update puzzleentries grid and localstorage. Remove candidates
+            }
+        } 
+    } 
 }
 
 function clearCell() {
@@ -171,7 +228,9 @@ function clearCell() {
             var x = highlightedCell[0];
             var y = highlightedCell[1];
             userGrid[y][x] = 0;
+            userCandidatesGrid[y][x] = 0;
             localStorage.setItem("userGrid", JSON.stringify(userGrid));
+            localStorage.setItem("userCandidatesGrid", JSON.stringify(userCandidatesGrid));
         }
     }
 }
@@ -179,5 +238,7 @@ function clearCell() {
 function clearPuzzle() {
     userGrid = returnEmptyGrid();
     localStorage.setItem("userGrid", JSON.stringify(userGrid))
+    userCandidatesGrid = returnEmptyGrid();
+    localStorage.setItem("userCandidatesGrid", JSON.stringify(userCandidatesGrid))
     displayPuzzle()
 }

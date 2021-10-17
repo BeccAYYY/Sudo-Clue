@@ -4,7 +4,6 @@ var groups = new Array;
 var oneThroughNine = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 if (localStorage.getItem("Lone Rangers") == null) {
-    console.log('oh no')
     localStorage.setItem("Lone Rangers", true);
     localStorage.setItem("Locked Candidates", true);
     localStorage.setItem("Naked Subsets", true);
@@ -20,7 +19,7 @@ var methods = {
 var settings = {
     "candidates": true,
     "automaticCorrection": true,
-    "minimumClues": 20
+    "minimumClues": getMinimumClues()
 }
 
 if (localStorage.getItem("timerValue") == null) {
@@ -47,3 +46,4 @@ createGroupsArray();
 var candidatesUpdate = false;
 var highlightedCell = false;
 var userGrid = getUserGrid()
+var userCandidatesGrid = getUserCandidatesGrid()

@@ -19,6 +19,22 @@ function getUserGrid() {
     return userGrid;
 }
 
+function getUserCandidatesGrid() {
+    if (localStorage.getItem("userCandidatesGrid") == null) {
+        localStorage.setItem("userCandidatesGrid", JSON.stringify(returnEmptyGrid())) 
+    }
+    userCandidatesGrid = JSON.parse(localStorage.getItem("userCandidatesGrid"));
+    return userCandidatesGrid;
+}
+
+function getMinimumClues() {
+    if (localStorage.getItem("minimumClues") == null) {
+        localStorage.setItem("minimumClues", 20) 
+    }
+    var minimumClues = localStorage.getItem("minimumClues");
+    return minimumClues;
+}
+
 
 
 
@@ -39,6 +55,10 @@ function continueGame() {
 function newGame() {
     getSuccessfulSolution();
     currentPuzzle = createPuzzleFromSolution();
+    userGrid = returnEmptyGrid();
+    localStorage.setItem("userGrid", JSON.stringify(userGrid));
+    userCandidatesGrid = returnEmptyGrid();
+    localStorage.setItem("userCandidatesGrid", JSON.stringify(userCandidatesGrid));
     saveCurrentPuzzleToLocalStorage();
     displayPuzzle();
     inProgressGame = true;

@@ -363,12 +363,10 @@
             <span class="secondary-text">Puzzles Completed</span>
             <span class="unselected secondary-text">Time</span>
         </div>
-        <div class="d-flex flex-row justify-content-between align-items-center py-2 px-4 w-100">
-            <span class="unselected secondary-text">Beginner</span>
-            <span class="secondary-text">Intermediate</span>
-            <span class="unselected secondary-text">Expert</span>
-        </div>
     <div class="d-flex flex-column w-100 h-75 justify-content-between pt-2 pb-3">
+        <div class="d-flex px-4 mx-2 justify-content-between align-items-center leaderboard-header">
+            <div class="leader-number text-center w-25">Placement</div><div class="text-center w-25">Username</div><div class="w-25 text-center">Number Complete</div>
+        </div>
         <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
             <div class="leader-number">1.</div><div class="text-center">ReallyLongUsername</div><div>100</div>
         </div>
@@ -399,6 +397,9 @@
         <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
             <div class="leader-number">10.</div><div class="text-center">Username</div><div>100</div>
         </div>
+        <div class="d-flex mx-5 justify-content-between leaderboard-item" id="userLeaderboardItem">
+            <div class="user-leader-number">103.</div><div class="text-center">You</div><div class="user-leader-value">100</div>
+        </div>
     </div>
 
 
@@ -410,12 +411,6 @@
     <div class="page flex-column align-items-center justify-content-between menu-child hidden" id="account">
         <div class="d-flex flex-row justify-content-center align-items-center w-100 px-3">
             <h6 class="m-0">Username</h6>
-        </div>
-        <div class="d-flex flex-row justify-content-between align-items-center py-0 py-xs-2 px-4 w-100 mt-2">
-            <span class="secondary-text unselected">Beginner</span>
-            <span class="secondary-text">Intermediate</span>
-            <span class="secondary-text unselected">Expert</span>
-            <span class="secondary-text unselected">All</span>
         </div>
         <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
             <div class="stat-item">Games Played:</div><div class="stat-value">100</div>

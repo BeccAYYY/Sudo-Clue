@@ -36,6 +36,7 @@ pauseButton.addEventListener("click", () => {
 });
 minimumClues.addEventListener("input", () => {
     settings["minimumClues"] = minimumClues.value;
+    localStorage.setItem("minimumClues", minimumClues.value)
     cluesSettingNumber.innerHTML = settings["minimumClues"];
 })
 loneRangersCheckbox.addEventListener("change", () => {
@@ -101,7 +102,16 @@ function turnOnAndOffCandidatesEditing() {
 
 
 function openAndCloseHamburger() {
+    document.querySelectorAll(".menu-child").forEach(e => {
+        if (!e.classList.contains("hidden")) {
+            e.classList.add("transition", "hidden");
+            setTimeout( () => {
+                e.classList.remove("transition");
+            }, 500)
+        }
+    })
     if (menu.classList.contains("hidden")) {
+        
         menu.classList.remove("hidden");
         hamburger.innerHTML = '<i class="bi bi-x fs-1 fw-bold"></i>';
         pause = true
@@ -109,14 +119,7 @@ function openAndCloseHamburger() {
     } else {
         menu.classList.add("hidden")
         hamburger.innerHTML = '<i class="bi bi-list fs-1 fw-bold"></i>';
-        document.querySelectorAll(".menu-child").forEach(e => {
-            if (!e.classList.contains("hidden")) {
-                e.classList.add("transition", "hidden");
-                setTimeout( () => {
-                    e.classList.remove("transition");
-                }, 500)
-            }
-        })
+        
         if (welcome.classList.contains("hidden")) {
             startTimer()
         }
@@ -150,4 +153,3 @@ function openMenuPage(e) {
 }
 
 
-localStorage.removeItem("candidatesGrid")
