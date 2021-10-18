@@ -29,7 +29,7 @@ function getUserCandidatesGrid() {
 
 function getMinimumClues() {
     if (localStorage.getItem("minimumClues") == null) {
-        localStorage.setItem("minimumClues", 20) 
+        localStorage.setItem("minimumClues", 40) 
     }
     var minimumClues = localStorage.getItem("minimumClues");
     return minimumClues;

@@ -30,7 +30,23 @@ function highlightCell(element) {
     } else {
         element.classList.add('pink')
     }
-
+    if (element.classList.contains("puzzle-part")) {
+        document.querySelectorAll("button").forEach(button =>  {
+            button.classList.remove("blue", "not-candidate")
+            button.classList.add("disabled");
+        })
+    } else if (element.classList.contains("filled-cell")) {
+        document.querySelectorAll("button").forEach(button =>  {
+            button.classList.remove("disabled", "not-candidate", "blue")
+            if (element.innerHTML == button.innerHTML) {
+                button.classList.add("blue");
+            }
+        })
+    } else if (element.classList.contains("empty-cell")) {
+        document.querySelectorAll("button").forEach(button =>  {
+            button.classList.remove("disabled", "not-candidate", "blue")
+        })
+    }
 }
 
 
@@ -174,36 +190,36 @@ function buttonPress(element) {
         var y = highlightedCell[1];
         var cellDiv = document.getElementById(highlightedCell)
         if (!cellDiv.classList.contains("puzzle-part")) {
-            //Runs if cell can be edited (not part of the puzzle)
+        //Runs if cell can be edited (not part of the puzzle)
             if (candidatesUpdate) {
-                //Runs if candidates update button is active (editing candidates)
+            //Runs if candidates update button is active (editing candidates)
                 var qSelector = " .candidate-" + element.innerHTML;
                 var candidateDiv = cellDiv.querySelector(qSelector);
                 
                 if (candidateDiv.classList.contains("invisible-text")) {
-                    //Runs if candidate is currently hidden (unhides/adds candidate to candidates array)
+                //Runs if candidate is currently hidden (unhides/adds candidate to candidates array)
                     candidateDiv.classList.remove("invisible-text")
                     if (userCandidatesGrid[y][x]) {
-                        //Runs if Candidates for the cell is already an array (not 0)
+                    //Runs if Candidates for the cell is already an array (not 0)
                         userCandidatesGrid[y][x].push(parseInt(element.innerHTML))
                     } else {
-                        //Runs if candidates for the cell is empty (0) and changes it to an array and adds the candidate
+                    //Runs if candidates for the cell is empty (0) and changes it to an array and adds the candidate
                         userCandidatesGrid[y][x] = new Array;
                         userCandidatesGrid[y][x].push(parseInt(element.innerHTML))
                     }
                 } else {
-                    //Runs if candidate is currently show (hides it and removes it from candidates array)
+                //Runs if candidate is currently show (hides it and removes it from candidates array)
                     userCandidatesGrid[y][x].splice(userCandidatesGrid[y][x].indexOf(parseInt(element.innerHTML)), 1)
                     candidateDiv.classList.add("invisible-text");
                     if (!userCandidatesGrid.length) {
-                        //If the new array of candidates is empty, changes it back from an array to a 0
+                    //If the new array of candidates is empty, changes it back from an array to a 0
                         userCandidatesGrid[y][x] = 0;
                     }
                 }
                 //Updates candidates grid localstorage after the above has executed
                 localStorage.setItem("userCandidatesGrid", JSON.stringify(userCandidatesGrid))
             } else {
-                //Runs if candidates editing is not selected (fills the cell)
+            //Runs if candidates editing is not selected (fills the cell)
                 cellDiv.innerHTML = element.innerHTML;
                 cellDiv.classList.remove("empty-cell");
                 cellDiv.classList.add("filled-cell");
@@ -241,4 +257,21 @@ function clearPuzzle() {
     userCandidatesGrid = returnEmptyGrid();
     localStorage.setItem("userCandidatesGrid", JSON.stringify(userCandidatesGrid))
     displayPuzzle()
+}
+
+
+function changeToCustomDifficulty() {
+    document.querySelectorAll(".selected-button").forEach(button => {
+        button.classList.remove("selected-button")
+    })
+    customDifficultyButton.classList.add("selected-button")
+    localStorage.setItem("Difficulty", "custom");
+}
+function setDifficultySettingInputs() {
+    cluesSettingNumber.innerHTML = settings["minimumClues"]
+    minimumClues.value = settings["minimumClues"]
+    loneRangersCheckbox.checked = methods["Lone Rangers"]
+    lockedCandidatesCheckbox.checked = methods["Locked Candidates"]
+    nakedSubsetsCheckbox.checked = methods["Naked Subsets"]
+    hiddenSubsetsCheckbox.checked = methods["Hidden Subsets"]
 }

@@ -5,9 +5,9 @@ var oneThroughNine = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 if (localStorage.getItem("Lone Rangers") == null) {
     localStorage.setItem("Lone Rangers", true);
-    localStorage.setItem("Locked Candidates", true);
-    localStorage.setItem("Naked Subsets", true);
-    localStorage.setItem("Hidden Subsets", true);
+    localStorage.setItem("Locked Candidates", false);
+    localStorage.setItem("Naked Subsets", false);
+    localStorage.setItem("Hidden Subsets", false);
 }
 
 var methods = {
@@ -25,6 +25,13 @@ var settings = {
 if (localStorage.getItem("timerValue") == null) {
     localStorage.setItem("timerValue", 0)
 }
+if (localStorage.getItem("Difficulty") == null) {
+    localStorage.setItem("Difficulty", "beginner");
+}
+
+var onLoadDifficultyButton = localStorage.getItem("Difficulty") + "DifficultyButton";
+console.log(onLoadDifficultyButton)
+document.getElementById(onLoadDifficultyButton).classList.add("selected-button")
 
 var timerValue = localStorage.getItem("timerValue");
 var pause = true;
@@ -34,12 +41,8 @@ if (currentPuzzle) {
     continueButton.classList.remove("d-none")
 }
 
-cluesSettingNumber.innerHTML = settings["minimumClues"]
-minimumClues.value = settings["minimumClues"]
-loneRangersCheckbox.checked = methods["Lone Rangers"]
-lockedCandidatesCheckbox.checked = methods["Locked Candidates"]
-nakedSubsetsCheckbox.checked = methods["Naked Subsets"]
-hiddenSubsetsCheckbox.checked = methods["Hidden Subsets"]
+
+setDifficultySettingInputs()
 
 createGroupsArray();
 

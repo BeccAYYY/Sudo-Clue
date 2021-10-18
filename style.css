@@ -10,11 +10,10 @@
 .cell {
     background-color: white;
     height: calc(100% / 3);
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.3s, transform 0.2s, color 1s;
     font-family: sans-serif;
     color: #5e645e;
     font-weight: 600;
-    transition: color 1s;
 }
 
 .square {
@@ -240,7 +239,11 @@ i {
 
 
 .btn {
-    transition: background-color 0.3s;
+    transition: background-color 0.2s, opacity 0.3s;
+}
+
+.btn.disabled {
+    opacity: 75%;
 }
 
 .inactive-button, .inactive-button:hover {
@@ -267,4 +270,9 @@ button.blue, button.blue:hover, #numberButtonsDiv button.btn.blue:active {
 .leaderboard-header {
     font-family: "Goudy Old Style";
     font-size: 1em;
+}
+
+.selected-button {
+    border: #5598e0 2px solid;
+    background-color: rgb(198, 225, 253);
 }

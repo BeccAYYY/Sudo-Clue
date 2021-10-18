@@ -38,22 +38,27 @@ minimumClues.addEventListener("input", () => {
     settings["minimumClues"] = minimumClues.value;
     localStorage.setItem("minimumClues", minimumClues.value)
     cluesSettingNumber.innerHTML = settings["minimumClues"];
+    changeToCustomDifficulty();
 })
 loneRangersCheckbox.addEventListener("change", () => {
     localStorage.setItem("Lone Rangers", loneRangersCheckbox.checked);
     methods["Lone Rangers"] = loneRangersCheckbox.checked;
+    changeToCustomDifficulty();
 })
 lockedCandidatesCheckbox.addEventListener("change", () => {
     localStorage.setItem("Locked Candidates", lockedCandidatesCheckbox.checked);
     methods["lockedCandidates"] = lockedCandidatesCheckbox.checked;
+    changeToCustomDifficulty();
 })
 hiddenSubsetsCheckbox.addEventListener("change", () => {
     localStorage.setItem("Hidden Subsets", hiddenSubsetsCheckbox.checked);
     methods["Hidden Subsets"] = hiddenSubsetsCheckbox.checked;
+    changeToCustomDifficulty();
 })
 nakedSubsetsCheckbox.addEventListener("change", () => {
     localStorage.setItem("Naked Subsets", nakedSubsetsCheckbox.checked);
     methods["Naked Subsets"] = nakedSubsetsCheckbox.checked;
+    changeToCustomDifficulty();
 })
 candidatesEditButton.addEventListener("click", turnOnAndOffCandidatesEditing);
 
@@ -61,8 +66,55 @@ document.querySelectorAll("button").forEach(button => {
     button.addEventListener("click", (e) => buttonPress(e.target));
 })
 clearCellButton.addEventListener("click", clearCell);
-
-
+beginnerDifficultyButton.addEventListener("click", () => {
+    settings["minimumClues"] = 40;
+    methods = {
+        "Lone Rangers": true, 
+        "Locked Candidates": false, 
+        "Naked Subsets": false, 
+        "Hidden Subsets": false
+    };
+    updateDifficultySettingsInLocalStorage();
+    setDifficultySettingInputs();
+    document.querySelectorAll(".selected-button").forEach(button => {
+        button.classList.remove("selected-button");
+    })
+    beginnerDifficultyButton.classList.add("selected-button");
+    localStorage.setItem("Difficulty", "beginner");
+})
+intermediateDifficultyButton.addEventListener("click", () => {
+    settings["minimumClues"] = 30;
+    methods = {
+        "Lone Rangers": true, 
+        "Locked Candidates": true, 
+        "Naked Subsets": false, 
+        "Hidden Subsets": false
+    };
+    updateDifficultySettingsInLocalStorage()
+    setDifficultySettingInputs()
+    document.querySelectorAll(".selected-button").forEach(button => {
+        button.classList.remove("selected-button")
+    })
+    intermediateDifficultyButton.classList.add("selected-button");
+    localStorage.setItem("Difficulty", "intermediate");
+})
+expertDifficultyButton.addEventListener("click", () => {
+    settings["minimumClues"] = 20;
+    methods = {
+        "Lone Rangers": true, 
+        "Locked Candidates": true, 
+        "Naked Subsets": true, 
+        "Hidden Subsets": true
+    };
+    updateDifficultySettingsInLocalStorage()
+    setDifficultySettingInputs()
+    document.querySelectorAll(".selected-button").forEach(button => {
+        button.classList.remove("selected-button")
+    })
+    expertDifficultyButton.classList.add("selected-button");
+    localStorage.setItem("Difficulty", "expert");
+})
+customDifficultyButton.addEventListener("click", changeToCustomDifficulty)
 
 document.querySelectorAll(".back-to-menu").forEach(e => {
     e.addEventListener("click", () => {
