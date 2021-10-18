@@ -211,6 +211,8 @@ function formatTimer() {
 
 function buttonPress(element) {
     if (highlightedCell) {
+        userGridHistory.push(createCopyOfMultidimensionalArray(userGrid));
+        userCandidatesGridHistory.push(createCopyOfMultidimensionalArray(userCandidatesGrid));
         //Runs if a cell is currently selected
         var x = parseInt(highlightedCell[0]);
         var y = parseInt(highlightedCell[1]);
@@ -345,4 +347,15 @@ function resetPuzzleDisplay() {
         }
     }
 
+}
+
+
+function undo() {
+    if (userGridHistory.length) {
+        userGrid = userGridHistory.splice(userGridHistory.length -1, 1)[0];
+        userCandidatesGrid = userCandidatesGridHistory.splice(userCandidatesGridHistory.length -1, 1)[0];
+        localStorage.setItem("userGrid", JSON.stringify(userGrid));
+        localStorage.setItem("userCandidatesGrid", JSON.stringify(userCandidatesGrid));
+        resetPuzzleDisplay();
+    }
 }

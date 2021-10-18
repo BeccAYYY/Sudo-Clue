@@ -115,6 +115,7 @@ expertDifficultyButton.addEventListener("click", () => {
     localStorage.setItem("Difficulty", "expert");
 })
 customDifficultyButton.addEventListener("click", changeToCustomDifficulty)
+undoButton.addEventListener("click", undo)
 
 document.querySelectorAll(".back-to-menu").forEach(e => {
     e.addEventListener("click", () => {

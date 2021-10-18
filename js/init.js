@@ -49,3 +49,6 @@ var candidatesUpdate = false;
 var highlightedCell = false;
 var userGrid = getUserGrid()
 var userCandidatesGrid = getUserCandidatesGrid()
+
+var userGridHistory = new Array;
+var userCandidatesGridHistory = new Array;
