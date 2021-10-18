@@ -30,7 +30,6 @@ if (localStorage.getItem("Difficulty") == null) {
 }
 
 var onLoadDifficultyButton = localStorage.getItem("Difficulty") + "DifficultyButton";
-console.log(onLoadDifficultyButton)
 document.getElementById(onLoadDifficultyButton).classList.add("selected-button")
 
 var timerValue = localStorage.getItem("timerValue");

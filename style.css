@@ -243,7 +243,7 @@ i {
 }
 
 .btn.disabled {
-    opacity: 75%;
+    opacity: 60%;
 }
 
 .inactive-button, .inactive-button:hover {
@@ -253,7 +253,7 @@ i {
 
 button.blue, button.blue:hover, #numberButtonsDiv button.btn.blue:active {
     background-color: #5598e0;
-    border: none;
+    border: #5598e0 1px solid;
 }
 
 
@@ -275,4 +275,8 @@ button.blue, button.blue:hover, #numberButtonsDiv button.btn.blue:active {
 .selected-button {
     border: #5598e0 2px solid;
     background-color: rgb(198, 225, 253);
+}
+
+.not-candidate {
+    opacity: 80%;
 }

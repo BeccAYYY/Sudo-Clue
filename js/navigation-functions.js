@@ -145,9 +145,9 @@ function turnOnAndOffCandidatesEditing() {
     } else {
         candidatesEditButton.classList.add("blue-icon");
         candidatesUpdate = true;
-        if (highlightedCell) {
-
-        }
+    }
+    if (highlightedCell) {
+        highlightCell(document.getElementById(highlightedCell))
     }
 }
 
