@@ -212,8 +212,8 @@ function formatTimer() {
 function buttonPress(element) {
     if (highlightedCell) {
         //Runs if a cell is currently selected
-        var x = highlightedCell[0];
-        var y = highlightedCell[1];
+        var x = parseInt(highlightedCell[0]);
+        var y = parseInt(highlightedCell[1]);
         var cellDiv = document.getElementById(highlightedCell)
         if (!cellDiv.classList.contains("puzzle-part")) {
         //Runs if cell can be edited (not part of the puzzle)
@@ -256,10 +256,15 @@ function buttonPress(element) {
                     cellDiv.innerHTML = element.innerHTML;
                     cellDiv.classList.remove("empty-cell");
                     cellDiv.classList.add("filled-cell");
+                    userGrid[y][x] = parseInt(element.innerHTML)
+                    userCandidatesGrid[y][x] = 0;
+                    puzzleCandidates = createCopyOfMultidimensionalArray(userCandidatesGrid);
+                    changeCandidatesGridAfterFill(x, y, userGrid[y][x]);
+                    userCandidatesGrid = createCopyOfMultidimensionalArray(puzzleCandidates);
+                    resetPuzzleDisplay()
                 }
-                userGrid[y][x] = parseInt(element.innerHTML)
-                userCandidatesGrid[y][x] = 0;
-                localStorage.setItem("userGrid", JSON.stringify(userGrid))
+                
+                localStorage.setItem("userGrid", JSON.stringify(userGrid));
                 //fill highlighted cell with innerHTML of button and update puzzleentries grid and localstorage. Remove candidates
             }
         } 
@@ -292,7 +297,7 @@ function clearPuzzle() {
     localStorage.setItem("userGrid", JSON.stringify(userGrid))
     userCandidatesGrid = returnEmptyGrid();
     localStorage.setItem("userCandidatesGrid", JSON.stringify(userCandidatesGrid))
-    displayPuzzle()
+    resetPuzzleDisplay()
 }
 
 
@@ -310,4 +315,34 @@ function setDifficultySettingInputs() {
     lockedCandidatesCheckbox.checked = methods["Locked Candidates"]
     nakedSubsetsCheckbox.checked = methods["Naked Subsets"]
     hiddenSubsetsCheckbox.checked = methods["Hidden Subsets"]
+}
+
+
+function resetPuzzleDisplay() {
+    for (let y = 0; y < 9; y++) {
+        for (let x = 0; x < 9; x++) {
+            var id = String(x) + String(y);
+            var element = document.getElementById(id);
+            element.classList.remove("puzzle-part", "empty-cell", "filled-cell");
+            if (currentPuzzle[y][x]) {
+                element.innerHTML = currentPuzzle[y][x];
+                element.classList.add("puzzle-part");
+            } else if (userGrid[y][x]) {
+                element.innerHTML = userGrid[y][x];
+                element.classList.add("filled-cell");
+            } else if (userCandidatesGrid[y][x]) {
+                element.innerHTML = candidatesDivString;
+                userCandidatesGrid[y][x].forEach(candidate => {
+                    var qSelector = ".candidate-" + candidate;
+                    element.querySelector(qSelector).classList.remove("invisible-text");
+                })
+                element.classList.add("empty-cell");
+            } else {
+                element.innerHTML = candidatesDivString;
+                element.classList.add("empty-cell");
+            }  
+            
+        }
+    }
+
 }
