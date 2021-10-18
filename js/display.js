@@ -256,7 +256,7 @@ function buttonPress(element) {
                 } else {
                 //Runs if the button number is different to the value of the cell
                     cellDiv.innerHTML = element.innerHTML;
-                    cellDiv.classList.remove("empty-cell");
+                    cellDiv.classList.remove("empty-cell", "wrong-cell");
                     cellDiv.classList.add("filled-cell");
                     userGrid[y][x] = parseInt(element.innerHTML)
                     userCandidatesGrid[y][x] = 0;
@@ -264,6 +264,8 @@ function buttonPress(element) {
                     changeCandidatesGridAfterFill(x, y, userGrid[y][x]);
                     userCandidatesGrid = createCopyOfMultidimensionalArray(puzzleCandidates);
                     resetPuzzleDisplay()
+                    
+
                 }
                 
                 localStorage.setItem("userGrid", JSON.stringify(userGrid));
@@ -290,6 +292,7 @@ function clearCell() {
             userCandidatesGrid[y][x] = 0;
             localStorage.setItem("userGrid", JSON.stringify(userGrid));
             localStorage.setItem("userCandidatesGrid", JSON.stringify(userCandidatesGrid));
+            cell.classList.remove("wrong-cell")
         }
     }
 }
@@ -330,8 +333,12 @@ function resetPuzzleDisplay() {
                 element.innerHTML = currentPuzzle[y][x];
                 element.classList.add("puzzle-part");
             } else if (userGrid[y][x]) {
-                element.innerHTML = userGrid[y][x];
                 element.classList.add("filled-cell");
+                if (element.innerHTML != userGrid[y][x]) {
+                    element.innerHTML = userGrid[y][x];
+                    element.classList.remove("wrong-cell");
+                }
+                
             } else if (userCandidatesGrid[y][x]) {
                 element.innerHTML = candidatesDivString;
                 userCandidatesGrid[y][x].forEach(candidate => {
@@ -340,8 +347,11 @@ function resetPuzzleDisplay() {
                 })
                 element.classList.add("empty-cell");
             } else {
-                element.innerHTML = candidatesDivString;
                 element.classList.add("empty-cell");
+                if (element.innerHTML != candidatesDivString) {
+                    element.innerHTML = candidatesDivString;
+                    element.classList.remove("wrong-cell");
+                }
             }  
             
         }
@@ -357,5 +367,8 @@ function undo() {
         localStorage.setItem("userGrid", JSON.stringify(userGrid));
         localStorage.setItem("userCandidatesGrid", JSON.stringify(userCandidatesGrid));
         resetPuzzleDisplay();
+        if (highlightedCell) {
+            highlightCell(document.getElementById(highlightedCell))
+        }
     }
 }

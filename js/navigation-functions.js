@@ -116,6 +116,7 @@ expertDifficultyButton.addEventListener("click", () => {
 })
 customDifficultyButton.addEventListener("click", changeToCustomDifficulty)
 undoButton.addEventListener("click", undo)
+checkAnswersButton.addEventListener("click", checkAnswers)
 
 document.querySelectorAll(".back-to-menu").forEach(e => {
     e.addEventListener("click", () => {

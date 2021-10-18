@@ -82,3 +82,17 @@ function startTimer() {
     }
 }
 
+
+function checkAnswers() {
+    checkIfSolvable(currentPuzzle)
+    for (let y = 0; y < 9; y++) {
+        for (let x = 0; x < 9; x++) {
+            if (userGrid[y][x] && userGrid[y][x] !== puzzle[y][x]) {
+                var id = String(x) + String(y)
+                document.getElementById(id).classList.add("wrong-cell")
+                setTimeout((id) => document.getElementById(id).classList.remove("wrong-cell"), 10000, id)
+            }
+        }
+    }
+}
+
