@@ -64,6 +64,8 @@ function newGame() {
     inProgressGame = true;
     timerValue = 0;
     startTimer();
+    userGridHistory = new Array;
+    userCandidatesGridHistory = new Array;
 }
 
 var interval;

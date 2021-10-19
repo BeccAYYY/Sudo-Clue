@@ -19,6 +19,7 @@
     <script src="js/display.js" defer></script>
     <script src="js/local-storage.js" defer></script>
     <script src="js/current-puzzle.js" defer></script>
+    <script src="js/fake-data.js" defer></script>
     <script src="js/navigation-functions.js" defer></script>
     <script src="js/init.js" defer></script>
     <script src="js.js" defer></script>
@@ -354,50 +355,50 @@
 
 
     <!--Leaderboard-->
-    <div class="page flex-column align-items-center justify-content-center menu-child hidden" id="leaderboard">
+    <div class="page flex-column align-items-center justify-content-center menu-child hidden" id="leaderboardPage">
 
         <div class="d-flex flex-row justify-content-center align-items-center w-100 px-3">
             <h6 class="m-0">Leaderboard</h6>
         </div>
         <div class="d-flex flex-row justify-content-between align-items-center py-2 px-3 w-75">
-            <span class="secondary-text">Puzzles Completed</span>
-            <span class="unselected secondary-text">Time</span>
+            <span class="secondary-text" id="leaderboardCompletedSelect">Puzzles Completed</span>
+            <span class="unselected secondary-text" id="leaderboardTimeSelect">Time</span>
         </div>
     <div class="d-flex flex-column w-100 h-75 justify-content-between pt-2 pb-3">
         <div class="d-flex px-4 mx-2 justify-content-between align-items-center leaderboard-header">
-            <div class="leader-number text-center w-25">Placement</div><div class="text-center w-25">Username</div><div class="w-25 text-center">Number Complete</div>
+            <div class="leader-number text-center w-25">Placement</div><div class="text-center w-25">Username</div><div class="w-25 text-end">Score</div>
         </div>
         <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number">1.</div><div class="text-center">ReallyLongUsername</div><div>100</div>
+            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
         </div>
         <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number">2.</div><div class="text-center"> Username</div><div>100</div>
+            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
         </div>
         <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number">3.</div><div class="text-center"> Username</div><div>100</div>
+            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
         </div>
         <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number">4.</div><div class="text-center"> Username</div><div>100</div>
+            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
         </div>
         <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number">5.</div><div class="text-center"> Username</div><div>100</div>
+            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
         </div>
         <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number">6.</div><div class="text-center"> Username</div><div>100</div>
+            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
         </div>
         <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number">7.</div><div class="text-center"> Username</div><div>100</div>
+            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
         </div>
         <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number">8.</div><div class="text-center"> Username</div><div>100</div>
+            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
         </div>
         <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number">9.</div><div class="text-center"> Username</div><div>100</div>
+            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
         </div>
         <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number">10.</div><div class="text-center">Username</div><div>100</div>
+            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
         </div>
-        <div class="d-flex mx-5 justify-content-between leaderboard-item" id="userLeaderboardItem">
+        <div class="d-flex mx-5 justify-content-between" id="userLeaderboardItem">
             <div class="user-leader-number">103.</div><div class="text-center">You</div><div class="user-leader-value">100</div>
         </div>
     </div>
@@ -412,19 +413,19 @@
         <div class="d-flex flex-row justify-content-center align-items-center w-100 px-3">
             <h6 class="m-0">Username</h6>
         </div>
-        <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
+        <div class="d-flex w-100 px-5 justify-content-between secondary-text">
             <div class="stat-item">Games Played:</div><div class="stat-value">100</div>
         </div>
       
-        <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
+        <div class="d-flex w-100 px-5 justify-content-between secondary-text">
             <div class="stat-item">Games Completed:</div><div class="stat-value">100</div>
         </div>
 
-        <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
+        <div class="d-flex w-100 px-5 justify-content-between secondary-text">
             <div class="stat-item">Average Time:</div><div class="stat-value">100</div>
         </div>
       
-        <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
+        <div class="d-flex w-100 px-5 justify-content-between secondary-text">
             <div class="stat-item">Best Time:</div><div class="stat-value">100</div>
         </div>
 

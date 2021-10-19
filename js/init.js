@@ -52,3 +52,5 @@ var userCandidatesGrid = getUserCandidatesGrid()
 
 var userGridHistory = new Array;
 var userCandidatesGridHistory = new Array;
+
+displayPuzzlesComplete()

@@ -372,3 +372,24 @@ function undo() {
         }
     }
 }
+
+
+function displayPuzzlesComplete() {
+    document.querySelectorAll(".leaderboard-item").forEach((div, i) => {
+        div.querySelector(".leader-number").innerHTML = leaderboard.puzzlesComplete[i].rank + ".";
+        div.querySelector(".leader-username").innerHTML = leaderboard.puzzlesComplete[i].username;
+        div.querySelector(".leader-score").innerHTML = leaderboard.puzzlesComplete[i].score;
+    })
+    leaderboardCompletedSelect.classList.remove("unselected");
+    leaderboardTimeSelect.classList.add("unselected")
+}
+
+function displayBestTime() {
+    document.querySelectorAll(".leaderboard-item").forEach((div, i) => {
+        div.querySelector(".leader-number").innerHTML = leaderboard.bestTime[i].rank + ".";
+        div.querySelector(".leader-username").innerHTML = leaderboard.bestTime[i].username;
+        div.querySelector(".leader-score").innerHTML = leaderboard.bestTime[i].score;
+    })
+    leaderboardCompletedSelect.classList.add("unselected");
+    leaderboardTimeSelect.classList.remove("unselected")
+}

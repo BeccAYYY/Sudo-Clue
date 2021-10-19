@@ -14,7 +14,7 @@ clearGameButton.addEventListener("click", () => {
 });
 difficultyButton.addEventListener("click", () => openMenuPage(difficulty));
 difficultyMainButton.addEventListener("click", () => openMenuPage(difficulty));
-leaderboardButton.addEventListener("click", () => openMenuPage(leaderboard));
+leaderboardButton.addEventListener("click", () => openMenuPage(leaderboardPage));
 accountButton.addEventListener("click", () => openMenuPage(account));
 registerButton.addEventListener("click", () => openMenuPage(register));
 registerLinkText.addEventListener("click", () => openMenuPage(register));
@@ -117,6 +117,8 @@ expertDifficultyButton.addEventListener("click", () => {
 customDifficultyButton.addEventListener("click", changeToCustomDifficulty)
 undoButton.addEventListener("click", undo)
 checkAnswersButton.addEventListener("click", checkAnswers)
+leaderboardTimeSelect.addEventListener("click", displayBestTime)
+leaderboardCompletedSelect.addEventListener("click", displayPuzzlesComplete)
 
 document.querySelectorAll(".back-to-menu").forEach(e => {
     e.addEventListener("click", () => {
