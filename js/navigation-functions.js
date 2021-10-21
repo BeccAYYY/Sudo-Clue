@@ -119,6 +119,7 @@ undoButton.addEventListener("click", undo)
 checkAnswersButton.addEventListener("click", checkAnswers)
 leaderboardTimeSelect.addEventListener("click", displayBestTime)
 leaderboardCompletedSelect.addEventListener("click", displayPuzzlesComplete)
+getClueButton.addEventListener("click", findNextStep)
 
 document.querySelectorAll(".back-to-menu").forEach(e => {
     e.addEventListener("click", () => {

@@ -284,3 +284,8 @@ button.blue, button.blue:hover, #numberButtonsDiv button.btn.blue:active {
 .wrong-cell {
     background-color: rgb(252, 81, 81);
 }
+
+
+.hint-cell {
+    background-color: orange;
+}
