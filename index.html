@@ -39,261 +39,282 @@
 
     <!--Hamburger Menu-->
     <div class="page flex-column align-items-center justify-content-center transition hidden" id="menu">
-        <div class="menu-item d-flex align-items-center justify-content-center text-center"
-        id="clearGameButton">Clear Current Game</div>
-        <div class="menu-item d-flex align-items-center justify-content-center text-center"
-        id="newGameButton">New Game</div>
-        <div class="menu-item d-flex align-items-center justify-content-center text-center" id="difficultyButton">Change Difficulty</div>
-        <div class="menu-item d-flex align-items-center justify-content-center text-center" id="leaderboardButton">Leaderboards</div>
-        <div class="menu-item d-flex align-items-center justify-content-center text-center" id="accountButton">Account</div>
+        <div class="menu-item d-flex align-items-center justify-content-center text-center" id="clearGameButton">Clear
+            Current Game</div>
+        <div class="menu-item d-flex align-items-center justify-content-center text-center" id="newGameButton">New Game
+        </div>
+        <div class="menu-item d-flex align-items-center justify-content-center text-center" id="difficultyButton">Change
+            Difficulty</div>
+        <div class="menu-item d-flex align-items-center justify-content-center text-center" id="leaderboardButton">
+            Leaderboards</div>
+        <div class="menu-item d-flex align-items-center justify-content-center text-center" id="accountButton">Account
+        </div>
         <!--<div class="menu-item d-flex align-items-center justify-content-center text-center">How to Play</div>-->
-    
-    
+
+
     </div>
 
     <!--Game-->
-    <div class="flex-column flex-xl-row m-auto justify-content-evenly align-items-center page mb-sm-5 " id="game">
+    <div class="flex-column flex-xl-row m-auto justify-content-evenly align-items-center page mb-sm-5" id="game">
         <div>
-            <div class="d-flex flex-row justify-content-between align-items-center px-1" id="sudoku-timer">
-                <span class="secondary-text py-2" id="pauseButton"><i class="bi bi-pause-circle"></i></span>
-                <span class="secondary-text" id="timer">00:00</span>
+            <div class="d-flex flex-row justify-content-between align-items-center px-1 position-relative"
+                id="sudoku-timer">
+                <span class="secondary-text py-2 text-start justify-content-start" id="pauseButton"><i
+                        class="bi bi-pause-circle"></i></span>
+                <div class="secondary-text fs-6 align-self-center position-absolute top-50 start-50 translate-middle invisible-text" id="showClueButton">
+                    </div>
+                <span class="secondary-text text-end" id="timer">00:00</span>
             </div>
             <div class="container row border border-dark border-2 p-0 g-0 m-auto align-content-stretch fs-2 mb-1    mb-sm-4 mt-0"
-            id="sudoku">
-            <div class="row border border-1 border-dark col-4 m-0 p-0 g-0 square justify-items-stretch" id="square0">
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-0 square0" id="00"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-1 square0"
-                    id="10"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-2 square0"
-                    id="20"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-0 square0"
-                    id="01"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-1 square0"
-                    id="11"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-2 square0"
-                    id="21"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-0 square0"
-                    id="02"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-1 square0"
-                    id="12"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-2 square0"
-                    id="22"></div>
-            </div>
-            <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch" id="square1">
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-3 square1"
-                    id="30"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-4 square1"
-                    id="40"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-5 square1"
-                    id="50"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-3 square1"
-                    id="31"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-4 square1"
-                    id="41"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-5 square1"
-                    id="51"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-3 square1"
-                    id="32"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-4 square1"
-                    id="42"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-5 square1"
-                    id="52"></div>
-            </div>
-            <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch" id="square2">
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-6 square2"
-                    id="60"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-7 square2"
-                    id="70"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-8 square2"
-                    id="80"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-6 square2"
-                    id="61"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-7 square2"
-                    id="71"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-8 square2"
-                    id="81"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-6 square2"
-                    id="62"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-7 square2"
-                    id="72"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-8 square2"
-                    id="82"></div>
-            </div>
-            <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch" id="square3">
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-0 square3"
-                    id="03"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-1 square3"
-                    id="13"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-2 square3"
-                    id="23"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-0 square3"
-                    id="04"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-1 square3"
-                    id="14"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-2 square3"
-                    id="24"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-0 square3"
-                    id="05"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-1 square3"
-                    id="15"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-2 square3"
-                    id="25"></div>
-            </div>
-            <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch" id="square4">
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-3 square4"
-                    id="33"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-4 square4"
-                    id="43"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-5 square4"
-                    id="53"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-3 square4"
-                    id="34"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-4 square4"
-                    id="44"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-5 square4"
-                    id="54"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-3 square4"
-                    id="35"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-4 square4"
-                    id="45"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-5 square4"
-                    id="55"></div>
-            </div>
-            <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch" id="square5">
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-6 square5"
-                    id="63"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-7 square5"
-                    id="73"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-8 square5"
-                    id="83"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-6 square5"
-                    id="64"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-7 square5"
-                    id="74"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-8 square5"
-                    id="84"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-6 square5"
-                    id="65"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-7 square5"
-                    id="75"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-8 square5"
-                    id="85"></div>
-            </div>
-            <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch" id="square6">
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-0 square6"
-                    id="06"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-1 square6"
-                    id="16"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-2 square6"
-                    id="26"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-0 square6"
-                    id="07"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-1 square6"
-                    id="17"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-2 square6"
-                    id="27"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-0 square6"
-                    id="08"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-1 square6"
-                    id="18"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-2 square6"
-                    id="28"></div>
-            </div>
-            <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch" id="square7">
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-3 square7"
-                    id="36"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-4 square7"
-                    id="46"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-5 square7"
-                    id="56"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-3 square7"
-                    id="37"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-4 square7"
-                    id="47"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-5 square7"
-                    id="57"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-3 square7"
-                    id="38"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-4 square7"
-                    id="48"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-5 square7"
-                    id="58"></div>
-            </div>
-            <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch" id="square8">
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-6 square8"
-                    id="66"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-7 square8"
-                    id="76"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-8 square8"
-                    id="86"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-6 square8"
-                    id="67"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-7 square8"
-                    id="77"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-8 square8"
-                    id="87"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-6 square8"
-                    id="68"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-7 square8"
-                    id="78"></div>
-                <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-8 square8"
-                    id="88"></div>
-            </div>
+                id="sudoku">
+                <div class="row border border-1 border-dark col-4 m-0 p-0 g-0 square justify-items-stretch"
+                    id="square0">
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-0 square0"
+                        id="00"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-1 square0"
+                        id="10"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-2 square0"
+                        id="20"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-0 square0"
+                        id="01"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-1 square0"
+                        id="11"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-2 square0"
+                        id="21"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-0 square0"
+                        id="02"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-1 square0"
+                        id="12"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-2 square0"
+                        id="22"></div>
+                </div>
+                <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch"
+                    id="square1">
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-3 square1"
+                        id="30"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-4 square1"
+                        id="40"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-5 square1"
+                        id="50"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-3 square1"
+                        id="31"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-4 square1"
+                        id="41"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-5 square1"
+                        id="51"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-3 square1"
+                        id="32"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-4 square1"
+                        id="42"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-5 square1"
+                        id="52"></div>
+                </div>
+                <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch"
+                    id="square2">
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-6 square2"
+                        id="60"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-7 square2"
+                        id="70"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-0 column-8 square2"
+                        id="80"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-6 square2"
+                        id="61"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-7 square2"
+                        id="71"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-1 column-8 square2"
+                        id="81"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-6 square2"
+                        id="62"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-7 square2"
+                        id="72"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-2 column-8 square2"
+                        id="82"></div>
+                </div>
+                <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch"
+                    id="square3">
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-0 square3"
+                        id="03"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-1 square3"
+                        id="13"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-2 square3"
+                        id="23"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-0 square3"
+                        id="04"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-1 square3"
+                        id="14"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-2 square3"
+                        id="24"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-0 square3"
+                        id="05"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-1 square3"
+                        id="15"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-2 square3"
+                        id="25"></div>
+                </div>
+                <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch"
+                    id="square4">
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-3 square4"
+                        id="33"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-4 square4"
+                        id="43"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-5 square4"
+                        id="53"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-3 square4"
+                        id="34"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-4 square4"
+                        id="44"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-5 square4"
+                        id="54"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-3 square4"
+                        id="35"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-4 square4"
+                        id="45"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-5 square4"
+                        id="55"></div>
+                </div>
+                <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch"
+                    id="square5">
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-6 square5"
+                        id="63"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-7 square5"
+                        id="73"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-3 column-8 square5"
+                        id="83"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-6 square5"
+                        id="64"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-7 square5"
+                        id="74"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-4 column-8 square5"
+                        id="84"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-6 square5"
+                        id="65"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-7 square5"
+                        id="75"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-5 column-8 square5"
+                        id="85"></div>
+                </div>
+                <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch"
+                    id="square6">
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-0 square6"
+                        id="06"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-1 square6"
+                        id="16"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-2 square6"
+                        id="26"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-0 square6"
+                        id="07"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-1 square6"
+                        id="17"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-2 square6"
+                        id="27"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-0 square6"
+                        id="08"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-1 square6"
+                        id="18"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-2 square6"
+                        id="28"></div>
+                </div>
+                <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch"
+                    id="square7">
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-3 square7"
+                        id="36"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-4 square7"
+                        id="46"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-5 square7"
+                        id="56"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-3 square7"
+                        id="37"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-4 square7"
+                        id="47"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-5 square7"
+                        id="57"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-3 square7"
+                        id="38"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-4 square7"
+                        id="48"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-5 square7"
+                        id="58"></div>
+                </div>
+                <div class="row border border-dark border-1 col-4 m-0 p-0 g-0 square justify-items-stretch"
+                    id="square8">
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-6 square8"
+                        id="66"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-7 square8"
+                        id="76"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-6 column-8 square8"
+                        id="86"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-6 square8"
+                        id="67"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-7 square8"
+                        id="77"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-7 column-8 square8"
+                        id="87"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-6 square8"
+                        id="68"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-7 square8"
+                        id="78"></div>
+                    <div class="border border-dark border-1 col-4 p-0 g-0 d-flex align-items-center justify-content-center cell row-8 column-8 square8"
+                        id="88"></div>
+                </div>
             </div>
         </div>
-        <div class="row container m-auto text-center my-0 p-0 pb-1 p-sm-2 my-sm-2" id="buttons">
+        <div class="row container m-auto text-center my-0 p-0 pb-1 p-sm-2 my-sm-2 position-relative" id="buttons">
             <div class="col-5 row m-0 p-0 align-items-center align-content-center">
-                    <div class="col-6 py-1 py-sm-2 px-0 px-sm-0 align-items-center justify-content-center" id="undoButton">
-                        <img class="d-block m-auto" src="img/undo.svg" height="36.8">
-                        <label>Undo Move</label>
-                    </div>
-                    <div class="col-6 py-1 py-sm-2 px-0 px-sm-0" id="clearCellButton">
-                        <i class="bi bi-x-circle"></i>
-                        <label>Clear Cell</label>
-                    </div>
-                    <div class="col-6 py-1 py-sm-2 px-0 px-sm-0" id="getClueButton">
-                        <i class="bi bi-question-circle fw-bold"></i>
-                        <label>Get Clue</label>
-                    </div>
-                    <div class="col-6 py-1 py-sm-2 px-0 px-sm-0" id="checkAnswersButton">
-                        <i class="bi bi-check-circle"></i>
-                        <label>Check Answers</label>
-                    </div>
-                    <div class="col-12 py-1 py-1 py-sm-2" id="candidatesEditButton">
-                        <i class="bi bi-pencil-square" id="candidatesEditIcon"></i>
-                        <label>Candidates</label>
-                    </div>
+                <div class="col-6 py-1 py-sm-2 px-0 px-sm-0 align-items-center justify-content-center" id="undoButton">
+                    <img class="d-block m-auto" src="img/undo.svg" height="36.8">
+                    <label>Undo Move</label>
                 </div>
-                <div class="col-7 row m-0 px-0 px-sm-3" id="numberButtonsDiv">
-                    <div class="col-4 py-1 px-1 py-sm-2">
-                        <button class="btn btn-dark fs-2 px-3 disabled">1</button>
-                    </div>
-                    <div class="col-4 py-1 px-1 py-sm-2">
-                        <button class="btn btn-dark fs-2 px-3 disabled">2</button>
-                    </div>
-                    <div class="col-4 py-1 px-1 py-sm-2">
-                        <button class="btn btn-dark fs-2 px-3 disabled">3</button>
-                    </div>
-                    <div class="col-4 py-1 px-1 py-sm-2">
-                        <button class="btn btn-dark fs-2 px-3 disabled">4</button>
-                    </div>
-                    <div class="col-4 py-1 px-1 py-sm-2">
-                        <button class="btn btn-dark fs-2 px-3 disabled">5</button>
-                    </div>
-                    <div class="col-4 py-1 px-1 py-sm-2">
-                        <button class="btn btn-dark fs-2 px-3 disabled">6</button>
-                    </div>
-                    <div class="col-4 py-1 px-1 py-sm-2">
-                        <button class="btn btn-dark fs-2 px-3 disabled">7</button>
-                    </div>
-                    <div class="col-4 py-1 px-1 py-sm-2">
-                        <button class="btn btn-dark fs-2 px-3 disabled">8</button>
-                    </div>
-                    <div class="col-4 py-1 px-1 py-sm-2">
-                        <button class="btn btn-dark fs-2 px-3 disabled">9</button>
-                    </div>
-                    
+                <div class="col-6 py-1 py-sm-2 px-0 px-sm-0" id="clearCellButton">
+                    <i class="bi bi-x-circle"></i>
+                    <label>Clear Cell</label>
                 </div>
+                <div class="col-6 py-1 py-sm-2 px-0 px-sm-0" id="getClueButton">
+                    <i class="bi bi-question-circle fw-bold"></i>
+                    <label>Get Clue</label>
+                </div>
+                <div class="col-6 py-1 py-sm-2 px-0 px-sm-0" id="checkAnswersButton">
+                    <i class="bi bi-check-circle"></i>
+                    <label>Check Answers</label>
+                </div>
+                <div class="col-12 py-1 py-1 py-sm-2" id="candidatesEditButton">
+                    <i class="bi bi-pencil-square" id="candidatesEditIcon"></i>
+                    <label>Edit Candidates</label>
+                </div>
+            </div>
+            <div class="col-7 row m-0 px-0 px-sm-3" id="numberButtonsDiv">
+                <div class="col-4 py-1 px-1 py-sm-2">
+                    <button class="btn btn-dark fs-2 px-3 disabled">1</button>
+                </div>
+                <div class="col-4 py-1 px-1 py-sm-2">
+                    <button class="btn btn-dark fs-2 px-3 disabled">2</button>
+                </div>
+                <div class="col-4 py-1 px-1 py-sm-2">
+                    <button class="btn btn-dark fs-2 px-3 disabled">3</button>
+                </div>
+                <div class="col-4 py-1 px-1 py-sm-2">
+                    <button class="btn btn-dark fs-2 px-3 disabled">4</button>
+                </div>
+                <div class="col-4 py-1 px-1 py-sm-2">
+                    <button class="btn btn-dark fs-2 px-3 disabled">5</button>
+                </div>
+                <div class="col-4 py-1 px-1 py-sm-2">
+                    <button class="btn btn-dark fs-2 px-3 disabled">6</button>
+                </div>
+                <div class="col-4 py-1 px-1 py-sm-2">
+                    <button class="btn btn-dark fs-2 px-3 disabled">7</button>
+                </div>
+                <div class="col-4 py-1 px-1 py-sm-2">
+                    <button class="btn btn-dark fs-2 px-3 disabled">8</button>
+                </div>
+                <div class="col-4 py-1 px-1 py-sm-2">
+                    <button class="btn btn-dark fs-2 px-3 disabled">9</button>
+                </div>
+
+            </div>
+            <div class="position-absolute rounded border border-2 border-dark w-75 h-75 bg-white d-flex justify-content-center align-items-center hidden-popup secondary-text fs-6" id="cluePopup">
+                <div id="clueText">You do not have any current clues.</div>
+                <i class="bi bi-dash-circle position-absolute top-0 end-0 fs-6 pt-1 pe-1" id="minimizeClueButton"></i>
+            </div>
         </div>
     </div>
 
@@ -306,9 +327,12 @@
         <div class="py-3">
             <p>Hello, <span class="username" id="mainUsername">username</span>!</p>
         </div>
-        <div class="custom-button d-flex align-items-center justify-content-center text-center d-none" id="continueButton">Continue</div>
-        <div class="custom-button d-flex align-items-center justify-content-center text-center" id="newGameMainButton">New Game</div>
-        <div class="custom-button d-flex align-items-center justify-content-center text-center" id="difficultyMainButton">Change Difficulty</div>
+        <div class="custom-button d-flex align-items-center justify-content-center text-center d-none"
+            id="continueButton">Continue</div>
+        <div class="custom-button d-flex align-items-center justify-content-center text-center" id="newGameMainButton">
+            New Game</div>
+        <div class="custom-button d-flex align-items-center justify-content-center text-center"
+            id="difficultyMainButton">Change Difficulty</div>
         <!--<div class="text-center secondary-text difficulty-button">How to Play</div>-->
     </div>
 
@@ -319,10 +343,14 @@
             <h6 class="m-0 ms-3">Difficulty</h6>
         </div>
 
-        <div class="difficulty-button d-flex align-items-center justify-content-center text-center" id="beginnerDifficultyButton">Beginner</div>
-        <div class="difficulty-button d-flex align-items-center justify-content-center text-center" id="intermediateDifficultyButton">Intermediate</div>
-        <div class="difficulty-button d-flex align-items-center justify-content-center text-center" id="expertDifficultyButton">Expert</div>
-        <div class="difficulty-button d-flex align-items-center justify-content-center text-center" id="customDifficultyButton">Custom</div>
+        <div class="difficulty-button d-flex align-items-center justify-content-center text-center"
+            id="beginnerDifficultyButton">Beginner</div>
+        <div class="difficulty-button d-flex align-items-center justify-content-center text-center"
+            id="intermediateDifficultyButton">Intermediate</div>
+        <div class="difficulty-button d-flex align-items-center justify-content-center text-center"
+            id="expertDifficultyButton">Expert</div>
+        <div class="difficulty-button d-flex align-items-center justify-content-center text-center"
+            id="customDifficultyButton">Custom</div>
         <div class="w-100">
             <div class="d-flex flex-row justify-content-between align-items-center py-2 px-5 w-100">
                 <label class="fs-6">Minimum No. of Clues</label>
@@ -349,7 +377,7 @@
             <input class="form-check-input" type="checkbox" id="hiddenSubsetsCheckbox">
         </div>
 
-        
+
         <div class="text-center secondary-text difficulty-button mt-0 mb-4 back-to-menu">Back to Menu</div>
 
     </div>
@@ -365,47 +393,73 @@
             <span class="secondary-text" id="leaderboardCompletedSelect">Puzzles Completed</span>
             <span class="unselected secondary-text" id="leaderboardTimeSelect">Time</span>
         </div>
-    <div class="d-flex flex-column w-100 h-75 justify-content-between pt-2 pb-3">
-        <div class="d-flex px-4 mx-2 justify-content-between align-items-center leaderboard-header">
-            <div class="leader-number text-center w-25">Placement</div><div class="text-center w-25">Username</div><div class="w-25 text-end">Score</div>
+        <div class="d-flex flex-column w-100 h-75 justify-content-between pt-2 pb-3">
+            <div class="d-flex px-4 mx-2 justify-content-between align-items-center leaderboard-header">
+                <div class="leader-number text-center w-25">Placement</div>
+                <div class="text-center w-25">Username</div>
+                <div class="w-25 text-end">Score</div>
+            </div>
+            <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
+                <div class="leader-number"></div>
+                <div class="text-center leader-username"></div>
+                <div class="leader-score"></div>
+            </div>
+            <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
+                <div class="leader-number"></div>
+                <div class="text-center leader-username"></div>
+                <div class="leader-score"></div>
+            </div>
+            <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
+                <div class="leader-number"></div>
+                <div class="text-center leader-username"></div>
+                <div class="leader-score"></div>
+            </div>
+            <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
+                <div class="leader-number"></div>
+                <div class="text-center leader-username"></div>
+                <div class="leader-score"></div>
+            </div>
+            <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
+                <div class="leader-number"></div>
+                <div class="text-center leader-username"></div>
+                <div class="leader-score"></div>
+            </div>
+            <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
+                <div class="leader-number"></div>
+                <div class="text-center leader-username"></div>
+                <div class="leader-score"></div>
+            </div>
+            <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
+                <div class="leader-number"></div>
+                <div class="text-center leader-username"></div>
+                <div class="leader-score"></div>
+            </div>
+            <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
+                <div class="leader-number"></div>
+                <div class="text-center leader-username"></div>
+                <div class="leader-score"></div>
+            </div>
+            <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
+                <div class="leader-number"></div>
+                <div class="text-center leader-username"></div>
+                <div class="leader-score"></div>
+            </div>
+            <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
+                <div class="leader-number"></div>
+                <div class="text-center leader-username"></div>
+                <div class="leader-score"></div>
+            </div>
+            <div class="d-flex mx-5 justify-content-between" id="userLeaderboardItem">
+                <div class="user-leader-number">103.</div>
+                <div class="text-center">You</div>
+                <div class="user-leader-value">-</div>
+            </div>
         </div>
-        <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
-        </div>
-        <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
-        </div>
-        <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
-        </div>
-        <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
-        </div>
-        <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
-        </div>
-        <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
-        </div>
-        <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
-        </div>
-        <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
-        </div>
-        <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
-        </div>
-        <div class="d-flex w-100 px-5 justify-content-between leaderboard-item">
-            <div class="leader-number"></div><div class="text-center leader-username"></div><div class="leader-score"></div>
-        </div>
-        <div class="d-flex mx-5 justify-content-between" id="userLeaderboardItem">
-            <div class="user-leader-number">103.</div><div class="text-center">You</div><div class="user-leader-value">-</div>
-        </div>
-    </div>
 
 
-        <div class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-0 mb-4 back-to-menu">Back to Menu</div>
+        <div
+            class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-0 mb-4 back-to-menu">
+            Back to Menu</div>
     </div>
 
 
@@ -415,38 +469,48 @@
             <h6 class="m-0">Username</h6>
         </div>
         <div class="d-flex w-100 px-5 justify-content-between secondary-text">
-            <div class="stat-item">Games Played:</div><div class="stat-value">100</div>
-        </div>
-      
-        <div class="d-flex w-100 px-5 justify-content-between secondary-text">
-            <div class="stat-item">Games Completed:</div><div class="stat-value">100</div>
+            <div class="stat-item">Games Played:</div>
+            <div class="stat-value">100</div>
         </div>
 
         <div class="d-flex w-100 px-5 justify-content-between secondary-text">
-            <div class="stat-item">Average Time:</div><div class="stat-value">100</div>
+            <div class="stat-item">Games Completed:</div>
+            <div class="stat-value">100</div>
         </div>
-      
+
         <div class="d-flex w-100 px-5 justify-content-between secondary-text">
-            <div class="stat-item">Best Time:</div><div class="stat-value">100</div>
+            <div class="stat-item">Average Time:</div>
+            <div class="stat-value">100</div>
+        </div>
+
+        <div class="d-flex w-100 px-5 justify-content-between secondary-text">
+            <div class="stat-item">Best Time:</div>
+            <div class="stat-value">100</div>
         </div>
 
         <!--Anonymous User-->
         <div class="overflow-hidden" id="anonymous-user-profile">
-            <div class="custom-button d-flex align-items-center justify-content-center text-center mt-5" id="registerButton">Register</div>
-            <div class="custom-button d-flex align-items-center justify-content-center text-center" id="loginButton">Login</div>
+            <div class="custom-button d-flex align-items-center justify-content-center text-center mt-5"
+                id="registerButton">Register</div>
+            <div class="custom-button d-flex align-items-center justify-content-center text-center" id="loginButton">
+                Login</div>
             <div class="custom-button d-flex align-items-center justify-content-center text-center">Delete Data</div>
         </div>
 
 
         <!--Logged In User-->
         <div class="hidden overflow-hidden" id="authenticated-user-profile">
-            <div class="custom-button d-flex align-items-center justify-content-center text-center">Change Username</div>
-            <div class="custom-button d-flex align-items-center justify-content-center text-center">Change Password</div>
+            <div class="custom-button d-flex align-items-center justify-content-center text-center">Change Username
+            </div>
+            <div class="custom-button d-flex align-items-center justify-content-center text-center">Change Password
+            </div>
             <div class="custom-button d-flex align-items-center justify-content-center text-center">Logout</div>
             <div class="custom-button d-flex align-items-center justify-content-center text-center">Delete Account</div>
         </div>
 
-        <div class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-0 mb-4 back-to-menu">Back to Menu</div>
+        <div
+            class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-0 mb-4 back-to-menu">
+            Back to Menu</div>
     </div>
 
 
@@ -459,22 +523,27 @@
 
         <div class="mb-3 px-5">
             <label for="username" class="form-label fs-6">Username</label>
-            <input type="text" class="form-control" id="username">
+            <input type="text" class="form-control" id="loginUsername">
         </div>
 
         <div class="mb-3 px-5">
-            <label for="password" class="form-label fs-6">Password</label>
-            <input type="password" class="form-control" id="password">
+            <label for="loginPassword" class="form-label fs-6">Password</label>
+            <input type="password" class="form-control" id="loginPassword">
         </div>
-        
-        <p class="secondary-text text-center">Don't have an account? <span class="secondary-text text-decoration-underline py-3" id="registerLinkText">Register here instead.</span></p>
-        <div class="custom-button d-flex align-items-center justify-content-center text-center" >Login</div>
-        
-        <div class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">Back to Account Details</div>
+
+        <p class="secondary-text text-center">Don't have an account? <span
+                class="secondary-text text-decoration-underline py-3" id="registerLinkText">Register here
+                instead.</span></p>
+        <div class="custom-button d-flex align-items-center justify-content-center text-center">Login</div>
+
+        <div
+            class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">
+            Back to Account Details</div>
     </div>
 
     <!--Register Page-->
-    <div class="page flex-column align-items-center justify-content-center menu-child account-child hidden" id="register">
+    <div class="page flex-column align-items-center justify-content-center menu-child account-child hidden"
+        id="register">
 
         <div class="d-flex flex-row justify-content-center align-items-center text-center w-100 px-3">
             <h6 class="m-0 mb-4">Create An Account</h6>
@@ -482,22 +551,25 @@
 
         <div class="mb-3 px-5">
             <label for="username" class="form-label fs-6">Username</label>
-            <input type="text" class="form-control" id="username">
+            <input type="text" class="form-control" id="registerUsername">
         </div>
 
         <div class="mb-3 px-5">
-            <label for="password" class="form-label fs-6">Password</label>
-            <input type="password" class="form-control" id="password">
+            <label for="registerPassword" class="form-label fs-6">Password</label>
+            <input type="password" class="form-control" id="registerPassword">
         </div>
         <div class="mb-3 px-5">
-            <label for="password2" class="form-label fs-6">Confirm Password</label>
-            <input type="password" class="form-control" id="password2">
+            <label for="registerPassword2" class="form-label fs-6">Confirm Password</label>
+            <input type="password" class="form-control" id="registerPassword2">
         </div>
-        
-        <p class="secondary-text text-center">Already have an account? <span class="secondary-text text-decoration-underline py-3" id="loginLinkText">Log in here instead.</span></p>
+
+        <p class="secondary-text text-center">Already have an account? <span
+                class="secondary-text text-decoration-underline py-3" id="loginLinkText">Log in here instead.</span></p>
         <div class="custom-button d-flex align-items-center justify-content-center text-center">Register</div>
-        
-        <div class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">Back to Account Details</div>
+
+        <div
+            class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">
+            Back to Account Details</div>
     </div>
 
 </body>

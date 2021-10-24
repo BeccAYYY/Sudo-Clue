@@ -119,7 +119,9 @@ undoButton.addEventListener("click", undo)
 checkAnswersButton.addEventListener("click", checkAnswers)
 leaderboardTimeSelect.addEventListener("click", displayBestTime)
 leaderboardCompletedSelect.addEventListener("click", displayPuzzlesComplete)
-getClueButton.addEventListener("click", findNextStep)
+getClueButton.addEventListener("click", findNextStep);
+showClueButton.addEventListener("click", showAndHideClue)
+minimizeClueButton.addEventListener("click", showAndHideClue)
 
 document.querySelectorAll(".back-to-menu").forEach(e => {
     e.addEventListener("click", () => {
@@ -209,4 +211,12 @@ function openMenuPage(e) {
     e.classList.remove("hidden")
 }
 
-
+function showAndHideClue() {
+    if (cluePopup.classList.contains("hidden-popup")) {
+        cluePopup.classList.remove("hidden-popup");
+        showClueButton.innerHTML = "Hide Clue";
+    } else {
+        cluePopup.classList.add("hidden-popup");
+        showClueButton.innerHTML = "Show Clue";
+    }
+}

@@ -104,7 +104,7 @@ function displayPuzzle() {
         for (let x = 0; x < 9; x++) {
             var id = String(x) + String(y);
             var element = document.getElementById(id);
-            element.classList.remove("puzzle-part", "empty-cell", "filled-cell");
+            element.classList.remove("puzzle-part", "empty-cell", "filled-cell", "wrong-cell", "hint-cell");
 
             if (currentPuzzle[y][x]) {
                 elementsArray[outerCounter] = element;
