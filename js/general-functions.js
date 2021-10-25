@@ -61,6 +61,7 @@ function changeCandidatesGridAfterFill(x, y, n) {
 
 function createGroupsArray() {
     var groupIndex = 0;
+    groups = new Array;
     for (y = 0; y < 9; y++) {
         groups.push([])
         for (x = 0; x < 9; x++) {
@@ -251,4 +252,13 @@ function createCopyOfMultidimensionalArray(array) {
         })
     })
     return copy;
+}
+
+
+function copyGroups() {
+    var newArray = new Array;
+    groups.forEach(group => {
+        newArray.push(group)
+    })
+    return newArray;
 }

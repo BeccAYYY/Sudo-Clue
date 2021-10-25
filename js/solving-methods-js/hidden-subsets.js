@@ -1,7 +1,7 @@
 function findHiddenSubset() {
     var subset = false;
     var i = 0;
-    while (!subset && i < 27) {
+    while (!subset && i < groups.length) {
         var group = groups[i];
         var requirementLocations = new Array;
         var requirementNumbers = new Array;

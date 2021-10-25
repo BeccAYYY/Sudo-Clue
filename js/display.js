@@ -225,6 +225,7 @@ function buttonPress(element) {
                     //Clears cell if a candidate is selected when the cell is filled
                     clearCell()
                 }
+                cellDiv.classList.remove("hint-cell")
                 var qSelector = " .candidate-" + element.innerHTML;
                 var candidateDiv = cellDiv.querySelector(qSelector);
                 if (candidateDiv.classList.contains("invisible-text")) {

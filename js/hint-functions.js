@@ -45,37 +45,39 @@ function findNextStep() {
         }
         
     }
-    var loneRanger = findSingleOptionRequirement();
-    if (loneRanger) {
-        var id = String(loneRanger.xIndex) + String(loneRanger.yIndex);
-        var cellDiv = document.getElementById(id);
-        if (previousClue === "Lone Ranger") {
-            cellDiv.classList.add('hint-cell')
-            previousClue = loneRanger;
-            clueText.innerHTML = "There is a \"Lone Ranger\" at the highlighted location. A lone ranger is a candidate that can only go in one cell in a group. Press \"Get Clue\" again to fill the cell."
-            return;
-        } else if (JSON.stringify(previousClue) === JSON.stringify(loneRanger)) {
-            showAndHideClue()
-            cellDiv.classList.remove("empty-cell", "wrong-cell", "hint-cell");
-            cellDiv.classList.add("filled-cell");
-            userGrid[loneRanger.yIndex][loneRanger.xIndex] = parseInt(loneRanger.candidate)
-            userCandidatesGrid[loneRanger.yIndex][loneRanger.xIndex] = 0;
-            puzzleCandidates = createCopyOfMultidimensionalArray(userCandidatesGrid);
-            changeCandidatesGridAfterFill(loneRanger.xIndex, loneRanger.yIndex, userGrid[loneRanger.yIndex][loneRanger.xIndex]);
-            userCandidatesGrid = createCopyOfMultidimensionalArray(puzzleCandidates);
-            resetPuzzleDisplay()
-            previousClue = false;
-            clueText.innerHTML = "You do not have any current clues."
-            localStorage.setItem("userGrid", JSON.stringify(userGrid));
-            localStorage.setItem("userCandidatesGrid", JSON.stringify(userCandidatesGrid));
-            return;
-        } else {
-            clueText.innerHTML = "There is at least one \"Lone Ranger\" available. A lone ranger is a candidate that can only go in one cell in a group. Press \"Get Clue\" again to see its location."
-            cluePopup.classList.remove("hidden-popup");
-            showClueButton.classList.remove("invisible-text")
-            showClueButton.innerHTML = "Hide Clue"
-            previousClue = "Lone Ranger"
-            return;
+    if (methods["Lone Rangers"]) {
+        var loneRanger = findSingleOptionRequirement();
+        if (loneRanger) {
+            var id = String(loneRanger.xIndex) + String(loneRanger.yIndex);
+            var cellDiv = document.getElementById(id);
+            if (previousClue === "Lone Ranger") {
+                cellDiv.classList.add('hint-cell')
+                previousClue = loneRanger;
+                clueText.innerHTML = "There is a \"Lone Ranger\" at the highlighted location. A lone ranger is a    candidate that can only go in one cell in a group. Press \"Get Clue\" again to fill the cell."
+                return;
+            } else if (JSON.stringify(previousClue) === JSON.stringify(loneRanger)) {
+                showAndHideClue()
+                cellDiv.classList.remove("empty-cell", "wrong-cell", "hint-cell");
+                cellDiv.classList.add("filled-cell");
+                userGrid[loneRanger.yIndex][loneRanger.xIndex] = parseInt(loneRanger.candidate)
+                userCandidatesGrid[loneRanger.yIndex][loneRanger.xIndex] = 0;
+                puzzleCandidates = createCopyOfMultidimensionalArray(userCandidatesGrid);
+                changeCandidatesGridAfterFill(loneRanger.xIndex, loneRanger.yIndex, userGrid[loneRanger.yIndex] [loneRanger.xIndex]);
+                userCandidatesGrid = createCopyOfMultidimensionalArray(puzzleCandidates);
+                resetPuzzleDisplay()
+                previousClue = false;
+                clueText.innerHTML = "You do not have any current clues."
+                localStorage.setItem("userGrid", JSON.stringify(userGrid));
+                localStorage.setItem("userCandidatesGrid", JSON.stringify(userCandidatesGrid));
+                return;
+            } else {
+                clueText.innerHTML = "There is at least one \"Lone Ranger\" available. A lone ranger is a candidate     that can only go in one cell in a group. Press \"Get Clue\" again to see its location."
+                cluePopup.classList.remove("hidden-popup");
+                showClueButton.classList.remove("invisible-text")
+                showClueButton.innerHTML = "Hide Clue"
+                previousClue = "Lone Ranger"
+                return;
+            }
         }
     }
     var invalidCandidates = returnCellsWithTooManyCandidates()
@@ -93,7 +95,6 @@ function findNextStep() {
                 var x = invalidCandidateCell[0];
                 var y = invalidCandidateCell[1];
                 var candidate = invalidCandidateCell[2];
-                console.log(x, y, candidate)
                 var id = String(x) + String(y)
                 document.getElementById(id).classList.remove("wrong-cell", "hint-cell");
                 userCandidatesGrid[y][x].splice(userCandidatesGrid[y][x].indexOf(candidate), 1)
@@ -116,14 +117,27 @@ function findNextStep() {
     }
     findMinimumCandidatesForPuzzle();
     removeGroupsWithoutEnoughCandidates();
+    console.log(groups.length)
+    createGroupsArray()
+    /*if (groups.length == 0) {
+            clueText.innerHTML = "You do not have enough candidates entered to get a clue. Please update your candidates to proceed."
+            cluePopup.classList.remove("hidden-popup");
+            showClueButton.classList.remove("invisible-text")
+            showClueButton.innerHTML = "Hide Clue"
+            previousClue = "Not Enough Candidates";
+            createGroupsArray()
+            return;
+    }
     puzzleCandidates = createCopyOfMultidimensionalArray(userCandidatesGrid);
-    var lockedCandidate = findLockedCandidate()
+    var groupsToCheck = copyGroups()
+    createGroupsArray()
+    var lockedCandidate = findLockedCandidateForHint(groupsToCheck)
     if (lockedCandidate) {
-
+        console.log(lockedCandidate)
 
 
         createGroupsArray()
-    }
+    }*/
 }
 
 
@@ -176,7 +190,6 @@ function findMinimumCandidatesForPuzzle() {
     var change = false;
     do {
         change = false;
-        console.log("loop")
         if (!change) {
             var lockedCandidate = findLockedCandidate();
             if (lockedCandidate) {
@@ -239,6 +252,5 @@ function removeGroupsWithoutEnoughCandidates() {
             i++;
         }
     }
-    console.log(groups)
 }
 
