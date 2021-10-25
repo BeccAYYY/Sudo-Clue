@@ -161,6 +161,3 @@ function returnCellsWithTooManyCandidates() {
     return invalidCandidateCells;
 }
 
-function returnCellsWithTooFewCandidates() {
-    
-}

@@ -468,3 +468,139 @@ function fillGrid() {
     //console.log(sudoku);
     return success;
 }
+
+//Naked Subset Function Before Groups Array
+function findNakedSubsetOLD() {
+    var subset = false;
+
+    //Rows
+    var yIndex = 0;
+    while (!subset && yIndex < 9) {
+        var candidatesArrays = new Array;
+        var subsetCandidates = false;
+        puzzleCandidates[yIndex].forEach((candidates) => {
+            if (candidates !== 0) {
+                candidatesArrays.push(candidates)
+            }
+        })
+        if (candidatesArrays.length > 2) {
+            subsetCandidates = checkGroupForNakedSubset(candidatesArrays);
+        }
+        if (subsetCandidates) {
+            subset = {
+                "candidates": subsetCandidates,
+                "subsetCoords": [],
+                "nonSubsetCoords": []
+            }
+            puzzleCandidates[yIndex].forEach((candidates, xIndex) => {
+                if (candidates !== 0 && checkIfArraysMatch(subsetCandidates, candidates)) {
+                    subset["subsetCoords"].push({
+                        "xIndex": xIndex,
+                        "yIndex": yIndex
+                    })
+                } else {
+                    subset["nonSubsetCoords"].push({
+                        "xIndex": xIndex,
+                        "yIndex": yIndex
+                    })
+                }
+            })
+        }
+        yIndex++;
+    }
+
+    //Squares
+
+    var a = getSquare(0);
+    var b = getSquare(3);
+    var c = getSquare(6);
+    var squareCoords = [a, b, c];
+    var squareYIndex = 0;
+    while (!subset && squareYIndex < 3) {
+        var squareXIndex = 0;
+        while (!subset && squareXIndex < 3) {
+            var yIndexes = squareCoords[squareYIndex]
+            var xIndexes = squareCoords[squareXIndex]
+            var candidatesArrays = new Array;
+            var subsetCandidates = false;
+            yIndexes.forEach(yIndex => {
+                xIndexes.forEach(xIndex => {
+                    var candidates = puzzleCandidates[yIndex][xIndex]
+                    if (candidates !== 0) {
+                        candidatesArrays.push(candidates)
+                    }
+                })
+            })
+            if (candidatesArrays.length > 2) {
+                subsetCandidates = checkGroupForNakedSubset(candidatesArrays);
+            }
+            if (subsetCandidates) {
+                subset = {
+                    "candidates": subsetCandidates,
+                    "subsetCoords": [],
+                    "nonSubsetCoords": []
+                }
+                yIndexes.forEach(yIndex => {
+                    xIndexes.forEach(xIndex => {
+                        var candidates = puzzleCandidates[yIndex][xIndex];
+                        if (candidates !== 0 && checkIfArraysMatch(subsetCandidates, candidates)) {
+                            subset["subsetCoords"].push({
+                                "xIndex": xIndex,
+                                "yIndex": yIndex
+                            })
+                        } else {
+                            subset["nonSubsetCoords"].push({
+                                "xIndex": xIndex,
+                                "yIndex": yIndex
+                            })
+                        }
+                    })
+                })
+            }
+            squareXIndex++;
+        }
+        squareYIndex++;
+    }
+
+    //Columns
+    var xIndex = 0;
+    while (!subset && xIndex < 9) {
+        var candidatesArrays = new Array;
+        var subsetCandidates = false;
+        puzzleCandidates.forEach((row) => {
+            candidates = row[xIndex]
+            if (candidates !== 0) {
+                candidatesArrays.push(candidates)
+            }
+        })
+        if (candidatesArrays.length > 2) {
+            subsetCandidates = checkGroupForNakedSubset(candidatesArrays);
+        }
+        if (subsetCandidates) {
+            subset = {
+                "candidates": subsetCandidates,
+                "subsetCoords": [],
+                "nonSubsetCoords": []
+            }
+            puzzleCandidates.forEach((row, yIndex) => {
+                var candidates = row[xIndex];
+                if (candidates !== 0 && checkIfArraysMatch(subsetCandidates, candidates)) {
+                    subset["subsetCoords"].push({
+                        "xIndex": xIndex,
+                        "yIndex": yIndex
+                    })
+                } else {
+                    subset["nonSubsetCoords"].push({
+                        "xIndex": xIndex,
+                        "yIndex": yIndex
+                    })
+                }
+
+            })
+
+
+        }
+        xIndex++;
+    }
+    return subset;
+}
