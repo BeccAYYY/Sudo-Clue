@@ -1,7 +1,6 @@
 var puzzle = new Array;
 var puzzleCandidates = new Array;
 var groups = new Array;
-var oneThroughNine = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 if (localStorage.getItem("Lone Rangers") == null) {
     localStorage.setItem("Lone Rangers", true);

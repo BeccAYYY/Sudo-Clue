@@ -114,7 +114,16 @@ function findNextStep() {
             return;
         }
     }
-    
+    findMinimumCandidatesForPuzzle();
+    removeGroupsWithoutEnoughCandidates();
+    puzzleCandidates = createCopyOfMultidimensionalArray(userCandidatesGrid);
+    var lockedCandidate = findLockedCandidate()
+    if (lockedCandidate) {
+
+
+
+        createGroupsArray()
+    }
 }
 
 
@@ -159,5 +168,77 @@ function returnCellsWithTooManyCandidates() {
         })
     })
     return invalidCandidateCells;
+}
+
+
+
+function findMinimumCandidatesForPuzzle() {
+    var change = false;
+    do {
+        change = false;
+        console.log("loop")
+        if (!change) {
+            var lockedCandidate = findLockedCandidate();
+            if (lockedCandidate) {
+                removeCandidatesOfLockedCandidate(lockedCandidate);
+                change = true;
+            }
+        }
+        if (!change) {
+            var subset = findNakedSubset();
+            if (subset) {
+                removeCandidatesOfNakedSubset(subset);
+                change = true;
+            }
+        }
+        if (!change) {
+            var subset = findHiddenSubset();
+            if (subset) {
+                removeCandidatesOfHiddenSubset(subset);
+                change = true;
+            }
+        }
+    } while (change)
+}
+
+function removeGroupsWithoutEnoughCandidates() {
+    var i = 0;
+    while (i < groups.length) {
+        var removedGroup = false;
+        groups[i].forEach(cell => {
+            var xIndex = cell.x;
+            var yIndex = cell.y;
+            var tooFewCandidates = false;
+            if (puzzleCandidates[yIndex][xIndex]) {
+                if (!userCandidatesGrid[yIndex][xIndex]) {
+                    tooFewCandidates = true
+                } else {
+                    puzzleCandidates[yIndex][xIndex].forEach(candidate => {
+                        if (!userCandidatesGrid[yIndex][xIndex].includes(candidate)) {
+                            tooFewCandidates = true;
+                        }
+                    })
+                }
+            }
+            if (tooFewCandidates) {
+                removedGroup = true;
+                groups.forEach(group => {
+                    var remove = false
+                    group.forEach(cell => {
+                        if (JSON.stringify(cell) == JSON.stringify({x: xIndex, y: yIndex})) {
+                            remove = true
+                        }
+                    })
+                    if (remove) {
+                        groups.splice(groups.indexOf(group), 1)
+                    }
+                })
+            } 
+        })
+        if (!removedGroup) {
+            i++;
+        }
+    }
+    console.log(groups)
 }
 

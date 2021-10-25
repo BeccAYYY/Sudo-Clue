@@ -73,7 +73,7 @@ function resetForNewSolution() {
         [0, 0, 0, 0, 0, 0, 0, 0, 0]
     ];
 
-    var a = oneThroughNine;
+    var a = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     var b = [4, 5, 6, 7, 8, 9]
     var c = [1, 2, 3, 7, 8, 9]
     var d = [1, 2, 3, 4, 5, 6]

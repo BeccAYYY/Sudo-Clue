@@ -14,7 +14,7 @@ function findSingleOptionRequirement() {
     //Rows
     var yIndex = 0;
     while (!change && yIndex < 9) {
-        var groupRequirements = oneThroughNine;
+        var groupRequirements = [1, 2, 3, 4, 5, 6, 7, 8, 9];
         var candidatesArrays = new Array;
         puzzle[yIndex].forEach((n, xIndex) => {
             if (n !== 0) {
@@ -78,7 +78,7 @@ function findSingleOptionRequirement() {
         //i.e. it will test one set off x-coords, such as [0,1,2] against whatever the current y-coords are for the outer loops.
         //It will then either find an instance of a required candidate only appearing once, and break the loop, or add one to squareXIndex and go again for the next square [3,4,5]
         while (!change && squareXIndex < 3) {
-            var groupRequirements = oneThroughNine;
+            var groupRequirements = [1, 2, 3, 4, 5, 6, 7, 8, 9];
             var candidatesArrays = new Array;
             var yIndexes = squareCoords[squareYIndex]
             var xIndexes = squareCoords[squareXIndex]
@@ -126,7 +126,7 @@ function findSingleOptionRequirement() {
     //Columns
     var xIndex = 0;
     while (!change && xIndex < 9) {
-        var groupRequirements = oneThroughNine;
+        var groupRequirements = [1, 2, 3, 4, 5, 6, 7, 8, 9];
         var candidatesArrays = new Array;
         var i = 0;
         puzzle.forEach((row, yIndex) => {

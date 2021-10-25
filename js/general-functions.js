@@ -169,7 +169,7 @@ function checkIfMultidimensionalArrayContainsArray(mdArray, array) {
 }
 
 function getGroupRequirements(group) {
-    var groupRequirements = oneThroughNine;
+    var groupRequirements = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     group.forEach(cell => {
         var x = cell["x"];
         var y = cell["y"];

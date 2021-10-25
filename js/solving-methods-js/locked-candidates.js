@@ -1,7 +1,4 @@
 
-
-
-
 function findLockedCandidate() {
     var lockedCandidate = false;
     var candidate;
