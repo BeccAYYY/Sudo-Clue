@@ -1,0 +1,16 @@
+{
+  "manifest_version": "1",
+  "short_name": "SUDO-CLUE",
+  "name": "SUDO-CLUE",
+  "icons": [
+    {
+      "src": "img/favicon-16x16.ico",
+      "sizes": "16x16",
+      "type": "image/ico"
+    }
+  ],
+  "start_url": "http://localhost:5500/",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

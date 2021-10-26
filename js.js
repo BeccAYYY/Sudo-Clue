@@ -15,7 +15,6 @@ Constraints: The rules of a Sudoku that require each digit to appear only once i
 
 
 /*
-
 var sudoku = [
     [8, 0, 0, 4, 0, 6, 0, 0, 7],
     [0, 0, 0, 0, 0, 0, 4, 0, 0],
@@ -27,8 +26,6 @@ var sudoku = [
     [0, 0, 1, 0, 0, 0, 0, 0, 0],
     [3, 0, 0, 9, 0, 2, 0, 0, 5]
 ];
-
-
 */
 
 

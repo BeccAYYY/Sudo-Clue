@@ -1,3 +1,18 @@
+@font-face {
+    font-family: 'Goudy Stout';
+    src: local('Goudy Stout'), url('fonts/goudy_stout.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Goudy Old Style';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Goudy Old Style'), url('fonts/GOUDOS.woff') format('woff');
+    }
+
+
 #sudoku {
     width: 60vh;
     height: 60vh;
@@ -64,6 +79,7 @@
 
 #header {
     height: 8vh;
+    position: relative;
 }
 
 #buttons {
@@ -74,7 +90,7 @@ body {
     font-family: 'Goudy Stout';
     font-weight: bold;
     max-height: 100vh;
-    overflow: hidden;
+    position: relative;
 }
 label {
     font-family: "Goudy Old Style";
