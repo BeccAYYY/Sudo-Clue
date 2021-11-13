@@ -24,6 +24,7 @@
     <script src="js/fake-data.js" defer></script>
     <script src="js/navigation-functions.js" defer></script>
     <script src="js/init.js" defer></script>
+    <script src="js/fetch.js" defer></script>
     <script src="js.js" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -326,7 +327,7 @@
             <img src="img/min-logo.svg" height="150">
         </div>
         <div class="py-3">
-            <p>Hello, <span class="username" id="mainUsername">username</span>!</p>
+            <p>Hello, <span class="username" id="mainUsername">guest</span>!</p>
         </div>
         <div class="custom-button d-flex align-items-center justify-content-center text-center d-none"
             id="continueButton">Continue</div>
@@ -453,7 +454,7 @@
             <div class="d-flex mx-5 justify-content-between" id="userLeaderboardItem">
                 <div class="user-leader-number">103.</div>
                 <div class="text-center">You</div>
-                <div class="user-leader-value">-</div>
+                <div class="user-leader-value" id="lbValue">-</div>
             </div>
         </div>
 
@@ -466,31 +467,31 @@
 
     <!--Account Page-->
     <div class="page flex-column align-items-center justify-content-between menu-child hidden" id="account">
-        <div class="d-flex flex-row justify-content-center align-items-center w-100 px-3">
-            <h6 class="m-0">Username</h6>
+        <div class="d-flex flex-row justify-content-center align-items-center w-100 pt-3 px-3">
+            <h6 class="m-0 username">Guest</h6>
         </div>
         <div class="d-flex w-100 px-5 justify-content-between secondary-text">
             <div class="stat-item">Games Played:</div>
-            <div class="stat-value">100</div>
+            <div class="stat-value" id="totalGames">0</div>
         </div>
 
         <div class="d-flex w-100 px-5 justify-content-between secondary-text">
             <div class="stat-item">Games Completed:</div>
-            <div class="stat-value">100</div>
+            <div class="stat-value" id="completedGames">0</div>
         </div>
 
         <div class="d-flex w-100 px-5 justify-content-between secondary-text">
             <div class="stat-item">Average Time:</div>
-            <div class="stat-value">100</div>
+            <div class="stat-value" id="averageTime">-</div>
         </div>
 
         <div class="d-flex w-100 px-5 justify-content-between secondary-text">
             <div class="stat-item">Best Time:</div>
-            <div class="stat-value">100</div>
+            <div class="stat-value" id="bestTime">-</div>
         </div>
 
         <!--Anonymous User-->
-        <div class="overflow-hidden" id="anonymous-user-profile">
+        <div class="overflow-hidden" id="anonymousUserProfile">
             <div class="custom-button d-flex align-items-center justify-content-center text-center mt-5"
                 id="registerButton">Register</div>
             <div class="custom-button d-flex align-items-center justify-content-center text-center" id="loginButton">
@@ -500,7 +501,7 @@
 
 
         <!--Logged In User-->
-        <div class="hidden overflow-hidden" id="authenticated-user-profile">
+        <div class="hidden overflow-hidden" id="authenticatedUserProfile">
             <div class="custom-button d-flex align-items-center justify-content-center text-center">Change Username
             </div>
             <div class="custom-button d-flex align-items-center justify-content-center text-center">Change Password
@@ -549,24 +550,25 @@
         <div class="d-flex flex-row justify-content-center align-items-center text-center w-100 px-3">
             <h6 class="m-0 mb-4">Create An Account</h6>
         </div>
+        <form id="registerForm">
+            <div class="mb-3 px-5">
+                <label for="username" class="form-label fs-6">Username</label>
+                <input type="text" class="form-control" id="registerUsername">
+            </div>
 
-        <div class="mb-3 px-5">
-            <label for="username" class="form-label fs-6">Username</label>
-            <input type="text" class="form-control" id="registerUsername">
-        </div>
-
-        <div class="mb-3 px-5">
-            <label for="registerPassword" class="form-label fs-6">Password</label>
-            <input type="password" class="form-control" id="registerPassword">
-        </div>
-        <div class="mb-3 px-5">
-            <label for="registerPassword2" class="form-label fs-6">Confirm Password</label>
-            <input type="password" class="form-control" id="registerPassword2">
-        </div>
+            <div class="mb-3 px-5">
+                <label for="registerPassword" class="form-label fs-6">Password</label>
+                <input type="password" class="form-control" id="registerPassword">
+            </div>
+            <div class="mb-3 px-5">
+                <label for="registerPassword2" class="form-label fs-6">Confirm Password</label>
+                <input type="password" class="form-control" id="registerPassword2">
+            </div>
+        </form>
 
         <p class="secondary-text text-center">Already have an account? <span
                 class="secondary-text text-decoration-underline py-3" id="loginLinkText">Log in here instead.</span></p>
-        <div class="custom-button d-flex align-items-center justify-content-center text-center">Register</div>
+        <div class="custom-button d-flex align-items-center justify-content-center text-center" id="registerButton">Register</div>
 
         <div
             class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">
