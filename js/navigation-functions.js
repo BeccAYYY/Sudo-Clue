@@ -16,10 +16,10 @@ difficultyButton.addEventListener("click", () => openMenuPage(difficulty));
 difficultyMainButton.addEventListener("click", () => openMenuPage(difficulty));
 leaderboardButton.addEventListener("click", () => openMenuPage(leaderboardPage));
 accountButton.addEventListener("click", () => openMenuPage(account));
-registerButton.addEventListener("click", () => openMenuPage(register));
-registerLinkText.addEventListener("click", () => openMenuPage(register));
-loginButton.addEventListener("click", () => openMenuPage(login));
-loginLinkText.addEventListener("click", () => openMenuPage(login));
+registerButton.addEventListener("click", () => openMenuPage(registerPage));
+registerLinkText.addEventListener("click", () => openMenuPage(registerPage));
+loginButton.addEventListener("click", () => openMenuPage(loginPage));
+loginLinkText.addEventListener("click", () => openMenuPage(loginPage));
 mainUsername.addEventListener("click", () => openMenuPage(account));
 newGameMainButton.addEventListener("click", () => {
     newGame();
@@ -123,6 +123,15 @@ getClueButton.addEventListener("click", findNextStep);
 showClueButton.addEventListener("click", showAndHideClue)
 minimizeClueButton.addEventListener("click", showAndHideClue)
 
+document.querySelectorAll(".form-button").forEach(button => {
+    button.addEventListener("click", e => {
+        formSubmit(e.target.parentNode)
+        
+    })
+})
+logoutButton.addEventListener("click", logout)
+
+
 document.querySelectorAll(".back-to-menu").forEach(e => {
     e.addEventListener("click", () => {
         document.querySelectorAll(".menu-child").forEach(e => {
@@ -220,3 +229,4 @@ function showAndHideClue() {
         showClueButton.innerHTML = "Show Clue";
     }
 }
+

@@ -506,7 +506,7 @@
             </div>
             <div class="custom-button d-flex align-items-center justify-content-center text-center">Change Password
             </div>
-            <div class="custom-button d-flex align-items-center justify-content-center text-center">Logout</div>
+            <div class="custom-button d-flex align-items-center justify-content-center text-center" id="logoutButton">Logout</div>
             <div class="custom-button d-flex align-items-center justify-content-center text-center">Delete Account</div>
         </div>
 
@@ -517,27 +517,28 @@
 
 
     <!--Login Page-->
-    <div class="page flex-column align-items-center justify-content-center menu-child account-child hidden" id="login">
+    <div class="page flex-column align-items-center justify-content-center menu-child account-child hidden" id="loginPage">
 
         <div class="d-flex flex-row justify-content-center align-items-center text-center w-100 px-3">
             <h6 class="m-0 mb-4">Log In to Your Account</h6>
         </div>
+        <form name="login">
+            <div class="mb-3 px-5">
+                <label for="username" class="form-label fs-6">Username</label>
+                <input type="text" class="form-control" id="loginUsername" name="username" autocomplete="username">
+            </div>
 
-        <div class="mb-3 px-5">
-            <label for="username" class="form-label fs-6">Username</label>
-            <input type="text" class="form-control" id="loginUsername">
-        </div>
+            <div class="mb-3 px-5">
+                <label for="loginPassword" class="form-label fs-6">Password</label>
+                <input type="password" class="form-control" id="loginPassword" name="password" autocomplete="current-password">
+            </div>
 
-        <div class="mb-3 px-5">
-            <label for="loginPassword" class="form-label fs-6">Password</label>
-            <input type="password" class="form-control" id="loginPassword">
-        </div>
-
-        <p class="secondary-text text-center">Don't have an account? <span
-                class="secondary-text text-decoration-underline py-3" id="registerLinkText">Register here
-                instead.</span></p>
-        <div class="custom-button d-flex align-items-center justify-content-center text-center">Login</div>
-
+            <p class="secondary-text text-center">Don't have an account? <span
+                    class="secondary-text text-decoration-underline py-3" id="registerLinkText">Register here
+                    instead.</span></p>
+            <div class="custom-button d-flex align-items-center justify-content-center text-center form-button">Login</div>
+        </form>
+            
         <div
             class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">
             Back to Account Details</div>
@@ -545,31 +546,31 @@
 
     <!--Register Page-->
     <div class="page flex-column align-items-center justify-content-center menu-child account-child hidden"
-        id="register">
+        id="registerPage">
 
         <div class="d-flex flex-row justify-content-center align-items-center text-center w-100 px-3">
             <h6 class="m-0 mb-4">Create An Account</h6>
         </div>
-        <form id="registerForm">
+        <form id="registerForm" name="register">
             <div class="mb-3 px-5">
                 <label for="username" class="form-label fs-6">Username</label>
-                <input type="text" class="form-control" id="registerUsername">
+                <input type="text" class="form-control" id="registerUsername" name="username" autocomplete="username">
             </div>
 
             <div class="mb-3 px-5">
                 <label for="registerPassword" class="form-label fs-6">Password</label>
-                <input type="password" class="form-control" id="registerPassword">
+                <input type="password" class="form-control" id="registerPassword" name="password" autocomplete="new-password">
             </div>
             <div class="mb-3 px-5">
                 <label for="registerPassword2" class="form-label fs-6">Confirm Password</label>
-                <input type="password" class="form-control" id="registerPassword2">
+                <input type="password" class="form-control" id="registerPassword2" name="password2" autocomplete="new-password">
             </div>
+            
+
+            <p class="secondary-text text-center">Already have an account? <span
+                    class="secondary-text text-decoration-underline py-3" id="loginLinkText">Log in here instead.</span></p>
+            <div class="custom-button d-flex align-items-center justify-content-center text-center form-button" id="registerSubmit">Register</div>
         </form>
-
-        <p class="secondary-text text-center">Already have an account? <span
-                class="secondary-text text-decoration-underline py-3" id="loginLinkText">Log in here instead.</span></p>
-        <div class="custom-button d-flex align-items-center justify-content-center text-center" id="registerButton">Register</div>
-
         <div
             class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">
             Back to Account Details</div>

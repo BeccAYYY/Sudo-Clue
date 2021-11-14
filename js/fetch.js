@@ -1,6 +1,5 @@
 
-
-var url = "http://127.0.0.1/api/api/core.php";
+var url = "http://127.0.0.1/API/API/core.php";
 
 var loggedIn = false;
 
@@ -42,6 +41,49 @@ async function get_user_details() {
             bestTime.innerHTML = "-"
         }
         lbValue.innerHTML = data.completedGames;
-        console.log(data)
     })
+}
+
+
+
+function formSubmit(form) {
+    var formData = {};
+    for (let i = 0; i < form.length; i++) {
+        var input = form[i];
+        formData[input.name] = input.value;
+    };
+    console.log(formData);
+    fetch(url + "?action=" + form.name, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {response.json()})
+    .then(data => console.log(data)) 
+}
+
+
+function logout() {
+    fetch(url + "?action=logout")
+    .then(response => {
+        if (response.ok) {
+            localStorage.setItem("loggedIn", false);
+            anonymousUserProfile.classList.remove("hidden");
+            authenticatedUserProfile.classList.add("hidden");
+            document.querySelectorAll(".username").forEach(div => {
+                div.innerHTML = "Guest";
+            })
+            totalGames.innerHTML = 0;
+            completedGames.innerHTML = 0;
+            averageTime.innerHTML = "-";
+            bestTime.innerHTML = "-";
+            lbValue.innerHTML = 0;
+        } else {
+            //error that it didn't work
+        }
+    })
+    
 }
