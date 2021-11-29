@@ -52,7 +52,6 @@ function formSubmit(form) {
         var input = form[i];
         formData[input.name] = input.value;
     };
-    console.log(formData);
     fetch(url + "?action=" + form.name, {
         method: 'POST',
         credentials: 'include',
@@ -61,13 +60,29 @@ function formSubmit(form) {
         },
         body: JSON.stringify(formData)
     })
-    .then(response => {response.json()})
-    .then(data => console.log(data)) 
+    .then(response => response.json())
+    .then(data => {
+        if (form.name == "login") {
+            if (data.Message == "Successfully logged in.") {
+                get_user_details();
+                authenticatedUserProfile.classList.remove("hidden");
+                anonymousUserProfile.classList.add("hidden");
+                account.classList.remove("hidden");
+                loginPage.classList.add("hidden");
+            } else {
+                alert("Error");
+            }
+            loginUsername.value = "";
+            loginPassword.value = "";
+        }
+    }) 
 }
 
 
 function logout() {
-    fetch(url + "?action=logout")
+    fetch(url + "?action=logout", {
+        credentials: "include"
+    })
     .then(response => {
         if (response.ok) {
             localStorage.setItem("loggedIn", false);
@@ -84,6 +99,10 @@ function logout() {
         } else {
             //error that it didn't work
         }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
     })
     
 }

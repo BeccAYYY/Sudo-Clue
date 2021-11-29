@@ -22,9 +22,9 @@
     <script src="js/current-puzzle.js" defer></script>
     <script src="js/hint-functions.js" defer></script>
     <script src="js/fake-data.js" defer></script>
+    <script src="js/fetch.js" defer></script>
     <script src="js/navigation-functions.js" defer></script>
     <script src="js/init.js" defer></script>
-    <script src="js/fetch.js" defer></script>
     <script src="js.js" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -522,7 +522,7 @@
         <div class="d-flex flex-row justify-content-center align-items-center text-center w-100 px-3">
             <h6 class="m-0 mb-4">Log In to Your Account</h6>
         </div>
-        <form name="login">
+        <form name="login" class="d-flex flex-column align-items-center">
             <div class="mb-3 px-5">
                 <label for="username" class="form-label fs-6">Username</label>
                 <input type="text" class="form-control" id="loginUsername" name="username" autocomplete="username">
@@ -551,7 +551,7 @@
         <div class="d-flex flex-row justify-content-center align-items-center text-center w-100 px-3">
             <h6 class="m-0 mb-4">Create An Account</h6>
         </div>
-        <form id="registerForm" name="register">
+        <form name="register" class="d-flex flex-column align-items-center">
             <div class="mb-3 px-5">
                 <label for="username" class="form-label fs-6">Username</label>
                 <input type="text" class="form-control" id="registerUsername" name="username" autocomplete="username">
