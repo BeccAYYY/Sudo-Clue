@@ -12,11 +12,13 @@ fetch(url + "?action=login_check", {
         authenticatedUserProfile.classList.remove("hidden");
         localStorage.setItem("loggedIn", true);
         loggedIn = true;
-        get_user_details();
     } else {
         localStorage.setItem("loggedIn", false);
     }
     return response.json();
+})
+.then(data => {
+    set_user_details(data.Data)
 })
 
 
@@ -44,6 +46,24 @@ async function get_user_details() {
     })
 }
 
+function set_user_details(data) {
+    document.querySelectorAll(".username").forEach(div => {
+        div.innerHTML = data.username;
+    })
+    totalGames.innerHTML = data.totalGames;
+    completedGames.innerHTML = data.completedGames;
+    averageTime.innerHTML = data.averageTime;
+    if (averageTime.innerHTML == "") {
+        averageTime.innerHTML = "-"
+    }
+    bestTime.innerHTML = data.bestTime;
+    if (bestTime.innerHTML == "") {
+        bestTime.innerHTML = "-"
+    }
+    lbValue.innerHTML = data.completedGames;
+}
+
+
 
 
 function formSubmit(form) {
@@ -64,7 +84,7 @@ function formSubmit(form) {
     .then(data => {
         if (form.name == "login") {
             if (data.Message == "Successfully logged in.") {
-                get_user_details();
+                set_user_details(data.Data);
                 authenticatedUserProfile.classList.remove("hidden");
                 anonymousUserProfile.classList.add("hidden");
                 account.classList.remove("hidden");
