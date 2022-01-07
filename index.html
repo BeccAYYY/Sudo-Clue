@@ -502,9 +502,9 @@
 
         <!--Logged In User-->
         <div class="hidden overflow-hidden" id="authenticatedUserProfile">
-            <div class="custom-button d-flex align-items-center justify-content-center text-center">Change Username
+            <div class="custom-button d-flex align-items-center justify-content-center text-center" id="editUsernameButton">Change Username
             </div>
-            <div class="custom-button d-flex align-items-center justify-content-center text-center">Change Password
+            <div class="custom-button d-flex align-items-center justify-content-center text-center" id="editPasswordButton">Change Password
             </div>
             <div class="custom-button d-flex align-items-center justify-content-center text-center" id="logoutButton">Logout</div>
             <div class="custom-button d-flex align-items-center justify-content-center text-center">Delete Account</div>
@@ -538,7 +538,6 @@
                     instead.</span></p>
             <div class="custom-button d-flex align-items-center justify-content-center text-center form-button">Login</div>
         </form>
-            
         <div
             class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">
             Back to Account Details</div>
@@ -553,7 +552,7 @@
         </div>
         <form name="register" class="d-flex flex-column align-items-center">
             <div class="mb-3 px-5">
-                <label for="username" class="form-label fs-6">Username</label>
+                <label for="registerUsername" class="form-label fs-6">Username</label>
                 <input type="text" class="form-control" id="registerUsername" name="username" autocomplete="username">
             </div>
 
@@ -574,6 +573,58 @@
         <div
             class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">
             Back to Account Details</div>
+    </div>
+
+    <!--Edit Username Page-->
+    <div class="page flex-column align-items-center justify-content-center menu-child account-child hidden"
+        id="editUsernamePage">
+
+        <div class="d-flex flex-row justify-content-center align-items-center text-center w-100 px-3">
+            <h6 class="m-0 mb-4">Change your Username</h6>
+        </div>
+        <form name="update_username" class="d-flex flex-column align-items-center">
+            <div class="mb-3 px-5">
+                <label for="editUsername" class="form-label fs-6">New Username</label>
+                <input type="text" class="form-control" id="editUsername" name="username" autocomplete="username">
+            </div>
+
+            <div class="mb-3 px-5">
+                <label for="editUsernamePassword" class="form-label fs-6">Password</label>
+                <input type="password" class="form-control" id="editUsernamePassword" name="password" autocomplete="password">
+            </div>
+            <div class="custom-button d-flex align-items-center justify-content-center text-center form-button" id="editUsernameSubmit">Update</div>
+        </form>
+        <div
+            class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">
+            Cancel</div>
+    </div>
+
+    <!--Edit Password Page-->
+    <div class="page flex-column align-items-center justify-content-center menu-child account-child hidden"
+        id="editPasswordPage">
+
+        <div class="d-flex flex-row justify-content-center align-items-center text-center w-100 px-3">
+            <h6 class="m-0 mb-4">Change your Password</h6>
+        </div>
+        <form name="update_password" class="d-flex flex-column align-items-center">
+            <div class="mb-3 px-5">
+                <label for="editPasswordOld" class="form-label fs-6">Old Password</label>
+                <input type="text" class="form-control" id="editPasswordOld" name="old-password" autocomplete="current-password">
+            </div>
+
+            <div class="mb-3 px-5">
+                <label for="editPassword" class="form-label fs-6">New Password</label>
+                <input type="password" class="form-control" id="editPassword" name="password" autocomplete="new-password">
+            </div>
+            <div class="mb-3 px-5">
+                <label for="editPassword2" class="form-label fs-6">Confirm New Password</label>
+                <input type="password" class="form-control" id="editPassword2" name="password2" autocomplete="new-password">
+            </div>
+            <div class="custom-button d-flex align-items-center justify-content-center text-center form-button" id="editPasswordSubmit">Update</div>
+        </form>
+        <div
+            class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">
+            Cancel</div>
     </div>
 
 </body>
