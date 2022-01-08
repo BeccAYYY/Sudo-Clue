@@ -334,4 +334,7 @@ button.blue, button.blue:hover, #numberButtonsDiv button.btn.blue:active {
 }
 
 
-
+.cant-submit {
+    pointer-events: none;
+    background-color: rgb(241, 241, 241);
+}

@@ -82,6 +82,7 @@ function formSubmit(form) {
     })
     .then(response => response.json())
     .then(data => {
+        console.log(data)
         if (form.name == "login") {
             if (data.Message == "Successfully logged in.") {
                 set_user_details(data.Data);

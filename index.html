@@ -26,6 +26,7 @@
     <script src="js/navigation-functions.js" defer></script>
     <script src="js/init.js" defer></script>
     <script src="js.js" defer></script>
+    <script src="js/validation.js" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
@@ -536,7 +537,7 @@
             <p class="secondary-text text-center">Don't have an account? <span
                     class="secondary-text text-decoration-underline py-3" id="registerLinkText">Register here
                     instead.</span></p>
-            <div class="custom-button d-flex align-items-center justify-content-center text-center form-button">Login</div>
+            <div class="custom-button d-flex align-items-center justify-content-center text-center form-button cant-submit submit-button">Login</div>
         </form>
         <div
             class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">
@@ -568,7 +569,7 @@
 
             <p class="secondary-text text-center">Already have an account? <span
                     class="secondary-text text-decoration-underline py-3" id="loginLinkText">Log in here instead.</span></p>
-            <div class="custom-button d-flex align-items-center justify-content-center text-center form-button" id="registerSubmit">Register</div>
+            <div class="custom-button d-flex align-items-center justify-content-center text-center form-button cant-submit submit-button" id="registerSubmit">Register</div>
         </form>
         <div
             class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">
@@ -592,7 +593,7 @@
                 <label for="editUsernamePassword" class="form-label fs-6">Password</label>
                 <input type="password" class="form-control" id="editUsernamePassword" name="password" autocomplete="password">
             </div>
-            <div class="custom-button d-flex align-items-center justify-content-center text-center form-button" id="editUsernameSubmit">Update</div>
+            <div class="custom-button d-flex align-items-center justify-content-center text-center form-button cant-submit submit-button" id="editUsernameSubmit">Update</div>
         </form>
         <div
             class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">
@@ -609,7 +610,7 @@
         <form name="update_password" class="d-flex flex-column align-items-center">
             <div class="mb-3 px-5">
                 <label for="editPasswordOld" class="form-label fs-6">Old Password</label>
-                <input type="text" class="form-control" id="editPasswordOld" name="old-password" autocomplete="current-password">
+                <input type="password" class="form-control" id="editPasswordOld" name="old-password" autocomplete="current-password">
             </div>
 
             <div class="mb-3 px-5">
@@ -620,10 +621,9 @@
                 <label for="editPassword2" class="form-label fs-6">Confirm New Password</label>
                 <input type="password" class="form-control" id="editPassword2" name="password2" autocomplete="new-password">
             </div>
-            <div class="custom-button d-flex align-items-center justify-content-center text-center form-button" id="editPasswordSubmit">Update</div>
+            <div class="custom-button d-flex align-items-center justify-content-center text-center form-button cant-submit submit-button" id="editPasswordSubmit">Update</div>
         </form>
-        <div
-            class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">
+        <div class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">
             Cancel</div>
     </div>
 

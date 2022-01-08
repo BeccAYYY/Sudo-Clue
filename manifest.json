@@ -9,7 +9,7 @@
       "type": "image/ico"
     }
   ],
-  "start_url": "http://localhost:5500/",
+  "start_url": "http://127.0.0.1:5500/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
