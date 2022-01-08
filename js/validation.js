@@ -9,6 +9,9 @@ document.querySelectorAll("[name=username]").forEach(input => {
             e.target.style.border = "3px solid red"
         }
     })
+    input.addEventListener("input", (e) => {
+        changeSubmitButton(e.target.parentNode.parentNode)
+    })
 })
 
 document.querySelectorAll("[name=password], [name=old-password]").forEach(input => {
@@ -21,6 +24,8 @@ document.querySelectorAll("[name=password], [name=old-password]").forEach(input 
         } else {
             e.target.style.border = "3px solid red"
         }
+    })
+    input.addEventListener("input", (e) => {
         changeSubmitButton(e.target.parentNode.parentNode)
     })
 })
@@ -37,16 +42,20 @@ document.querySelectorAll("[name=password2]").forEach(input => {
         } else {
             e.target.style.border = "3px solid green"
         }
+    })
+    input.addEventListener("input", (e) => {
         changeSubmitButton(e.target.parentNode.parentNode)
     })
 })
 
 function changeSubmitButton(form) {
-    var test = Array.from(form.querySelectorAll("input")).map(input => input.checkValidity())
-    console.log(form.querySelectorAll("[name=password2]"))
-    if (test.includes(false)) {
+    var validity = Array.from(form.querySelectorAll("input")).map(input => input.checkValidity());
+    var notEmpty = Array.from(form.querySelectorAll("input")).map(input => input.value);
+    if (validity.includes(false)) {
         form.querySelector(".submit-button").classList.add("cant-submit")
-    } else if (form.querySelectorAll("[name=password2]").length == 1 && form.querySelector("[name=password2]") !== form.querySelector("[name=password]")) {
+    } else if (notEmpty.includes("")) {
+        form.querySelector(".submit-button").classList.add("cant-submit")
+    } else if (form.querySelectorAll("[name=password2]").length == 1 && form.querySelector("[name=password2]").value !== form.querySelector("[name=password]").value) {
         form.querySelector(".submit-button").classList.add("cant-submit")
     } else {
         form.querySelector(".submit-button").classList.remove("cant-submit")
