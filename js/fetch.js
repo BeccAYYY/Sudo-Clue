@@ -1,6 +1,6 @@
 
 
-var url = "http://127.0.0.1/API/API/core.php";
+var url = "http://127.0.0.1/API/core.php";
 
 var loggedIn = false;
 
@@ -21,7 +21,6 @@ fetch(url + "?action=login_check", {
     return response.json();
 })
 .then(data => {
-    console.log('hi')
     if (typeof data !== undefined) {
         set_user_details(data.Data)
     }
