@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sudoku</title>
     <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="img/logo128.png">
+    <script src="js/main.js" defer></script>
     <script src="js/general-functions.js" defer></script>
     <script src="js/puzzle-creation-functions.js" defer></script>
     <script src="js/solution-creation-functions.js" defer></script>
@@ -35,7 +37,7 @@
 
 <body>
     <div class="m-0 mx-2 m-sm-2 pt-2 d-flex flex-row justify-content-between align-items-center" id="header">
-        <img src="img/min-logo.svg" height="35">
+        <img src="img/logo128.png" height="35">
         <h5 class="fw-bold m-0">SUDO-CLUE</h5>
         <div id="hamburger"><i class="bi bi-list fs-1 fw-bold"></i></div>
     </div>
@@ -44,13 +46,13 @@
     <div class="page flex-column align-items-center justify-content-center transition hidden" id="menu">
         <div class="menu-item d-flex align-items-center justify-content-center text-center" id="clearGameButton">Clear
             Current Game</div>
-        <div class="menu-item d-flex align-items-center justify-content-center text-center" id="newGameButton">New Game
+        <div className="menu-item d-flex align-items-center justify-content-center text-center" id="newGameButton">New Game
         </div>
-        <div class="menu-item d-flex align-items-center justify-content-center text-center" id="difficultyButton">Change
+        <div className="menu-item d-flex align-items-center justify-content-center text-center" id="difficultyButton">Change
             Difficulty</div>
-        <div class="menu-item d-flex align-items-center justify-content-center text-center" id="leaderboardButton">
+        <div className="menu-item d-flex align-items-center justify-content-center text-center" id="leaderboardButton">
             Leaderboards</div>
-        <div class="menu-item d-flex align-items-center justify-content-center text-center" id="accountButton">Account
+        <div className="menu-item d-flex align-items-center justify-content-center text-center" id="accountButton">Account
         </div>
         <!--<div class="menu-item d-flex align-items-center justify-content-center text-center">How to Play</div>-->
 
@@ -325,7 +327,7 @@
     <!--Welcome Page-->
     <div class="flex-column align-items-center justify-content-center page" id="welcome">
         <div class="mb-3">
-            <img src="img/min-logo.svg" height="150">
+            <img src="img/logo512.png" height="150">
         </div>
         <div class="py-3">
             <p>Hello, <span class="username" id="mainUsername">guest</span>!</p>
@@ -627,6 +629,9 @@
             Cancel</div>
     </div>
 
+    <div class="page flex-column align-items-center justify-content-center hidden" id="spinner">
+        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    </div>
 </body>
 
 </html>

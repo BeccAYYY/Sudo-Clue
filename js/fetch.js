@@ -1,8 +1,10 @@
 
+
 var url = "http://127.0.0.1/API/API/core.php";
 
 var loggedIn = false;
 
+spinner.classList.remove("hidden")
 fetch(url + "?action=login_check", {
     credentials: "include"
 })
@@ -15,15 +17,20 @@ fetch(url + "?action=login_check", {
     } else {
         localStorage.setItem("loggedIn", false);
     }
+    spinner.classList.add("hidden")
     return response.json();
 })
 .then(data => {
-    set_user_details(data.Data)
+    console.log('hi')
+    if (typeof data !== undefined) {
+        set_user_details(data.Data)
+    }
 })
 
 
 
 async function get_user_details() {
+    spinner.classList.remove("hidden")
     fetch(url + "?action=get_user_details", {
         credentials: "include"
     })
@@ -43,6 +50,7 @@ async function get_user_details() {
             bestTime.innerHTML = "-"
         }
         lbValue.innerHTML = data.completedGames;
+        spinner.classList.add("hidden")
     })
 }
 
@@ -67,6 +75,7 @@ function set_user_details(data) {
 
 
 function formSubmit(form) {
+    spinner.classList.remove("hidden")
     var formData = {};
     for (let i = 0; i < form.length; i++) {
         var input = form[i];
@@ -97,10 +106,12 @@ function formSubmit(form) {
             loginPassword.value = "";
         }
     }) 
+    spinner.classList.add("hidden")
 }
 
 
 function logout() {
+    spinner.classList.remove("hidden")
     fetch(url + "?action=logout", {
         credentials: "include"
     })
@@ -123,6 +134,6 @@ function logout() {
         return response.json();
     })
     .then(data => {
+        spinner.classList.add("hidden")
     })
-    
 }
