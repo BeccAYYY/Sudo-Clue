@@ -6,7 +6,8 @@ var urlsToCache = [
     "img/logo512.png",
     "js/current-puzzle.js",
     "js/display.js",
-    "js/fake-data.js"
+    "js/fake-data.js",
+    "img/logo128.png"
 ];
 
 self.addEventListener("install", function(event) {
