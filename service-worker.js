@@ -1,13 +1,30 @@
 var CACHE_NAME = 'my-site-cache-v1';
 var urlsToCache = [
     "index.html",
-    "js.js",
     "style.css",
     "img/logo512.png",
-    "js/current-puzzle.js",
+    "img/logo128.png",
+    "js/main.js",
+    "js/general-functions.js",
+    "js/puzzle-creation-functions.js",
+    "js/solution-creation-functions.js",
+    "js/solving-functions.js",
+    "js/testing.js",
+    "js/solving-methods-js/hidden-subsets.js",
+    "js/solving-methods-js/locked-candidates.js",
+    "js/solving-methods-js/lone-rangers.js",
+    "js/solving-methods-js/naked-subsets.js",
+    "js/solving-methods-js/singles.js",
     "js/display.js",
+    "js/local-storage.js",
+    "js/current-puzzle.js",
+    "js/hint-functions.js",
     "js/fake-data.js",
-    "img/logo128.png"
+    "js/fetch.js",
+    "js/navigation-functions.js",
+    "js/init.js",
+    "js.js",
+    "js/validation.js"
 ];
 
 self.addEventListener("install", function(event) {
@@ -28,7 +45,7 @@ self.addEventListener("fetch", function(event) {
                 return response;
             }
             return fetch(event.request)
-            /*.then(
+            .then(
             function(response) {
                 if(!response || response.status !== 200 || response.type !== "basic") {
                     return response;
@@ -39,7 +56,7 @@ self.addEventListener("fetch", function(event) {
                     cache.put(event.request, responseToCache);
                 });
                 return response;
-            });*/
+            });
         })
     );
 });

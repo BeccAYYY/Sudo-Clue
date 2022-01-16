@@ -35,8 +35,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-    <div class="m-0 mx-2 m-sm-2 pt-2 d-flex flex-row justify-content-between align-items-center" id="header">
+<body id="dark-mode">
+    <div class="m-0 px-2 m-sm-2 pt-2 d-flex flex-row justify-content-between align-items-center" id="header">
         <img src="img/logo128.png" height="35">
         <h5 class="fw-bold m-0">SUDO-CLUE</h5>
         <div id="hamburger"><i class="bi bi-list fs-1 fw-bold"></i></div>
@@ -54,7 +54,14 @@
             Leaderboards</div>
         <div class="menu-item d-flex align-items-center justify-content-center text-center" id="accountButton">Account
         </div>
-        <!--<div class="menu-item d-flex align-items-center justify-content-center text-center">How to Play</div>-->
+        <div class="menu-item d-flex align-items-center justify-content-center text-center" id="helpButton"><i
+                class="bi bi-question-circle-fill help-icon"></i></div>
+        <div class="menu-item d-flex align-items-center justify-content-center text-center" id="colourMode">
+            <div class="form-check form-switch">
+                <label class="form-check-label" for="darkMode" id="darkModeLabel">Dark Mode</label>
+                <input class="form-check-input light" type="checkbox" id="darkMode">
+            </div>
+        </div>
 
 
     </div>
@@ -66,8 +73,9 @@
                 id="sudoku-timer">
                 <span class="secondary-text py-2 text-start justify-content-start" id="pauseButton"><i
                         class="bi bi-pause-circle"></i></span>
-                <div class="secondary-text fs-6 align-self-center position-absolute top-50 start-50 translate-middle invisible-text" id="showClueButton">
-                    </div>
+                <div class="secondary-text fs-6 align-self-center position-absolute top-50 start-50 translate-middle invisible-text"
+                    id="showClueButton">
+                </div>
                 <span class="secondary-text text-end" id="timer">00:00</span>
             </div>
             <div class="container row border border-dark border-2 p-0 g-0 m-auto align-content-stretch fs-2 mb-1    mb-sm-4 mt-0"
@@ -316,7 +324,8 @@
                 </div>
 
             </div>
-            <div class="position-absolute rounded border border-2 border-dark w-75 h-75 bg-white d-flex justify-content-center align-items-center hidden-popup secondary-text fs-6" id="cluePopup">
+            <div class="position-absolute rounded border border-2 border-dark w-75 h-75 bg-white d-flex justify-content-center align-items-center hidden-popup secondary-text fs-6"
+                id="cluePopup">
                 <div id="clueText">You do not have any current clues.</div>
                 <i class="bi bi-dash-circle position-absolute top-0 end-0 fs-6 pt-1 pe-1" id="minimizeClueButton"></i>
             </div>
@@ -505,11 +514,14 @@
 
         <!--Logged In User-->
         <div class="hidden overflow-hidden" id="authenticatedUserProfile">
-            <div class="custom-button d-flex align-items-center justify-content-center text-center" id="editUsernameButton">Change Username
+            <div class="custom-button d-flex align-items-center justify-content-center text-center"
+                id="editUsernameButton">Change Username
             </div>
-            <div class="custom-button d-flex align-items-center justify-content-center text-center" id="editPasswordButton">Change Password
+            <div class="custom-button d-flex align-items-center justify-content-center text-center"
+                id="editPasswordButton">Change Password
             </div>
-            <div class="custom-button d-flex align-items-center justify-content-center text-center" id="logoutButton">Logout</div>
+            <div class="custom-button d-flex align-items-center justify-content-center text-center" id="logoutButton">
+                Logout</div>
             <div class="custom-button d-flex align-items-center justify-content-center text-center">Delete Account</div>
         </div>
 
@@ -520,7 +532,8 @@
 
 
     <!--Login Page-->
-    <div class="page flex-column align-items-center justify-content-center menu-child account-child hidden" id="loginPage">
+    <div class="page flex-column align-items-center justify-content-center menu-child account-child hidden"
+        id="loginPage">
 
         <div class="d-flex flex-row justify-content-center align-items-center text-center w-100 px-3">
             <h6 class="m-0 mb-4">Log In to Your Account</h6>
@@ -533,13 +546,16 @@
 
             <div class="mb-3 px-5">
                 <label for="loginPassword" class="form-label fs-6">Password</label>
-                <input type="password" class="form-control" id="loginPassword" name="password" autocomplete="current-password">
+                <input type="password" class="form-control" id="loginPassword" name="password"
+                    autocomplete="current-password">
             </div>
 
             <p class="secondary-text text-center">Don't have an account? <span
                     class="secondary-text text-decoration-underline py-3" id="registerLinkText">Register here
                     instead.</span></p>
-            <div class="custom-button d-flex align-items-center justify-content-center text-center form-button cant-submit submit-button">Login</div>
+            <div
+                class="custom-button d-flex align-items-center justify-content-center text-center form-button cant-submit submit-button">
+                Login</div>
         </form>
         <div
             class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">
@@ -561,17 +577,21 @@
 
             <div class="mb-3 px-5">
                 <label for="registerPassword" class="form-label fs-6">Password</label>
-                <input type="password" class="form-control" id="registerPassword" name="password" autocomplete="new-password">
+                <input type="password" class="form-control" id="registerPassword" name="password"
+                    autocomplete="new-password">
             </div>
             <div class="mb-3 px-5">
                 <label for="registerPassword2" class="form-label fs-6">Confirm Password</label>
-                <input type="password" class="form-control" id="registerPassword2" name="password2" autocomplete="new-password">
+                <input type="password" class="form-control" id="registerPassword2" name="password2"
+                    autocomplete="new-password">
             </div>
-            
+
 
             <p class="secondary-text text-center">Already have an account? <span
-                    class="secondary-text text-decoration-underline py-3" id="loginLinkText">Log in here instead.</span></p>
-            <div class="custom-button d-flex align-items-center justify-content-center text-center form-button cant-submit submit-button" id="registerSubmit">Register</div>
+                    class="secondary-text text-decoration-underline py-3" id="loginLinkText">Log in here instead.</span>
+            </p>
+            <div class="custom-button d-flex align-items-center justify-content-center text-center form-button cant-submit submit-button"
+                id="registerSubmit">Register</div>
         </form>
         <div
             class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">
@@ -593,9 +613,11 @@
 
             <div class="mb-3 px-5">
                 <label for="editUsernamePassword" class="form-label fs-6">Password</label>
-                <input type="password" class="form-control" id="editUsernamePassword" name="password" autocomplete="password">
+                <input type="password" class="form-control" id="editUsernamePassword" name="password"
+                    autocomplete="password">
             </div>
-            <div class="custom-button d-flex align-items-center justify-content-center text-center form-button cant-submit submit-button" id="editUsernameSubmit">Update</div>
+            <div class="custom-button d-flex align-items-center justify-content-center text-center form-button cant-submit submit-button"
+                id="editUsernameSubmit">Update</div>
         </form>
         <div
             class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">
@@ -612,26 +634,67 @@
         <form name="update_password" class="d-flex flex-column align-items-center">
             <div class="mb-3 px-5">
                 <label for="editPasswordOld" class="form-label fs-6">Old Password</label>
-                <input type="password" class="form-control" id="editPasswordOld" name="old-password" autocomplete="current-password">
+                <input type="password" class="form-control" id="editPasswordOld" name="old-password"
+                    autocomplete="current-password">
             </div>
 
             <div class="mb-3 px-5">
                 <label for="editPassword" class="form-label fs-6">New Password</label>
-                <input type="password" class="form-control" id="editPassword" name="password" autocomplete="new-password">
+                <input type="password" class="form-control" id="editPassword" name="password"
+                    autocomplete="new-password">
             </div>
             <div class="mb-3 px-5">
                 <label for="editPassword2" class="form-label fs-6">Confirm New Password</label>
-                <input type="password" class="form-control" id="editPassword2" name="password2" autocomplete="new-password">
+                <input type="password" class="form-control" id="editPassword2" name="password2"
+                    autocomplete="new-password">
             </div>
-            <div class="custom-button d-flex align-items-center justify-content-center text-center form-button cant-submit submit-button" id="editPasswordSubmit">Update</div>
+            <div class="custom-button d-flex align-items-center justify-content-center text-center form-button cant-submit submit-button"
+                id="editPasswordSubmit">Update</div>
         </form>
-        <div class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">
+        <div
+            class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-3 back-to-account">
             Cancel</div>
     </div>
 
+    <!--Spinner-->
     <div class="page flex-column align-items-center justify-content-center hidden" id="spinner">
-        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+        <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
+
+    <!--Help Page-->
+    <div class="page flex-column align-items-center justify-content-center menu-child hidden" id="helpPage">
+        <div class="px-4 text-center overflow-scroll">
+            <h5>Help</h5>
+            <h6>Playing Sudoku:</h6>
+            <p class="secondary-text">Click "New Game" or "Continue" to open the game screen.</p>
+            <p class="secondary-text">Once in the game, click on an unfilled cell to select it. You may then use the
+                numbers in the bottom right to fill the cell, or if "Edit Candidates" is highlighted, change the
+                candidates for that cell.</p>
+            <p class="secondary-text"> Click <img class="m-auto help-icon" src="img/undo.svg" height="18"> to undo a
+                move.</p>
+            <p class="secondary-text">Click <i class="bi bi-x-circle help-icon"> </i> to clear the selected cell.
+            </p>
+            <p class="secondary-text">Click <i class="bi bi-question-circle fw-bold help-icon"> </i> to get a clue.
+            </p>
+            <p class="secondary-text">Click <i class="bi bi-check-circle help-icon"> </i> to check your current answers.
+            </p>
+
+            <p class="secondary-text">Click <i class="bi bi-pencil-square help-icon"> </i> to start editing candidates.
+            </p>
+            <p class="secondary-text">Click <i class="bi bi-pause-circle help-icon"> </i> to pause the game.
+            </p>
+        </div>
+        <div
+            class="text-center secondary-text difficulty-button d-flex align-items-center justify-content-center mt-0 mb-4 back-to-menu">
+            Back to Menu</div>
+    </div>
+
+
 </body>
 
 </html>

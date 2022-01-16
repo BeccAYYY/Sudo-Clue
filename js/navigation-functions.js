@@ -21,8 +21,10 @@ editUsernameButton.addEventListener("click", () => openMenuPage(editUsernamePage
 editPasswordButton.addEventListener("click", () => openMenuPage(editPasswordPage));
 registerLinkText.addEventListener("click", () => openMenuPage(registerPage));
 loginButton.addEventListener("click", () => openMenuPage(loginPage));
+helpButton.addEventListener("click", () => openMenuPage(helpPage));
 loginLinkText.addEventListener("click", () => openMenuPage(loginPage));
 mainUsername.addEventListener("click", () => openMenuPage(account));
+darkMode.addEventListener("click", () => changeColourMode())
 newGameMainButton.addEventListener("click", () => {
     newGame();
     closeHamburgerAndWelcome();
@@ -232,3 +234,11 @@ function showAndHideClue() {
     }
 }
 
+function changeColourMode() {
+    localStorage.setItem("darkMode", darkMode.checked);
+    if (darkMode.checked) {
+        document.querySelector('body').id = 'dark-mode';
+    } else {
+        document.querySelector('body').removeAttribute('id');
+    }
+}

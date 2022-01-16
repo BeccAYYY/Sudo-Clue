@@ -53,3 +53,10 @@ var userGridHistory = new Array;
 var userCandidatesGridHistory = new Array;
 
 displayPuzzlesComplete()
+
+if (localStorage.getItem("darkMode") == null) {
+    localStorage.setItem("darkMode", false);
+}
+
+darkMode.checked = JSON.parse(localStorage.getItem("darkMode"))
+changeColourMode();

@@ -92,7 +92,7 @@ body {
     max-height: 100vh;
     position: relative;
 }
-label {
+label:not(#darkModeLabel) {
     font-family: "Goudy Old Style";
     font-size: x-small;
 }
@@ -385,4 +385,22 @@ button.blue, button.blue:hover, #numberButtonsDiv button.btn.blue:active {
     background-color: grey;
     opacity: 0.4;
     z-index: 100;
+}
+
+.help-icon {
+    display: inline;
+    font-size: 1.3rem;
+}
+
+.help-icon::before {
+    font-size: 1.3rem;
+}
+
+body#dark-mode *:not(.single-candidate-div, .light-blue, .blue, .pink, .lighter-pink, .candidates-div) {
+    background-color: black;
+    color: white;
+}
+
+body#dark-mode img {
+    filter: invert(1)
 }

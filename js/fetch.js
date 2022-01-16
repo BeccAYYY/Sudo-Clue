@@ -25,6 +25,7 @@ fetch(url + "?action=login_check", {
         set_user_details(data.Data)
     }
 })
+spinner.classList.add("hidden")
 
 
 
